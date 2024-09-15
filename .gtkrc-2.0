@@ -5,7 +5,7 @@ include "/home/baiyx/.gtkrc-2.0.mine"
 gtk-theme-name="WhiteSur-Light"
 gtk-icon-theme-name="Flat-Remix-Blue-Light"
 gtk-font-name="System-ui 12"
-gtk-cursor-theme-name="Adwaita"
+gtk-cursor-theme-name="Bibata-Modern-Ice"
 gtk-cursor-theme-size=20
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
@@ -17,4 +17,3 @@ gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle="hintslight"
 gtk-xft-rgba="rgb"
-gtk-im-module="fcitx"

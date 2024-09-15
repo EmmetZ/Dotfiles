@@ -28,6 +28,7 @@
 	"hyprland/window",
 	"tray", 
 	"pulseaudio",
-	"backlight#2",
+    // "pulseaudio#microphone",
+	"backlight",
 	"battery"],
 }

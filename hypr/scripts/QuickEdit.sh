@@ -13,8 +13,9 @@ menu(){
   printf "3. edit Startup\n"
   printf "4. edit Keybinds\n"
   printf "5. edit Monitors\n"
-  printf "6. edit Default-Settings\n"
-  printf "7. edit Workspace-Rules\n"
+  printf "6. edit Decoration-Animation\n"
+  printf "7. edit Default-Settings\n"
+  printf "8. edit Workspace-Rules\n"
 }
 
 main() {
@@ -36,9 +37,12 @@ main() {
             $tty $editor "$configs/monitors.conf"
             ;;
         6)
-            $tty $editor "$configs/settings.conf"
+            $tty $editor "$configs/deco_animation.conf"
             ;;
         7)
+            $tty $editor "$configs/settings.conf"
+            ;;
+        8)
             $tty $editor "$configs/workspace_rules.conf"
             ;;
         *)
