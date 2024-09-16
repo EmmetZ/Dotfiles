@@ -6,7 +6,8 @@ const userConfigOptions = {
     //   options listed in this file will override the default ones in the above file
     // Here's an example
     'overview':{
-        'scale': 0.15,
+        // 'scale': 0.15,
+        'scale': 0.1,
         'numOfRows': 2
     },
     'keybinds': {
