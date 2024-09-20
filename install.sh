@@ -2,7 +2,7 @@
 
 # 定义要复制的 dotfiles 和文件夹
 dotfiles=(.bashrc .condarc .gitconfig .gtkrc-2.0 .p10k.zsh .zshrc)
-directories=(ags gtk-3.0 gtk-4.0 hypr nvim ranger rofi swaync wallust waybar wlogout fastfetch btop kitty qt5ct qt6ct swappy Kvantum fontconfig cava)
+directories=(ags gtk-3.0 gtk-4.0 hypr nvim yazi rofi swaync wallust waybar wlogout fastfetch btop kitty qt5ct qt6ct swappy Kvantum fontconfig cava)
 
 # 删除原来位置的 dotfiles
 for file in "${dotfiles[@]}"; do

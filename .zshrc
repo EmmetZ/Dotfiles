@@ -112,12 +112,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias e=exit
-alias f=ranger
 alias nv=nvim
 alias gdu=/usr/bin/gdu
 
 code() {
-	command code "$@" --enable-wayland-ime
+	command code "$@" --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --use-angle=vulkan
 }
 
 pause() {
@@ -190,3 +189,14 @@ _fzf_comprun() {
 
 # eza
 alias ls="eza --color=always --icons=always"
+
+#yazi
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+alias y=yazi

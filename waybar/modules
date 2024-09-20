@@ -440,7 +440,7 @@
 		"steam": "󰓓 Steam",
         "nvim": " nvim",
         "nv": " nvim",
-        "f": "󰱼 ranger",
+        "r": "󰱼 ranger",
         "Kuro": "󰸞 Kuro",
         "sioyek": "󰂾 sioyek",
         "Translate": "󰗊 Pot Translate"
@@ -537,7 +537,6 @@
     "dynamic-order": ["title", "position", "length"],
     "title-len": 18,
     "tooltip-format": "{player}({status}): {title}-{artist}-{album} [{position}/{length}]",
-
 },
 "network": {
 	"format": "{ifname}",

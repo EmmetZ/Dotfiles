@@ -8,7 +8,8 @@ const userConfigOptions = {
     'overview':{
         // 'scale': 0.15,
         'scale': 0.1,
-        'numOfRows': 2
+        // 'numOfRows': 2
+        'numOfRows': 1
     },
     'keybinds': {
         'sidebar': {
