@@ -12,7 +12,7 @@ find_position = { fg = "#f4b8e4", bg = "reset", italic = true }
 # Marker
 marker_copied   = { fg = "#a6d189", bg = "#a6d189" }
 marker_cut      = { fg = "#e78284", bg = "#e78284" }
-marker_selected = { fg = "#8caaee", bg = "#8caaee" }
+marker_selected = { fg = "#e5c890", bg = "#e5c890" }
 
 # Tab
 tab_active   = { fg = "#303446", bg = "#c6d0f5" }
@@ -359,7 +359,7 @@ exts = [
   { name = "info", text = "", fg_dark = "#e5c890", fg_light = "#e5c890" },
   { name = "cppm", text = "", fg_dark = "#85c1dc", fg_light = "#85c1dc" },
   { name = "svg", text = "󰜡", fg_dark = "#e5c890", fg_light = "#e5c890" },
-  { name = "flac", text = "", fg_dark = "#626880", fg_light = "#626880" },
+  { name = "flac", text = "", fg_dark = "#dc8a78", fg_light = "#dc8a78" },
   { name = "cuh", text = "", fg_dark = "#ca9ee6", fg_light = "#ca9ee6" },
   { name = "bin", text = "", fg_dark = "#414559", fg_light = "#414559" },
   { name = "zig", text = "", fg_dark = "#ef9f76", fg_light = "#ef9f76" },
@@ -481,7 +481,7 @@ exts = [
   { name = "lua", text = "", fg_dark = "#85c1dc", fg_light = "#85c1dc" },
   { name = "astro", text = "", fg_dark = "#e78284", fg_light = "#e78284" },
   { name = "lib", text = "", fg_dark = "#232634", fg_light = "#232634" },
-  { name = "tex", text = "", fg_dark = "#414559", fg_light = "#414559" },
+  { name = "tex", text = "", fg_dark = "#42a5f5", fg_light = "#42a5f5" },
   { name = "ogg", text = "", fg_dark = "#626880", fg_light = "#626880" },
   { name = "stp", text = "󰻫", fg_dark = "#a6d189", fg_light = "#a6d189" },
   { name = "sublime", text = "", fg_dark = "#ef9f76", fg_light = "#ef9f76" },

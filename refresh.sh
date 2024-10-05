@@ -6,7 +6,7 @@ find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '*.sh' ! -name README.md -
 
 # 定义要复制的 dotfiles 和文件夹
 dotfiles=(.bashrc .condarc .gitconfig .gtkrc-2.0 .p10k.zsh .zshrc)
-directories=(ags gtk-3.0 gtk-4.0 hypr nvim yazi rofi swaync wallust waybar wlogout fastfetch btop kitty qt5ct qt6ct swappy Kvantum fontconfig cava)
+directories=(ags gtk-3.0 gtk-4.0 hypr nvim yazi rofi swaync wallust waybar wlogout fastfetch btop kitty qt5ct qt6ct swappy Kvantum fontconfig cava zathura)
 
 # 将指定的 dotfiles 复制进 Dotfiles 文件夹
 for file in "${dotfiles[@]}"; do

@@ -212,10 +212,11 @@
         },
 	"modules": [
 	    // "network#speed",
+        //"custom/menu",
+		"memory",
 		"temperature",		
         // "custom/gpu-usage",
 		"cpu",
-		"memory",
 		"disk",
 	]
 },
@@ -436,7 +437,7 @@
 		"(.*) - Text Editor": "󱩼 $1",
 		"(.*) - Thunar": "󰝰 $1",
 		"(.*) - mpv": " $1",
-		"微信": "󰘑 微信",
+		"微信": "󰘑 wechat",
 		"steam": "󰓓 Steam",
         "nvim": " nvim",
         "nv": " nvim",
@@ -525,14 +526,14 @@
 		"mpv": "",
 		"spotify": "",
 		"vlc": "󰕼",
-        // "yesplaymusic": "󰝚",
+        "yesplaymusic": "󰎆",
 	},
 	"status-icons": {
 		"paused": "󰐎",
 		"playing": "",
 		"stopped": "",
 	},
-    "ignored-players": ["chromium", "firefox"],
+    "ignored-players": ["firefox"],
 	"max-length": 34,
     "dynamic-order": ["title", "position", "length"],
     "title-len": 18,
@@ -719,7 +720,7 @@
 
 },
 "custom/menu": {
-	"format": "",
+	"format": " Menu",
 	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
 	"on-click-middle": "~/.config/hypr/UserScripts/WallpaperSelect.sh",
 	"on-click-right": "~/.config/hypr/scripts/WaybarLayout.sh",

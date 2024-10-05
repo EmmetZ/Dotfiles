@@ -13,7 +13,7 @@ height=$((y_mon * hypr_scale / 100))
 
 # Set maximum width and height
 max_width=1200
-max_height=1000
+max_height=900
 
 # Set percentage of screen size for dynamic adjustment
 percentage_width=70
@@ -42,7 +42,7 @@ yad --width=$dynamic_width --height=$dynamic_height \
 " SHIFT enter" "DropDown Terminal" "(kitty-pyprland)" \
 " A" "Desktop Overview" "(AGS Overview)" \
 " D" "App Launcher" "(rofi-wayland)" \
-" T" "Open File Manager" "(Thunar)" \
+" T" "Open File Manager" "(Nautilus)" \
 " S" "Google Search" "(rofi)" \
 " Q" "close active window" "(not kill)" \
 " Shift Q " "kills an active window" "(kill)" \

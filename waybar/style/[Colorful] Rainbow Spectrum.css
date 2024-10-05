@@ -2,7 +2,7 @@
 /* Rainbow Spectrum */
 
 * {
-font-family: "JetBrainsMono Nerd Font";
+font-family: "Arimo Nerd Font";
 font-weight: bold;
 min-height: 0;
 /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
@@ -127,6 +127,7 @@ tooltip label{
 	padding-bottom: 4px;
 	padding-right: 6px;
 	padding-left: 6px;
+    min-height: 20px
 }
 
 #backlight {
@@ -170,7 +171,8 @@ tooltip label{
 }
 
 #memory {
-	background-color: #eba0ac;
+  	background-color: #86b4fa;
+	/* background-color: #eba0ac; */
 }
 
 #disk {
@@ -229,7 +231,8 @@ tooltip label{
 
 #custom-gpu-usage,
 #temperature {
-  	background-color: #86b4fa;
+	background-color: #eba0ac;
+  	/* background-color: #86b4fa; */
 }
 
 #temperature.critical {

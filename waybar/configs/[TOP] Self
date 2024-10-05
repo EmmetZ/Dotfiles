@@ -12,7 +12,7 @@
 "ipc": true,
 "margin-left": 5,
 "margin-right": 5,
-"margin-top": 0,
+"margin-top": 3,
 	
 "modules-left": [
 	"group/mobo_drawer",

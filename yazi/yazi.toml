@@ -32,13 +32,14 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 [opener]
 edit = [
 	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code "$@" --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --use-angle=vulkan', orphan = true, desc = "code", for = "unix" },
+	{ run = 'code --force-device-scale-factor=1.6 "$@" --enable-features=UseOzonePlatform --ozone-platform=x11', orphan = true, desc = "VSCode", for = "unix" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
 ]
 open = [
 	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
-	{ run = 'evince "$1"', orphan = true, desc = "Open pdf", for = "linux" },
+	{ run = '/home/baiyx/AppImage/sioyek/Sioyek-x86_64.AppImage "$1"', orphan = true, desc = "Open pdf(Sioyek)", for = "linux" },
+	{ run = 'wps "$@"', orphan = true, desc = "Open docx(WPS)", for = "unix" },
 	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
 	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
@@ -52,7 +53,11 @@ extract = [
 	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
 	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
 ]
-play = [
+play_audio = [
+	{ run = 'amberol "$@"', orphan = true, for = "unix" },
+	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
+]
+play_video = [
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 	{ run = 'mpv --force-window %*', orphan = true, for = "windows" },
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
@@ -66,8 +71,10 @@ rules = [
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
 	{ mime = "image/*", use = [ "open", "reveal" ] },
-	# Media
-	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+	# Video
+	{ mime = "video/*", use = [ "play_video", "reveal" ] },
+    # Audio
+	{ mime = "audio/*", use = [ "play_audio", "reveal" ] },
 	# Archive
 	{ mime = "application/{,g}zip", use = [ "extract", "reveal" ] },
 	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "reveal" ] },

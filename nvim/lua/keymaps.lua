@@ -1,0 +1,6 @@
+vim.keymap.set('n', '<C-h>', '<C-w>h', {})
+vim.keymap.set('n', '<C-l>', '<C-w>l',{})
+vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true })
+vim.keymap.set('n', '<ENTER>', 'o<ESC>', { noremap = true, silent = true })
+vim.keymap.set({'n', 'v', 'o'}, 'H', '0', {})
+vim.keymap.set({'n', 'v', 'o'}, 'L', '$', {})

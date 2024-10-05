@@ -12,7 +12,7 @@
 @define-color text-color-alt @foreground;
 @define-color text-color-disabled rgba(150, 150, 150, 0.8);
 * {
-    font-family: "JetBrains Mono Nerd Font";
+    font-family: "NotoSans Nerd Font";
     font-weight: bold;
 }
 
@@ -264,7 +264,7 @@
 }
 
 .widget-mpris-title {
-    font-weight: 100;
+    font-weight: 400;
     font-size: 1rem
 }
 
@@ -335,7 +335,7 @@
     background: @noti-border-color;
     border: none;
 	padding: 0 8px;
-	margin: 0;
+	margin-left: 2px;
 }
 
 .widget-volume trough highlight {
@@ -347,8 +347,8 @@
   background-color: inherit;
   box-shadow: unset;
   border-radius: 20px;
-  font-family: "JetBrains Mono NerdFont";
-  font-size: 16px
+  font-family: "FiraCode Nerd Font";
+  font-size: 16px;
 }
 
 .per-app-volume {

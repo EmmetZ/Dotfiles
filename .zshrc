@@ -1,3 +1,4 @@
+export EDITOR=nvim
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -48,7 +49,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -116,7 +117,8 @@ alias nv=nvim
 alias gdu=/usr/bin/gdu
 
 code() {
-	command code "$@" --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --use-angle=vulkan
+	# command code "$@" --enable-features=UseOzonePlatform --ozone-platform=xwayland --enable-wayland-ime --disable-gpu-compositing
+	command code --force-device-scale-factor=1.6 "$@" --enable-features=UseOzonePlatform --ozone-platform=x11
 }
 
 pause() {
@@ -170,7 +172,38 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
 --color=marker:#babbf1,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284 \
 --color=selected-bg:#51576d"
-export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+# export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+
+_fzf_complete_kssh() {
+    local -a tokens
+    tokens=(${(z)1})
+    case ${tokens[-1]} in
+        -i|-F|-E)
+            _fzf_path_completion "$prefix" "$1"
+            ;;
+        *)
+            local user
+            [[ $prefix =~ @ ]] && user="${prefix%%@*}@"
+            _fzf_complete +m -- "$@" < <(__fzf_list_hosts | awk -v user="$user" '{print user $0}')
+            ;;
+    esac
+
+}
+
+_fzf_complete_scp() {
+    local -a tokens
+    tokens=(${(z)1})
+    case ${tokens[-1]} in
+        -i|-F|-E)
+            _fzf_path_completion "$prefix" "$1"
+            ;;
+        *)
+            local user
+            [[ $prefix =~ @ ]] && user="${prefix%%@*}@"
+            _fzf_complete +m -- "$@" < <(__fzf_list_hosts | awk -v user="$user" '{print user $0}')
+            ;;
+    esac
+}
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
@@ -183,7 +216,9 @@ _fzf_comprun() {
     cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
     export|unset) fzf --preview "eval 'echo \${}'"         "$@" ;;
     ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+    kssh)         fzf --preview 'dig {}'                   "$@" ;;
+    scp)         fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf "$@" ;;
   esac
 }
 
@@ -191,7 +226,7 @@ _fzf_comprun() {
 alias ls="eza --color=always --icons=always"
 
 #yazi
-function yy() {
+function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
@@ -199,4 +234,32 @@ function yy() {
 	fi
 	rm -f -- "$tmp"
 }
-alias y=yazi
+
+# sioyek
+sioyek () {
+    /home/baiyx/AppImage/sioyek/Sioyek-x86_64.AppImage "$@"
+}
+
+# zoxide
+eval "$(zoxide init zsh)"
+alias cd=z
+
+# Add TeX Live to the PATH, MANPATH, INFOPATH
+export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
+export MANPATH=/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH
+export INFOPATH=/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH
+
+# tailscale
+tailscale_start() {
+    sudo systemctl start tailscaled
+    sudo tailscale up
+    echo tailscale start
+}
+
+tailscale_stop() {
+    sudo tailscale down
+    sudo systemctl stop tailscaled
+    echo tailscale stop
+}
+
+alias kssh="kitten ssh"
