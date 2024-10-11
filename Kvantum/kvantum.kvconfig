@@ -1,2 +1,5 @@
 [General]
 theme=Catppuccin-Latte
+
+[Applications]
+Catppuccin-Latte=qBittorrent

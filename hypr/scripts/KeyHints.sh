@@ -57,7 +57,7 @@ yad --width=$dynamic_width --height=$dynamic_height \
 " ALT R" "Reload Waybar swaync Rofi" "CHECK NOTIFICATION FIRST!!!" \
 " SHIFT N" "Launch Notification Panel" "swaync Notification Center" \
 " Print" "screenshot" "(grim)" \
-" Shift Print" "screenshot region" "(grim + slurp)" \
+" ALT S" "screenshot region" "(grim + slurp)" \
 " Shift S" "screenshot region" "(swappy)" \
 " CTRL Print" "screenshot timer 5 secs " "(grim)" \
 " CTRL SHIFT Print" "screenshot timer 10 secs " "(grim)" \

@@ -32,14 +32,13 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 [opener]
 edit = [
 	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code --force-device-scale-factor=1.6 "$@" --enable-features=UseOzonePlatform --ozone-platform=x11', orphan = true, desc = "VSCode", for = "unix" },
+	{ run = 'code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=x11', orphan = true, desc = "VSCode", for = "unix" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
 ]
 open = [
 	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
-	{ run = '/home/baiyx/AppImage/sioyek/Sioyek-x86_64.AppImage "$1"', orphan = true, desc = "Open pdf(Sioyek)", for = "linux" },
-	{ run = 'wps "$@"', orphan = true, desc = "Open docx(WPS)", for = "unix" },
+	{ run = 'QT_FONT_DPI=144 wps "$@"', orphan = true, desc = "Open docx(WPS)", for = "unix" },
 	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
 	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
@@ -51,6 +50,7 @@ reveal = [
 ]
 extract = [
 	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
+	{ run = 'unrar x "$@"', desc = "Extract here(.rar)", for = "unix" },
 	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
 ]
 play_audio = [

@@ -1,6 +1,0 @@
-include catppuccin-latte
-set selection-notification false
-map x set "selection-clipboard clipboard"
-map X set "selection-clipboard primary"
-
-set font "Noto San CJK SC"

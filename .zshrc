@@ -1,23 +1,11 @@
 export EDITOR=nvim
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -82,6 +70,7 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 source $ZSH/oh-my-zsh.sh
+source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_frappe-zsh-syntax-highlighting.zsh
 
 # User configuration
 
@@ -117,8 +106,10 @@ alias nv=nvim
 alias gdu=/usr/bin/gdu
 
 code() {
-	# command code "$@" --enable-features=UseOzonePlatform --ozone-platform=xwayland --enable-wayland-ime --disable-gpu-compositing
-	command code --force-device-scale-factor=1.6 "$@" --enable-features=UseOzonePlatform --ozone-platform=x11
+	# command code "$@" --enable-wayland-ime --use-angle=vulkan
+	# command code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --use-angle=vulkan
+	# command code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing
+    command code --force-device-scale-factor=1.6 "$@" --enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime
 }
 
 pause() {
@@ -224,6 +215,7 @@ _fzf_comprun() {
 
 # eza
 alias ls="eza --color=always --icons=always"
+export EZA_CONFIG_DIR="/home/baiyx/.config/eza"
 
 #yazi
 function y() {
@@ -235,14 +227,9 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# sioyek
-sioyek () {
-    /home/baiyx/AppImage/sioyek/Sioyek-x86_64.AppImage "$@"
-}
-
 # zoxide
 eval "$(zoxide init zsh)"
-alias cd=z
+# alias cdd=z
 
 # Add TeX Live to the PATH, MANPATH, INFOPATH
 export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
@@ -263,3 +250,8 @@ tailscale_stop() {
 }
 
 alias kssh="kitten ssh"
+source /home/baiyx/.config/fzf-git.sh
+
+eval "$(starship init zsh)"
+precmd() { precmd() { echo "" } }
+alias clear="precmd() { precmd() { echo } } && clear"

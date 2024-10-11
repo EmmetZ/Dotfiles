@@ -6,7 +6,7 @@ hovered         = { fg = "#303446", bg = "#8caaee" }
 preview_hovered = { underline = true }
 
 # Find
-find_keyword  = { fg = "#e5c890", italic = true }
+find_keyword  = { fg = "#e5c890", italic = true, underline = true }
 find_position = { fg = "#f4b8e4", bg = "reset", italic = true }
 
 # Marker
