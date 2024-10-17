@@ -323,11 +323,6 @@ keymap = [
 	{ on = "f", run = "filter", desc = "Apply a filter for the help items" },
 ]
 
-[[input.prepend_keymap]]
-on   = "<Esc>"
-run  = "close"
-desc = "Cancel input"
-
 [[manager.prepend_keymap]]
 on   = "l"
 run  = "plugin --sync smart-enter"
@@ -347,3 +342,38 @@ desc = "customize fzf plugin with preview"
 on   = "<C-s>"
 run  = 'shell "$SHELL" --block --confirm'
 desc = "Open shell here"
+
+[[manager.prepend_keymap]]
+on   = "<C-h>"
+run  = "plugin --sync hide-preview"
+desc = "Hide or show preview"
+
+[[manager.append_keymap]]
+on   = "R"
+run  = "rename --empty=stem --cursor=start"
+desc = "Delete stem before rename"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "p" ]
+run  = "cd ~/Pictures"
+desc = "Go to the pictures directory"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "s" ]
+run  = "cd ~/sjtu"
+desc = "Go to SJTU directory"
+
+[[input.prepend_keymap]]
+on   = "<Esc>"
+run  = "close"
+desc = "Cancel input"
+
+[[input.prepend_keymap]]
+on   = "H"
+run  = "move -999"
+desc = "Move to the BOL"
+
+[[input.prepend_keymap]]
+on   = "L"
+run  = "move 999"
+desc = "Move to the EOL"

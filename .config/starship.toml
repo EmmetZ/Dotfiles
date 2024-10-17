@@ -20,9 +20,9 @@ $character\
 symbol = ' '
 
 [character]
-success_symbol = "[❯](green)"
-error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](subtext1)" # For use with zsh-vi-mode
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold subtext1)" # For use with zsh-vi-mode
 
 [git_branch]
 symbol = " "

@@ -1,0 +1,34 @@
+// waybar config
+
+{
+"include": "~/.config/waybar/modules",
+"layer": "top",
+//"mode": "dock",
+"exclusive": true,
+"passthrough": false,
+"position": "top",
+"spacing": 5,
+"fixed-center": true,
+"ipc": true,
+"margin-left": 5,
+"margin-right": 5,
+"margin-top": 3,
+	
+"modules-left": [
+	"group/mobo_drawer",
+	"custom/separator#blank",
+	"hyprland/workspaces",
+	"mpris#2",
+	],
+  
+"modules-center": ["clock#6", "custom/swaync"], 
+	
+	
+"modules-right": [
+	"hyprland/window",
+	"tray", 
+	"pulseaudio",
+    // "pulseaudio#microphone",
+	"backlight",
+	"battery"],
+}

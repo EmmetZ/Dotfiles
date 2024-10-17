@@ -510,6 +510,7 @@ exts = [
   { name = "twig", text = "", fg_dark = "#a6d189", fg_light = "#a6d189" },
   { name = "material", text = "󰔉", fg_dark = "#626880", fg_light = "#626880" },
   { name = "ppt", text = "󰈧", fg_dark = "#e78284", fg_light = "#e78284" },
+  { name = "pptx", text = "󰈧", fg_dark = "#e78284", fg_light = "#e78284" },
   { name = "pyd", text = "", fg_dark = "#e5c890", fg_light = "#e5c890" },
   { name = "step", text = "󰻫", fg_dark = "#a6d189", fg_light = "#a6d189" },
   { name = "hx", text = "", fg_dark = "#ef9f76", fg_light = "#ef9f76" },

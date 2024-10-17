@@ -104,6 +104,7 @@ source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_frappe-zsh-syntax-
 alias e=exit
 alias nv=nvim
 alias gdu=/usr/bin/gdu
+alias clr="precmd() { precmd() { echo } } && printf '\033[2J\033[3J\033[1;1H'"
 
 code() {
 	# command code "$@" --enable-wayland-ime --use-angle=vulkan
@@ -121,8 +122,9 @@ play() {
 }
 
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+alias kssh="kitten ssh"
+alias hg="kitten hyperlinked-grep"
+source /home/baiyx/.config/fzf-git.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -139,6 +141,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# fzf
 # set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND="fd --hidden --exclude .git"
@@ -215,9 +218,8 @@ _fzf_comprun() {
 
 # eza
 alias ls="eza --color=always --icons=always"
-export EZA_CONFIG_DIR="/home/baiyx/.config/eza"
 
-#yazi
+# yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
@@ -226,10 +228,11 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+alias sy="sudo yazi"
 
 # zoxide
 eval "$(zoxide init zsh)"
-# alias cdd=z
+# alias cd=z
 
 # Add TeX Live to the PATH, MANPATH, INFOPATH
 export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
@@ -248,10 +251,16 @@ tailscale_stop() {
     sudo systemctl stop tailscaled
     echo tailscale stop
 }
-
-alias kssh="kitten ssh"
-source /home/baiyx/.config/fzf-git.sh
-
+# starship
 eval "$(starship init zsh)"
 precmd() { precmd() { echo "" } }
 alias clear="precmd() { precmd() { echo } } && clear"
+
+# dae
+edit-dae() {
+    sudoedit /usr/local/etc/dae/config.dae
+    sudo dae reload
+}
+
+# dua
+alias dui="dua i"
