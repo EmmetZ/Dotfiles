@@ -39,8 +39,6 @@ return {
             behavior = cmp.ConfirmBehavior.Replace
           }),
           ["<C-Space>"] = cmp.mapping.complete(),
-          -- ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
-          -- ["<S-CR>"] = LazyVim.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<C-CR>"] = function(fallback)
             cmp.abort()
             fallback()

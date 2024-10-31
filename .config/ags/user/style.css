@@ -96,7 +96,7 @@ widget {
 
 .overview-search-results-txt-cmd {
   margin-right: 0.682rem;
-  font-family: "JetBrains Mono NF", "JetBrains Mono Nerd Font", "JetBrains Mono NL", "SpaceMono NF", "SpaceMono Nerd Font", monospace;
+  font-family: "Noto Sans", "JetBrains Mono Nerd Font", "JetBrains Mono NL", "SpaceMono NF", "SpaceMono Nerd Font", monospace;
   font-size: 1.227rem;
 }
 
@@ -147,7 +147,7 @@ widget {
 }
 
 .overview-tasks-workspace-number {
-  font-family: "Open Sans", "Noto Sans", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   color: #CFC2D3;
 }
 

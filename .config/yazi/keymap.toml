@@ -363,6 +363,16 @@ on   = [ "g", "s" ]
 run  = "cd ~/sjtu"
 desc = "Go to SJTU directory"
 
+[[manager.prepend_keymap]]
+on   = [ "g", "l" ]
+run  = "cd ~/.local"
+desc = "Go to .local directory"
+
+[[manager.prepend_keymap]]
+on   = "C"
+run  = "plugin compress"
+desc = "Archive selected files"
+
 [[input.prepend_keymap]]
 on   = "<Esc>"
 run  = "close"

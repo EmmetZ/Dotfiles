@@ -46,6 +46,7 @@ return {
         end
         dashboard.section.buttons.val = {
             dashboard.button("f", " " .. "Find files", ":Telescope find_files <CR>"),
+            dashboard.button("q", " " .. "Quit", ":q <CR>"),
         }
         for _, button in ipairs(dashboard.section.buttons.val) do
             button.opts.hl = "AlphaButtons"

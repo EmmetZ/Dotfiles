@@ -67,7 +67,7 @@ export default () => {
 
         const appIcon = Widget.Icon({
             icon: substitute(c),
-            size: Math.min(w, h) * userOptions.overview.scale / 2.5,
+            size: Math.min(w, h) * userOptions.overview.scale / 4,
         });
         return Widget.Button({
             attribute: {

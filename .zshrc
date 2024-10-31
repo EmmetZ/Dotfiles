@@ -70,9 +70,20 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 source $ZSH/oh-my-zsh.sh
-source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_frappe-zsh-syntax-highlighting.zsh
+source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # User configuration
+# zsh history
+HISTSIZE=10000       # Set the amount of lines you want saved
+SAVEHIST=$HISTSIZE       # This is required to actually save them, needs to match with HISTSIZE
+HISTFILE=~/.zsh_history
+setopt sharehistory             # Share history between all sessions.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt INC_APPEND_HISTORY     # 在每次命令后立即追加到历史
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -103,7 +114,6 @@ source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_frappe-zsh-syntax-
 #
 alias e=exit
 alias nv=nvim
-alias gdu=/usr/bin/gdu
 alias clr="precmd() { precmd() { echo } } && printf '\033[2J\033[3J\033[1;1H'"
 
 code() {
@@ -126,21 +136,6 @@ alias kssh="kitten ssh"
 alias hg="kitten hyperlinked-grep"
 source /home/baiyx/.config/fzf-git.sh
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/baiyx/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/baiyx/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/baiyx/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/baiyx/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 # fzf
 # set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
@@ -159,13 +154,14 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
-show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else cat {}; fi"
+how_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else cat {}; fi"
 
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
---color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
---color=marker:#babbf1,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284 \
---color=selected-bg:#51576d"
+--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+--color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
+--color=selected-bg:#494d64 \
+--multi"
 # export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 
 _fzf_complete_kssh() {
@@ -231,13 +227,7 @@ function y() {
 alias sy="sudo yazi"
 
 # zoxide
-eval "$(zoxide init zsh)"
-# alias cd=z
-
-# Add TeX Live to the PATH, MANPATH, INFOPATH
-export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
-export MANPATH=/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH
-export INFOPATH=/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH
+eval "$(zoxide init --cmd cd zsh)"
 
 # tailscale
 tailscale_start() {
@@ -251,10 +241,12 @@ tailscale_stop() {
     sudo systemctl stop tailscaled
     echo tailscale stop
 }
+
 # starship
 eval "$(starship init zsh)"
 precmd() { precmd() { echo "" } }
 alias clear="precmd() { precmd() { echo } } && clear"
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # dae
 edit-dae() {
@@ -263,4 +255,10 @@ edit-dae() {
 }
 
 # dua
-alias dui="dua i"
+alias duai="dua i"
+
+# peaclock
+alias peaclock="peaclock --config-dir ~/.config/peaclock"
+
+# lazygit
+alias lg=lazygit
