@@ -6,7 +6,7 @@ hovered         = { fg = "#24273a", bg = "#8aadf4" }
 preview_hovered = { underline = true }
 
 # Find
-find_keyword  = { fg = "#eed49f", italic = true }
+find_keyword  = { fg = "#eed49f", italic = true, underline = true }
 find_position = { fg = "#f5bde6", bg = "reset", italic = true }
 
 # Marker
@@ -279,7 +279,7 @@ exts = [
   { name = "pot", text = "", fg_dark = "#7dc4e4", fg_light = "#7dc4e4" },
   { name = "pl", text = "", fg_dark = "#7dc4e4", fg_light = "#7dc4e4" },
   { name = "mli", text = "", fg_dark = "#f5a97f", fg_light = "#f5a97f" },
-  { name = "gif", text = "", fg_dark = "#8087a2", fg_light = "#8087a2" },
+  { name = "gif", text = "", fg_dark = "#f5bde6", fg_light = "#f5bde6" },
   { name = "aif", text = "", fg_dark = "#7dc4e4", fg_light = "#7dc4e4" },
   { name = "cxxm", text = "", fg_dark = "#7dc4e4", fg_light = "#7dc4e4" },
   { name = "fcbak", text = "", fg_dark = "#ed8796", fg_light = "#ed8796" },
@@ -413,7 +413,7 @@ exts = [
   { name = "crdownload", text = "", fg_dark = "#8bd5ca", fg_light = "#8bd5ca" },
   { name = "so", text = "", fg_dark = "#f4dbd6", fg_light = "#f4dbd6" },
   { name = "strings", text = "", fg_dark = "#7dc4e4", fg_light = "#7dc4e4" },
-  { name = "xls", text = "󰈛", fg_dark = "#5b6078", fg_light = "#5b6078" },
+  { name = "xls", text = "󰈛", fg_dark = "#8bc34a", fg_light = "#8bc34a" },
   { name = "wav", text = "", fg_dark = "#7dc4e4", fg_light = "#7dc4e4" },
   { name = "vsix", text = "", fg_dark = "#5b6078", fg_light = "#5b6078" },
   { name = "kicad_prl", text = "", fg_dark = "#f4dbd6", fg_light = "#f4dbd6" },
@@ -479,7 +479,7 @@ exts = [
   { name = "lua", text = "", fg_dark = "#7dc4e4", fg_light = "#7dc4e4" },
   { name = "astro", text = "", fg_dark = "#ed8796", fg_light = "#ed8796" },
   { name = "lib", text = "", fg_dark = "#181926", fg_light = "#181926" },
-  { name = "tex", text = "", fg_dark = "#494d64", fg_light = "#494d64" },
+  { name = "tex", text = "", fg_dark = "#42a5f5", fg_light = "#42a5f5" },
   { name = "ogg", text = "", fg_dark = "#6e738d", fg_light = "#6e738d" },
   { name = "stp", text = "󰻫", fg_dark = "#a6da95", fg_light = "#a6da95" },
   { name = "sublime", text = "", fg_dark = "#f5a97f", fg_light = "#f5a97f" },
@@ -540,7 +540,7 @@ exts = [
   { name = "svh", text = "󰍛", fg_dark = "#a6da95", fg_light = "#a6da95" },
   { name = "sldprt", text = "󰻫", fg_dark = "#a6da95", fg_light = "#a6da95" },
   { name = "ico", text = "", fg_dark = "#eed49f", fg_light = "#eed49f" },
-  { name = "xlsx", text = "󰈛", fg_dark = "#5b6078", fg_light = "#5b6078" },
+  { name = "xlsx", text = "󰈛", fg_dark = "#8bc34a", fg_light = "#8bc34a" },
   { name = "rs", text = "", fg_dark = "#f5a97f", fg_light = "#f5a97f" },
   { name = "dconf", text = "", fg_dark = "#f4dbd6", fg_light = "#f4dbd6" },
   { name = "bz3", text = "", fg_dark = "#eed49f", fg_light = "#eed49f" },

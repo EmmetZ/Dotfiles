@@ -19,6 +19,33 @@ return {
     -- }
     -- ```
     opts = function()
+      local kind_icons = {
+        Text = "",
+        Method = "󰆧",
+        Function = "󰊕",
+        Constructor = "",
+        Field = "󰇽",
+        Variable = "󰂡",
+        Class = "󰠱",
+        Interface = "",
+        Module = "",
+        Property = "󰜢",
+        Unit = "",
+        Value = "󰎠",
+        Enum = "",
+        Keyword = "󰌋",
+        Snippet = "",
+        Color = "󰏘",
+        File = "󰈙",
+        Reference = "",
+        Folder = "󰉋",
+        EnumMember = "",
+        Constant = "󰏿",
+        Struct = "",
+        Event = "",
+        Operator = "󰆕",
+        TypeParameter = "󰅲",
+      }
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
@@ -50,6 +77,24 @@ return {
         }, {
           { name = "buffer" },
         }),
+        formatting = {
+          format = function(entry, vim_item)
+            local lspkind_ok, lspkind = pcall(require, "lspkind")
+            if not lspkind_ok then
+              -- From kind_icons array
+              -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+              vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
+              return vim_item
+            else
+              -- From lspkind
+              return lspkind.cmp_format()(entry, vim_item)
+            end
+          end
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         experimental = {
           ghost_text = {
             hl_group = "CmpGhostText",

@@ -32,7 +32,8 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 [opener]
 edit = [
 	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=x11', orphan = true, desc = "VSCode", for = "unix" },
+	{ run = 'code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --use-angle=vulkan', orphan = true, desc = "VSCode", for = "unix" },
+	# { run = 'code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=x11', orphan = true, desc = "VSCode", for = "unix" },
 	{ run = 'kitty --hold sh -c "$EDITOR $@"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
@@ -40,6 +41,7 @@ edit = [
 open = [
 	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
 	{ run = 'QT_FONT_DPI=144 wps "$@"', orphan = true, desc = "Open docx(WPS)", for = "unix" },
+	{ run = 'sioyek "$@"', orphan = true, desc = "Open pdf(sioyek)", for = "unix" },
 	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
 	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
@@ -55,7 +57,7 @@ extract = [
 	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
 ]
 play_audio = [
-	{ run = 'amberol "$@"', orphan = true, for = "unix" },
+	{ run = 'g4music "$@"', orphan = true, for = "unix" },
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 ]
 play_video = [

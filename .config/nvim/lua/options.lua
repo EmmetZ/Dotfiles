@@ -25,3 +25,66 @@ vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entere
 
 vim.g.mapleader = " "
 vim.opt.timeoutlen = 400
+
+-- typst
+-- vim.api.nvim_create_autocmd(
+--     {
+--         "BufNewFile",
+--         "BufRead",
+--     },
+--     {
+--         pattern = "*.typ",
+--         callback = function()
+--             local buf = vim.api.nvim_get_current_buf()
+--             vim.api.nvim_buf_set_option(buf, "filetype", "typst")
+--             vim.opt.tabstop = 2
+--             vim.opt.shiftwidth = 2
+--         end
+--     }
+-- )
+
+vim.api.nvim_create_autocmd(
+    {
+        "BufNewFile",
+        "BufRead",
+    },
+    {
+        pattern = "*.lua",
+        callback = function()
+            -- local buf = vim.api.nvim_get_current_buf()
+            -- vim.api.nvim_buf_set_option(buf, "filetype", "typst")
+            vim.opt.tabstop = 2
+            vim.opt.shiftwidth = 2
+        end
+    }
+)
+
+local function augroup(name)
+  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+end
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
+  callback = function()
+    (vim.hl or vim.highlight).on_yank()
+  end,
+})
+
+local border = {
+      {"🭽", "FloatBorder"},
+      {"▔", "FloatBorder"},
+      {"🭾", "FloatBorder"},
+      {"▕", "FloatBorder"},
+      {"🭿", "FloatBorder"},
+      {"▁", "FloatBorder"},
+      {"🭼", "FloatBorder"},
+      {"▏", "FloatBorder"},
+}
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end

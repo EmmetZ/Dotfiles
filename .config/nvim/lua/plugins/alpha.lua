@@ -45,7 +45,11 @@ return {
             dashboard.section.header.val = logo
         end
         dashboard.section.buttons.val = {
-            dashboard.button("f", " " .. "Find files", ":Telescope find_files <CR>"),
+            dashboard.button("f", " " .. "Find files",  ":Telescope find_files <CR>"),
+            dashboard.button("c", " " .. "Edit Config files", function()
+              local builtin = require("telescope.builtin")
+              builtin.find_files { cwd = vim.fn.stdpath 'config' }
+            end),
             dashboard.button("q", " " .. "Quit", ":q <CR>"),
         }
         for _, button in ipairs(dashboard.section.buttons.val) do
@@ -84,7 +88,7 @@ return {
                 local plugins_count = stats.loaded .. "/" .. stats.count
                 local ms = math.floor(stats.startuptime + 0.5)
                 local time = vim.fn.strftime("%H:%M:%S")
-                local date = vim.fn.strftime("%d.%m.%Y")
+                local date = vim.fn.strftime("%Y.%m.%d")
                 local line1 = " " .. plugins_count .. " plugins loaded in " .. ms .. "ms"
                 local line2 = "󰃭 " .. date .. "  " .. time
                 local line3 = " " .. version

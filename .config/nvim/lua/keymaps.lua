@@ -37,8 +37,14 @@ vim.keymap.set("n", "<leader>x", function()
   vim.cmd("bdelete " .. buffer_id)
 end, { desc = "Close current buffer and go to previous" })
 
-map({ "n", "i" }, "<C-s>", ":w<cr>", { desc = "Save" })
+map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "Save" })
 map("n", "<C-a>", "ggVG", { desc = "Select all", silent = true })
 
 -- render markdown
 map({ "n" }, "<leader>m", ":RenderMarkdown toggle<cr>", { desc = "Render markdown", silent = true })
+map({ "n", "i", "v" }, "<C-/>", "<cmd>normal gcc<cr>", { desc = "toggle comment", silent = true })
+map("n", "<C-\\>", "<cmd>vsplit<cr>", { desc = "vsplit", silent = true })
+
+map('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = "Goto prev diagnostic" })
+map('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true , desc = "Goto next diagnostic" })
+map('n', '<C-m>', vim.diagnostic.setloclist, { noremap = true, silent = true , desc = "Diagnostic list" })

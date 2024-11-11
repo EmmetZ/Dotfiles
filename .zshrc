@@ -254,9 +254,6 @@ edit-dae() {
     sudo dae reload
 }
 
-# dua
-alias duai="dua i"
-
 # peaclock
 alias peaclock="peaclock --config-dir ~/.config/peaclock"
 

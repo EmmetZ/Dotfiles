@@ -84,8 +84,8 @@
  method = pulse
  source = auto
 
- method = pipewire
- source = auto
+; method = pipewire
+; source = auto
 
 ; method = alsa
 ; source = hw:Loopback,1
@@ -241,16 +241,27 @@
 ; gradient_color_8 = '#cc3333'
 
 # for wallust
+; gradient = 1
+; gradient_count = 8
+; gradient_color_1 = '{{color0}}'
+; gradient_color_2 = '{{color2}}'
+; gradient_color_3 = '{{color3}}'
+; gradient_color_4 = '{{color5}}'
+; gradient_color_5 = '{{color7}}'
+; gradient_color_6 = '{{color12}}'
+; gradient_color_7 = '{{color13}}'
+; gradient_color_8 = '{{color15}}'
+
 gradient = 1
-gradient_count = 8
-gradient_color_1 = '{{color0}}'
-gradient_color_2 = '{{color2}}'
-gradient_color_3 = '{{color3}}'
-gradient_color_4 = '{{color5}}'
-gradient_color_5 = '{{color7}}'
-gradient_color_6 = '{{color12}}'
-gradient_color_7 = '{{color13}}'
-gradient_color_8 = '{{color15}}'
+
+gradient_color_1 = '#8bd5ca'
+gradient_color_2 = '#91d7e3'
+gradient_color_3 = '#7dc4e4'
+gradient_color_4 = '#8aadf4'
+gradient_color_5 = '#c6a0f6'
+gradient_color_6 = '#f5bde6'
+gradient_color_7 = '#ee99a0'
+gradient_color_8 = '#ed8796'
 
 
 [smoothing]
