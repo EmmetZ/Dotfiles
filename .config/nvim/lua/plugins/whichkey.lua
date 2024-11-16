@@ -3,6 +3,8 @@ return {
   event = "VeryLazy",
   opts_extend = { "spec" },
   opts = {
+    preset = 'modern',
+    win = { col = 0.5 },
     spec = {
       {
         mode = { "n", "v" },
@@ -10,7 +12,11 @@ return {
         { "<leader>f", group = "find" },
         { "<leader>c", group = "code" },
         { "<leader>r", group = "rename" },
-        { "g", group = "goto" },
+        { "<leader>t", group = "terminal" },
+        { "<leader>T", group = "Toggle" },
+        { "g",         group = "goto" },
+        { "[",         group = "prev" },
+        { "]",         group = "next" },
         {
           "<leader>b",
           group = "buffer",

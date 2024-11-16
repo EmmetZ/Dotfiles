@@ -22,6 +22,11 @@ return {
           text_align = "left",
         },
       },
+      diagnostics = 'nvim_lsp',
+      diagnostics_indicator = function(count, level, _, _)
+        local icon = level:match("error") and " " or " "
+        return " " .. icon .. count
+      end
     },
   },
   config = function(_, opts)
@@ -34,5 +39,13 @@ return {
         end)
       end,
     })
+
+    -- close buffer
+    local map = vim.keymap.set
+    map("n", "<leader>x", function()
+      local buffer_id = vim.fn.bufnr()
+      vim.cmd "BufferLineCyclePrev"
+      vim.cmd("bdelete " .. buffer_id)
+    end, { desc = "Close current buffer and go to previous" })
   end,
 }

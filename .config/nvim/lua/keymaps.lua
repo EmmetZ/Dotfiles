@@ -21,30 +21,31 @@ map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 map("n", "<C-q>", "<C-w>q", { desc = "close window" })
 
 -- conform
-map("n", "<A-F>", function()
+map("n", "<leader>cf", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "general format file" })
 
 -- resize
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("n", "<C-Up>", "<CMD>resize +2<CR>", { desc = "Increase Window Height" })
+map("n", "<C-Down>", "<CMD>resize -2<CR>", { desc = "Decrease Window Height" })
+map("n", "<C-Left>", "<CMD>vertical resize -2<CR>", { desc = "Decrease Window Width" })
+map("n", "<C-Right>", "<CMD>vertical resize +2<CR>", { desc = "Increase Window Width" })
 
-vim.keymap.set("n", "<leader>x", function()
-  local buffer_id = vim.fn.bufnr()
-  vim.cmd "BufferLineCyclePrev"
-  vim.cmd("bdelete " .. buffer_id)
-end, { desc = "Close current buffer and go to previous" })
+map("n", "<leader>X", "<CMD>tabclose<CR>", { desc = " Close current tab" })
 
-map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "Save" })
+map({ "n", "i" }, "<C-s>", "<CMD>w<CR>", { desc = "Save" })
 map("n", "<C-a>", "ggVG", { desc = "Select all", silent = true })
 
 -- render markdown
-map({ "n" }, "<leader>m", ":RenderMarkdown toggle<cr>", { desc = "Render markdown", silent = true })
-map({ "n", "i", "v" }, "<C-/>", "<cmd>normal gcc<cr>", { desc = "toggle comment", silent = true })
-map("n", "<C-\\>", "<cmd>vsplit<cr>", { desc = "vsplit", silent = true })
+map({ "n" }, "<leader>Tm", "<CMD>RenderMarkdown toggle<CR>", { desc = "Render markdown", silent = true })
+map({ "n", "i", "v" }, "<C-/>", "<CMD>normal gcc<CR>", { desc = "toggle comment", silent = true })
+map("n", "<C-\\>", "<CMD>vsplit<CR>", { desc = "vsplit", silent = true })
 
 map('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = "Goto prev diagnostic" })
-map('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true , desc = "Goto next diagnostic" })
-map('n', '<C-m>', vim.diagnostic.setloclist, { noremap = true, silent = true , desc = "Diagnostic list" })
+map('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "Goto next diagnostic" })
+map('n', '<C-m>', vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "Diagnostic list" })
+
+-- typst preview
+map('n', '<leader>Tp', "<CMD>TypstPreviewToggle<CR>", { noremap = true, silent = true, desc = "Typst Preview Toggle" })
+
+map('n', '<leader>li', "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "Lsp Info" })

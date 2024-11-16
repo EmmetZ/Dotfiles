@@ -1,90 +1,58 @@
 -- Hint: use `:h <option>` to figure out the meaning if needed
 vim.opt.clipboard = 'unnamedplus' -- use system clipboard
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-vim.opt.mouse = 'a' -- allow the mouse to be used in Nvim
+vim.opt.mouse = 'a'               -- allow the mouse to be used in Nvim
 
 -- Tab
-vim.opt.tabstop = 4 -- number of visual spaces per TAB
-vim.opt.softtabstop = 4 -- number of spacesin tab when editing
-vim.opt.shiftwidth = 4 -- insert 4 spaces on a tab
+vim.opt.tabstop = 4      -- number of visual spaces per TAB
+vim.opt.softtabstop = 4  -- number of spacesin tab when editing
+vim.opt.shiftwidth = 4   -- insert 4 spaces on a tab
 vim.opt.expandtab = true -- tabs are spaces, mainly because of python
 
 -- UI config
-vim.opt.number = true -- show absolute number
+vim.opt.number = true         -- show absolute number
 vim.opt.relativenumber = true -- add numbers to each line on the left side
-vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
-vim.opt.splitbelow = true -- open new vertical split bottom
-vim.opt.splitright = true -- open new horizontal splits right
--- vim.opt.termguicolors = true        -- enabl 24-bit RGB color in the TUI
+vim.opt.cursorline = true     -- highlight cursor line underneath the cursor horizontally
+vim.opt.splitbelow = true     -- open new vertical split bottom
+vim.opt.splitright = true     -- open new horizontal splits right
+vim.opt.termguicolors = true  -- enabl 24-bit RGB color in the TUI
+vim.opt.signcolumn = 'yes'
 
 -- Searching
-vim.opt.incsearch = true -- search as characters are entered
-vim.opt.hlsearch = false -- do not highlight matches
+vim.opt.incsearch = true  -- search as characters are entered
+vim.opt.hlsearch = false  -- do not highlight matches
 vim.opt.ignorecase = true -- ignore case in searches by default
-vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entered
+vim.opt.smartcase = true  -- but make it case sensitive if an uppercase is entered
 
 vim.g.mapleader = " "
 vim.opt.timeoutlen = 400
+vim.opt.updatetime = 250
+vim.opt.splitkeep = "screen" -- new
 
--- typst
--- vim.api.nvim_create_autocmd(
---     {
---         "BufNewFile",
---         "BufRead",
---     },
---     {
---         pattern = "*.typ",
---         callback = function()
---             local buf = vim.api.nvim_get_current_buf()
---             vim.api.nvim_buf_set_option(buf, "filetype", "typst")
---             vim.opt.tabstop = 2
---             vim.opt.shiftwidth = 2
---         end
---     }
--- )
-
-vim.api.nvim_create_autocmd(
-    {
-        "BufNewFile",
-        "BufRead",
+vim.diagnostic.config {
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
     },
-    {
-        pattern = "*.lua",
-        callback = function()
-            -- local buf = vim.api.nvim_get_current_buf()
-            -- vim.api.nvim_buf_set_option(buf, "filetype", "typst")
-            vim.opt.tabstop = 2
-            vim.opt.shiftwidth = 2
-        end
-    }
-)
-
-local function augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
-end
-
--- Highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroup("highlight_yank"),
-  callback = function()
-    (vim.hl or vim.highlight).on_yank()
-  end,
-})
-
-local border = {
-      {"🭽", "FloatBorder"},
-      {"▔", "FloatBorder"},
-      {"🭾", "FloatBorder"},
-      {"▕", "FloatBorder"},
-      {"🭿", "FloatBorder"},
-      {"▁", "FloatBorder"},
-      {"🭼", "FloatBorder"},
-      {"▏", "FloatBorder"},
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+      [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+    },
+  },
+  underline = true,
+  update_in_insert = false,
+  virtual_text = {
+    spacing = 4,
+    -- source = "if_many",
+    prefix = "●",
+    -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+    -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+    -- prefix = "icons",
+  },
+  severity_sort = true,
 }
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end

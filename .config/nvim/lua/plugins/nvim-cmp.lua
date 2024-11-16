@@ -20,31 +20,40 @@ return {
     -- ```
     opts = function()
       local kind_icons = {
-        Text = "",
-        Method = "󰆧",
-        Function = "󰊕",
-        Constructor = "",
-        Field = "󰇽",
-        Variable = "󰂡",
-        Class = "󰠱",
-        Interface = "",
-        Module = "",
-        Property = "󰜢",
-        Unit = "",
-        Value = "󰎠",
-        Enum = "",
-        Keyword = "󰌋",
-        Snippet = "",
-        Color = "󰏘",
-        File = "󰈙",
-        Reference = "",
-        Folder = "󰉋",
-        EnumMember = "",
-        Constant = "󰏿",
-        Struct = "",
-        Event = "",
-        Operator = "󰆕",
-        TypeParameter = "󰅲",
+        Array         = " ",
+        Boolean       = "󰨙 ",
+        Class         = " ",
+        Color         = " ",
+        Constant      = "󰏿 ",
+        Constructor   = " ",
+        Enum          = " ",
+        EnumMember    = " ",
+        Event         = " ",
+        Field         = " ",
+        File          = " ",
+        Folder        = " ",
+        Function      = "󰊕 ",
+        Interface     = " ",
+        Keyword       = " ",
+        Method        = " ",
+        Module        = " ",
+        Namespace     = " ",
+        Null          = "󰟢 ",
+        Number        = "󰎠 ",
+        Object        = " ",
+        Operator      = " ",
+        Package       = " ",
+        Property      = " ",
+        Reference     = " ",
+        Snippet       = " ",
+        String        = " ",
+        Struct        = " ",
+        Text          = " ",
+        TypeParameter = " ",
+        Unit          = " ",
+        Value         = " ",
+        Variable      = " ",
+        Copilot       = " ",
       }
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
@@ -78,18 +87,26 @@ return {
           { name = "buffer" },
         }),
         formatting = {
-          format = function(entry, vim_item)
-            local lspkind_ok, lspkind = pcall(require, "lspkind")
-            if not lspkind_ok then
-              -- From kind_icons array
-              -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
-              vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
-              return vim_item
-            else
-              -- From lspkind
-              return lspkind.cmp_format()(entry, vim_item)
+          expandable_indicator = false,
+          fields = { "kind", "abbr", "menu" },
+          format = function(entry, item)
+            if kind_icons[item.kind] then
+              item.kind = kind_icons[item.kind]
+              -- item.kind = kind_icons[item.kind] .. item.kind
             end
-          end
+            if entry.source.name ~= "copilot" then
+              local widths = {
+                abbr = math.min(27, math.floor(vim.o.columns * 0.2)),
+                menu = math.min(35, math.floor(vim.o.columns * 0.2))
+              }
+              for key, value in pairs(widths) do
+                if item[key] and vim.fn.strchars(item[key]) > value then
+                  item[key] = vim.fn.strcharpart(item[key], 0, value - 3) .. "..."
+                end
+              end
+            end
+            return item
+          end,
         },
         window = {
           completion = cmp.config.window.bordered(),

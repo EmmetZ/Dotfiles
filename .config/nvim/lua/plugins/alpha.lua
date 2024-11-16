@@ -45,12 +45,14 @@ return {
             dashboard.section.header.val = logo
         end
         dashboard.section.buttons.val = {
-            dashboard.button("f", " " .. "Find files",  ":Telescope find_files <CR>"),
-            dashboard.button("c", " " .. "Edit Config files", function()
+            dashboard.button("f", " " .. "Find files",  "<cmd>Telescope find_files <CR>"),
+            dashboard.button("c", " " .. "Edit Config files", function()
               local builtin = require("telescope.builtin")
               builtin.find_files { cwd = vim.fn.stdpath 'config' }
             end),
-            dashboard.button("q", " " .. "Quit", ":q <CR>"),
+            dashboard.button("r", " " .. "Recent files",  "<cmd>Telescope oldfiles <CR>"),
+            dashboard.button("l", "󰒲 " .. "Lazy",  "<cmd>Lazy<cr>"),
+            dashboard.button("q", " " .. "Quit", "<cmd>q<CR>"),
         }
         for _, button in ipairs(dashboard.section.buttons.val) do
             button.opts.hl = "AlphaButtons"
