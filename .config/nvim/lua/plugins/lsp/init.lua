@@ -43,7 +43,13 @@ return {
         -- by the server configuration above. Useful when disabling
         -- certain features of an LSP (for example, turning off formatting for ts_ls)
         server.capabilities = vim.tbl_deep_extend("force", {}, m.capabilities, server.capabilities or {})
-        server.on_attach = require("plugins.lsp.methods").on_attach
+        local _on_attach = server.on_attach
+        server.on_attach = function (client, buffer)
+          require("plugins.lsp.methods").on_attach(client, buffer)
+          if _on_attach then
+            _on_attach(client, buffer)
+          end
+        end
         server.on_init = m.on_init
         require("lspconfig")[server_name].setup(server)
       end
@@ -53,6 +59,8 @@ return {
       }
 
       setup_lsp('tinymist')
+      setup_lsp('clangd')
+      setup_lsp('rust_analyzer')
     end,
   },
 }

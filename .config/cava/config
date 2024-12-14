@@ -243,14 +243,14 @@
 # for wallust
 ; gradient = 1
 ; gradient_count = 8
-; gradient_color_1 = '#FFFCFF'
-; gradient_color_2 = '#4F598A'
-; gradient_color_3 = '#4A578B'
-; gradient_color_4 = '#34306B'
-; gradient_color_5 = '#1D193E'
-; gradient_color_6 = '#6170B6'
-; gradient_color_7 = '#453F8F'
-; gradient_color_8 = '#0A0815'
+; gradient_color_1 = '#FFFAFB'
+; gradient_color_2 = '#485B7D'
+; gradient_color_3 = '#604D68'
+; gradient_color_4 = '#313858'
+; gradient_color_5 = '#080912'
+; gradient_color_6 = '#80678B'
+; gradient_color_7 = '#414B76'
+; gradient_color_8 = '#030306'
 
 gradient = 1
 

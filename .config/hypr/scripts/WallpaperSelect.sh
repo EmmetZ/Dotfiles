@@ -35,7 +35,7 @@ menu() {
   IFS=$'\n' sorted_options=($(sort <<<"${PICS[*]}"))
   
   # Place ". random" at the beginning with the random picture as an icon
-  printf "%s\x00icon\x1f%s\n" "$RANDOM_PIC_NAME" "$RANDOM_PIC"
+  # printf "%s\x00icon\x1f%s\n" "$RANDOM_PIC_NAME" "$RANDOM_PIC"
   
   for pic_path in "${sorted_options[@]}"; do
     pic_name=$(basename "$pic_path")

@@ -38,10 +38,10 @@ return {
 
       require('telescope').setup({
         defaults = {
-          layout_strategy = "horizontal",
+          layout_strategy = "flex",
           layout_config = {
             horizontal = {
-              preview_width = 0.5,
+              preview_width = 0.6,
             },
           },
           -- vimgrep_arguments = {
@@ -51,6 +51,22 @@ return {
           --   '--line-number',
           --   '--column',
           -- }
+          mappings = {
+            i = {
+              ["J"] = function (bufnr)
+                require("telescope.actions").preview_scrolling_down(bufnr)
+              end,
+              ["K"] = function (bufnr)
+                require("telescope.actions").preview_scrolling_up(bufnr)
+              end,
+              ["<C-j>"] = function (bufnr)
+                require("telescope.actions").move_selection_next(bufnr)
+              end,
+              ["<C-k>"] = function (bufnr)
+                require("telescope.actions").move_selection_previous(bufnr)
+              end,
+            },
+          },
         },
         pickers = {
           find_files = {

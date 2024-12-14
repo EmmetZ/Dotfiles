@@ -1,3 +1,11 @@
+local function dir()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #clients > 0 and clients[1].root_dir then
+    return clients[1].root_dir
+  end
+  return vim.uv.cwd()
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
@@ -11,7 +19,7 @@ return {
     {
       "<C-n>",
       function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+        require("neo-tree.command").execute({ toggle = true, dir = dir() })
       end,
       desc = "Explorer NeoTree (cwd)",
     },
@@ -33,9 +41,6 @@ return {
   deactivate = function()
     vim.cmd([[Neotree close]])
   end,
-  -- config = function()
-  --     vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>', {})
-  -- end
   opts = {
     close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
     sources = { "filesystem", "buffers", "git_status" },
@@ -44,6 +49,7 @@ return {
       bind_to_cwd = false,
       follow_current_file = { enabled = true },
       use_libuv_file_watcher = true,
+      hide_dotfiles = false,
     },
     window = {
       width = 30,
@@ -57,10 +63,13 @@ return {
     default_component_configs = {
       git_status = {
         symbols = {
-          added     = " ",
-          modified  = " ",
+          added     = "",
+          modified  = "",
         }
+      },
+      icon = {
+        default = ""
       }
-    }
+    },
   }
 }

@@ -21,9 +21,16 @@ map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 map("n", "<C-q>", "<C-w>q", { desc = "close window" })
 
 -- conform
-map("n", "<leader>cf", function()
-  require("conform").format { lsp_fallback = true }
-end, { desc = "general format file" })
+map("", "<leader>cf", function()
+  require("conform").format({ async = true, lsp_fallback = true }, function(err)
+    if not err then
+      local mode = vim.api.nvim_get_mode().mode
+      if vim.startswith(string.lower(mode), "v") then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+      end
+    end
+  end)
+end, { desc = "Format code" })
 
 -- resize
 map("n", "<C-Up>", "<CMD>resize +2<CR>", { desc = "Increase Window Height" })
@@ -36,16 +43,32 @@ map("n", "<leader>X", "<CMD>tabclose<CR>", { desc = " Close current tab" })
 map({ "n", "i" }, "<C-s>", "<CMD>w<CR>", { desc = "Save" })
 map("n", "<C-a>", "ggVG", { desc = "Select all", silent = true })
 
--- render markdown
-map({ "n" }, "<leader>Tm", "<CMD>RenderMarkdown toggle<CR>", { desc = "Render markdown", silent = true })
 map({ "n", "i", "v" }, "<C-/>", "<CMD>normal gcc<CR>", { desc = "toggle comment", silent = true })
-map("n", "<C-\\>", "<CMD>vsplit<CR>", { desc = "vsplit", silent = true })
+map({ "n", "i" }, "<C-\\>", "<CMD>vsplit<CR>", { desc = "vsplit", silent = true })
 
-map('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = "Goto prev diagnostic" })
-map('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "Goto next diagnostic" })
-map('n', '<C-m>', vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "Diagnostic list" })
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
+map("n", "]d", diagnostic_goto(true), { desc = "Goto next Diagnostic" })
+map("n", "[d", diagnostic_goto(false), { desc = "Goto prev Diagnostic" })
+map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Goto next Error" })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Goto prev Error" })
+map('n', 'gm', vim.diagnostic.open_float, { noremap = true, silent = true, desc = "Open float diagnostic info" })
+-- map('n', '<C-m>', vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "Diagnostic list" })
 
--- typst preview
-map('n', '<leader>Tp', "<CMD>TypstPreviewToggle<CR>", { noremap = true, silent = true, desc = "Typst Preview Toggle" })
+map('n', '<leader>li', "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "LSP Info" })
 
-map('n', '<leader>li', "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "Lsp Info" })
+vim.keymap.del("n", "<C-w><C-d>")
+
+map("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "No highlight search" })
+
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+map({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+
+-- trouble
+map({ "n", "i" }, "<C-m>", "<CMD>Trouble diagnostics toggle focus=true<CR>", { desc = "Diagnostics (Trouble)" })

@@ -1,4 +1,5 @@
 return {
+
   -- auto completion
   {
     "hrsh7th/nvim-cmp",
@@ -72,13 +73,23 @@ return {
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ['<CR>'] = cmp.mapping.confirm({
             select = true,
-            behavior = cmp.ConfirmBehavior.Replace
+            -- behavior = cmp.ConfirmBehavior.Replace
           }),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-CR>"] = function(fallback)
             cmp.abort()
             fallback()
           end,
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if vim.snippet.active({ direction = 1 }) then
+              vim.schedule(function()
+                vim.snippet.jump(1)
+              end)
+              return true
+            else
+              return type(fallback) == "function" and fallback() or fallback
+            end
+          end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -109,8 +120,9 @@ return {
           end,
         },
         window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
+          -- completion = cmp.config.window.bordered(),
+          -- documentation = cmp.config.window.bordered(),
+          documentation = { winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None' }
         },
         experimental = {
           ghost_text = {

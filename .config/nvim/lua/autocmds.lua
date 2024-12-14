@@ -1,18 +1,3 @@
--- typst
-vim.api.nvim_create_autocmd(
-  {
-    "BufNewFile",
-    "BufRead",
-  },
-  {
-    pattern = "*.typ",
-    callback = function()
-      local buf = vim.api.nvim_get_current_buf()
-      vim.api.nvim_buf_set_option(buf, "filetype", "typst")
-    end
-  }
-)
-
 local function augroup(name)
   return vim.api.nvim_create_augroup("vim_" .. name, { clear = true })
 end
@@ -25,3 +10,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- vim.api.nvim_create_autocmd({ "VimLeave" }, {
+--   callback = function()
+--     vim.cmd(":silent !kitty @ set-font-size 14")
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "VimEnter" }, {
+--   callback = function ()
+--     vim.cmd(":silent !kitty @ set-font-size 13")
+--   end
+-- })

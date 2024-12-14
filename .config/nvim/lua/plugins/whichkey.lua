@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
   opts_extend = { "spec" },
   opts = {
-    preset = 'modern',
+    -- preset = 'modern',
     win = { col = 0.5 },
     spec = {
       {
@@ -11,9 +11,11 @@ return {
         { "<leader>g", group = "git" },
         { "<leader>f", group = "find" },
         { "<leader>c", group = "code" },
-        { "<leader>r", group = "rename" },
+        { "<leader>r", group = "rename", icon = { icon = "󰑕", color = "orange" } },
         { "<leader>t", group = "terminal" },
-        { "<leader>T", group = "Toggle" },
+        { "<leader>d", group = "diagnostic" },
+        { "<leader>l", group = "LSP", icon = { icon = "" } },
+        { "<leader>m", group = "Misc", icon = { icon = "󱍭", color = "yellow" } },
         { "g",         group = "goto" },
         { "[",         group = "prev" },
         { "]",         group = "next" },

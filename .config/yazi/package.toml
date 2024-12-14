@@ -1,5 +1,5 @@
 [plugin]
-deps = [{ use = "yazi-rs/plugins:hide-preview", rev = "4f1d0ae" }, { use = "KKV9/compress", rev = "60b24af" }]
+deps = [{ use = "yazi-rs/plugins:hide-preview", rev = "ec97f88" }, { use = "KKV9/compress", rev = "60b24af" }, { use = "yazi-rs/plugins:smart-enter", rev = "ec97f88" }]
 
 [flavor]
 deps = []

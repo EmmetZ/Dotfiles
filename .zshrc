@@ -217,9 +217,9 @@ alias ls="eza --color=always --icons=always"
 
 # yazi
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
@@ -259,3 +259,6 @@ alias peaclock="peaclock --config-dir ~/.config/peaclock"
 
 # lazygit
 alias lg=lazygit
+
+# 7zip
+alias 7z=7zz

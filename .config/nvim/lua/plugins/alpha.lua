@@ -89,20 +89,19 @@ return {
                 local stats = require("lazy").stats()
                 local plugins_count = stats.loaded .. "/" .. stats.count
                 local ms = math.floor(stats.startuptime + 0.5)
-                local time = vim.fn.strftime("%H:%M:%S")
-                local date = vim.fn.strftime("%Y.%m.%d")
+                -- local time = vim.fn.strftime("%H:%M:%S")
+                -- local date = vim.fn.strftime("%Y.%m.%d")
                 local line1 = " " .. plugins_count .. " plugins loaded in " .. ms .. "ms"
-                local line2 = "󰃭 " .. date .. "  " .. time
+                -- local line2 = "󰃭 " .. date .. "  " .. time
                 local line3 = " " .. version
-
                 local line1_width = vim.fn.strdisplaywidth(line1)
-                local line2Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line2)) / 2) .. line2
+                -- local line2Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line2)) / 2) .. line2
                 local line3Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line3)) / 2) .. line3
 
                 dashboard.section.footer.val = {
-                    line1,
-                    line2Padded,
                     line3Padded,
+                    line1,
+                    -- line2Padded,
                 }
                 pcall(vim.cmd.AlphaRedraw)
             end,

@@ -1,3 +1,5 @@
+--- @sync entry
+
 local function entry(st)
 	if st.old then
 		Tab.layout, st.old = st.old, nil
@@ -6,10 +8,13 @@ local function entry(st)
 		Tab.layout = function(self)
 			local all = MANAGER.ratio.all
             local current = MANAGER.ratio.current + MANAGER.ratio.preview
+
+			-- local all = MANAGER.ratio.parent + MANAGER.ratio.current
 			self._chunks = ui.Layout()
 				:direction(ui.Layout.HORIZONTAL)
 				:constraints({
 					ui.Constraint.Ratio(MANAGER.ratio.parent, all),
+					-- ui.Constraint.Ratio(MANAGER.ratio.current, all),
 					ui.Constraint.Ratio(current, all),
 					ui.Constraint.Length(1),
 				})

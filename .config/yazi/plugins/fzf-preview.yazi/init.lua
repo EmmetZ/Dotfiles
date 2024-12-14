@@ -12,7 +12,7 @@ local function entry()
                 "--preview",
                 "if [ -d {} ]; then eza --tree --color=always {} | head -200; else cat {}; fi",
                 "--preview-window",
-                "right,40",
+                "right,35%",
             }):cwd(cwd):stdin(Command.INHERIT):stdout(Command.PIPED):stderr(Command.INHERIT):spawn()
 
 	if not child then

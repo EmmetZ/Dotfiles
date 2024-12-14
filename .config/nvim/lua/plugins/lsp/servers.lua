@@ -7,6 +7,7 @@
 --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 --  - settings (table): Override the default settings passed when initializing the server.
 --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+local util = require("lspconfig.util")
 local servers = {
   clangd = {
     root_dir = function(fname)
@@ -24,7 +25,7 @@ local servers = {
     end,
     capabilities = {
       offsetEncoding = { "utf-16" },
-      semanticTokensProvider = nil,
+      -- semanticTokensProvider = nil,
     },
     cmd = {
       "clangd",
@@ -32,8 +33,10 @@ local servers = {
       "--clang-tidy",
       "--header-insertion=iwyu",
       "--completion-style=detailed",
+      "--all-scopes-completion=true",
       "--function-arg-placeholders",
       "--fallback-style=llvm",
+      "--suggest-missing-includes",
     },
     init_options = {
       usePlaceholders = true,
@@ -53,14 +56,14 @@ local servers = {
         -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
         -- diagnostics = { disable = { 'missing-fields' } },
         diagnostics = {
-          globals = { "vim" },       -- Recognize 'vim' as a global variable
+          globals = { "vim" }, -- Recognize 'vim' as a global variable
         },
       },
     },
   },
   tinymist = {
     --- todo: these configuration from lspconfig maybe broken
-    cmd = { "/home/baiyx/.vscode/extensions/myriad-dreamin.tinymist-0.12.0-linux-x64/out/tinymist" },
+    cmd = { "/home/baiyx/.vscode/extensions/myriad-dreamin.tinymist-0.12.10-linux-x64/out/tinymist" },
     single_file_support = true,
     root_dir = function()
       return vim.fn.getcwd()
@@ -72,11 +75,49 @@ local servers = {
       semanticTokens = "disable",
       -- exportPdf = "onType",
     },
-  }
+  },
+  rust_analyzer = {
+    cmd = { "/home/baiyx/.vscode/extensions/rust-lang.rust-analyzer-0.3.2212-linux-x64/server/rust-analyzer" },
+    ft = { "rust" },
+    root_dir = util.root_pattern("Cargo.toml"),
+    on_attach = function()
+      vim.lsp.inlay_hint.enable(true)
 
+      for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+          local default_diagnostic_handler = vim.lsp.handlers[method]
+          vim.lsp.handlers[method] = function(err, result, context, config)
+              if err ~= nil and err.code == -32802 then
+                  return
+              end
+              return default_diagnostic_handler(err, result, context, config)
+          end
+      end
+    end,
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          allFeatures = true,
+          loadOutDirsFromCheck = true,
+          buildScripts = {
+            enable = true,
+          },
+        },
+        imports = {
+          granularity = {
+            group = "module",
+          },
+          prefix = "self",
+        },
+        procMacro = {
+          enable = true,
+        },
+      },
+    },
+  },
+
+  -- texlab = {},
   -- gopls = {},
   -- pyright = {},
-  -- rust_analyzer = {},
   -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
   --
   -- Some languages (like typescript) have entire language plugins that can be useful:

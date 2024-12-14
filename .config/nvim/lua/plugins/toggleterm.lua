@@ -14,7 +14,7 @@ return {
     -- move cursor on terminal mode
     function _G.set_terminal_keymaps()
       local opts = { buffer = 0 }
-      -- vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+      vim.keymap.set('t', '<C-esc>', [[<C-\><C-n>]], opts)
       -- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
       vim.keymap.set('t', '<C-h>', [[<cmd>wincmd h<cr>]], opts)
       vim.keymap.set('t', '<C-j>', [[<cmd>wincmd j<cr>]], opts)
@@ -26,8 +26,9 @@ return {
     -- if you only want these mappings for toggle term use term://*toggleterm#* instead
     vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
+    local palette = require("catppuccin.palettes").get_palette "macchiato"
     require("toggleterm").setup({
-      size = function (term)
+      size = function(term)
         if term.direction == "vertical" then
           return vim.o.columns * 0.3
         elseif term.direction == "horizontal" then
@@ -39,6 +40,11 @@ return {
       float_opts = {
         -- see :h nvim_open_win for details on borders however
         border = 'rounded'
+      },
+      highlights = {
+        FloatBorder = {
+          guifg = palette.blue,
+        },
       },
     })
   end

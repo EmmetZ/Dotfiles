@@ -14,6 +14,12 @@ return {
         local clients = vim.lsp.get_clients({ bufnr = 0 })
         return #clients > 0
       end,
+      hide_lsp = function()
+        local width_flag = M.conditions.hide_in_width()
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
+        local flag = #clients > 0 and width_flag
+        return flag
+      end
     }
     require('lualine').setup({
       options = {
@@ -25,24 +31,25 @@ return {
       sections = {
         lualine_b = {
           "branch",
-          -- {
-          --   "diff",
-          --   symbols = {
-          --     added    = " ",
-          --     modified = " ",
-          --     removed  = " ",
-          --   },
-          --   source = function()
-          --     local gitsigns = vim.b.gitsigns_status_dict
-          --     if gitsigns then
-          --       return {
-          --         added = gitsigns.added,
-          --         modified = gitsigns.changed,
-          --         removed = gitsigns.removed,
-          --       }
-          --     end
-          --   end,
-          -- },
+          {
+            "diff",
+            symbols = {
+              added    = " ",
+              modified = " ",
+              removed  = " ",
+            },
+            source = function()
+              local gitsigns = vim.b.gitsigns_status_dict
+              if gitsigns then
+                return {
+                  added = gitsigns.added,
+                  modified = gitsigns.changed,
+                  removed = gitsigns.removed,
+                }
+              end
+            end,
+            cond = M.conditions.hide_lsp,
+          },
           "diagnostics"
         },
         lualine_c = {
@@ -54,7 +61,7 @@ return {
             function()
               local reg = vim.fn.reg_recording()
               if reg == "" then return "" end -- not recording
-              return "recording @" .. reg
+              return "Recording @" .. reg
             end,
             color = { fg = palette.subtext0 },
           }
@@ -67,6 +74,15 @@ return {
           --   separator = { right = '' }
           -- },
           {
+            function() return require("noice").api.status.command.get() end,
+            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+            color = { fg = palette.peach },
+          },
+          -- {
+          --   "encoding",
+          --   cond = M.conditions.hide_in_width,
+          -- },
+          {
             function()
               local clients = {}
               local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
@@ -74,14 +90,14 @@ return {
                 table.insert(clients, client.name)
               end
 
-              return string.format("LSP(s):[%s]", table.concat(clients, " • "))
+              return string.format("LSP:[%s]", table.concat(clients, " • "))
             end,
             icon = "",
             color = { fg = palette.mauve },
-            cond = M.conditions.hide_in_width and M.conditions.has_lsp_clients,
-            separator = { right = '' },
+            cond = M.conditions.hide_lsp,
           },
-          "encoding", "filetype" },
+          "filetype"
+        },
       }
     })
   end
