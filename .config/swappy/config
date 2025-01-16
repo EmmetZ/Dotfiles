@@ -1,6 +1,6 @@
 [Default]
 save_dir=$HOME/Pictures/Screenshots
-save_filename_format=swappy-%Y%m%d-%H%M%S.png
+save_filename_format=swappy_%y-%m-%d_%H-%M-%S.png
 show_pannel=false
 line_size=3
 text-size=20

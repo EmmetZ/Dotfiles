@@ -1,6 +1,6 @@
 return {
   'nvim-lualine/lualine.nvim',
-  config = function()
+  opts = function()
     local palette = require("catppuccin.palettes").get_palette "macchiato"
     local M = {}
     M.conditions = {
@@ -21,12 +21,11 @@ return {
         return flag
       end
     }
-    require('lualine').setup({
+    local opts = {
       options = {
         theme = 'catppuccin',
         globalstatus = true,
         section_separators = { left = '', right = '' },
-        -- component_separators = { left = '', right = '' },
       },
       sections = {
         lualine_b = {
@@ -55,7 +54,20 @@ return {
         lualine_c = {
           {
             "filename",
-            separator = { left = "" }
+            separator = { left = "" },
+            symbols = {
+              modified = '', -- Text to show when the file is modified.
+              readonly = ' ', -- Text to show when the file is non-modifiable or readonly.
+              unnamed = '[No Name]', -- Text to show for unnamed buffers.
+              newfile = '[New]', -- Text to show for newly created file before first write
+            },
+            color = function()
+              if vim.bo.modified then
+                return { fg = palette.yellow }
+              else
+                return { fg = palette.text }
+              end
+            end
           },
           {
             function()
@@ -86,19 +98,32 @@ return {
             function()
               local clients = {}
               local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+              local icon = ''
               for _, client in pairs(buf_clients) do
-                table.insert(clients, client.name)
+                if client.name == "copilot" then
+                  local status = require("copilot.api").status.data.status
+                  if status == "Warning" then
+                    icon = " "
+                  else
+                    icon = " "
+                  end
+                else
+                  table.insert(clients, client.name)
+                end
               end
-
-              return string.format("LSP:[%s]", table.concat(clients, " • "))
+              if #clients > 0 then
+                return string.format(" LSP:[%s] " .. icon, table.concat(clients, " • "))
+              else
+                return icon
+              end
             end,
-            icon = "",
             color = { fg = palette.mauve },
             cond = M.conditions.hide_lsp,
           },
           "filetype"
         },
       }
-    })
+    }
+    return opts
   end
 }

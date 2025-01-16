@@ -9,8 +9,7 @@ sort_by = "natural"
 [opener]
 edit = [
 	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --use-angle=vulkan', orphan = true, desc = "VSCode", for = "unix" },
-	# { run = 'code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=x11', orphan = true, desc = "VSCode", for = "unix" },
+	{ run = 'code "$@" --enable-wayland-ime --use-angle=vulkan', orphan = true, desc = "VSCode", for = "unix" },
 	{ run = 'kitty --hold sh -c "$EDITOR $@"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
 	{ run = 'gnome-text-editor "$@"', desc = "gnome text editor", orphan = true, for = "unix" },
 ]
@@ -23,7 +22,6 @@ reveal = [
 ]
 extract = [
 	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
-	{ run = 'unrar x "$@"', desc = "Extract here(.rar)", for = "unix" },
 	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
 ]
 play_audio = [
@@ -36,6 +34,9 @@ play_video = [
 ]
 show_image = [
     { run = '''kitten icat --hold "$1"; kitten icat --clear && clear''', block = true, desc = "kitten icat", for = "unix" },
+]
+edit_image = [
+    { run = 'swappy -f "$1"', orphan = true, desc = "Edit image(swappy)", for = "unix" },
 ]
 open_pdf = [
 	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
@@ -54,7 +55,7 @@ rules = [
     # svg
 	{ mime = "image/svg+xml", use = [ "edit", "show_image", "open", "reveal" ] },
 	# Image
-	{ mime = "image/*", use = [ "show_image", "open", "reveal" ] },
+	{ mime = "image/*", use = [ "open", "show_image", "edit_image", "reveal" ] },
 	# Video
 	{ mime = "video/*", use = [ "play_video", "reveal" ] },
     # Audio
@@ -68,6 +69,7 @@ rules = [
 	{ mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
     # MS office
 	{ mime = "application/openxmlformats-officedocument*", use = [ "open_office", "reveal" ] },
+	{ mime = "application/ms{word,-*}", use = [ "open_office", "reveal" ] },
 	{ mime = "*/javascript", use = [ "edit", "reveal" ] },
 	# Empty file
 	{ mime = "inode/empty", use = [ "edit", "reveal" ] },
@@ -78,5 +80,8 @@ rules = [
 [plugin]
 
 prepend_spotters = [
-  { mime = "video/*", run = 'video-enhanced' }
+    { mime = "video/*", run = "video-enhanced" },
+    { mime = "text/*", run = "tokei" },
+    { mime = "*/{xml,javascript,wine-extension-ini}", run = "tokei" },
+    { mime = "application/{json,ndjson}", run = "tokei" },
 ]

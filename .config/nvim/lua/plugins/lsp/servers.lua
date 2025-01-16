@@ -63,7 +63,7 @@ local servers = {
   },
   tinymist = {
     --- todo: these configuration from lspconfig maybe broken
-    cmd = { "/home/baiyx/.vscode/extensions/myriad-dreamin.tinymist-0.12.10-linux-x64/out/tinymist" },
+    cmd = { "/home/baiyx/.vscode/extensions/myriad-dreamin.tinymist-0.12.18-linux-x64/out/tinymist" },
     single_file_support = true,
     root_dir = function()
       return vim.fn.getcwd()
@@ -75,22 +75,37 @@ local servers = {
       semanticTokens = "disable",
       -- exportPdf = "onType",
     },
+    on_attach = function(client, _)
+      if client then
+        vim.keymap.set("n", "<leader>mc", function()
+          local path = vim.api.nvim_buf_get_name(0)
+          vim.notify(string.format("compiling %s", path), vim.log.levels.INFO)
+          vim.fn.system(string.format("typst compile %s", path))
+          if vim.v.shell_error == 0 then
+            local pdf_path = path:gsub("%.typ$", ".pdf")
+            vim.notify("success: " .. pdf_path, vim.log.levels.INFO)
+          else
+            vim.notify(string.format("compile error"), vim.log.levels.ERROR)
+          end
+        end, { desc = "Typst compile pdf" })
+      end
+    end
   },
   rust_analyzer = {
-    cmd = { "/home/baiyx/.vscode/extensions/rust-lang.rust-analyzer-0.3.2212-linux-x64/server/rust-analyzer" },
+    cmd = { "/home/baiyx/.vscode/extensions/rust-lang.rust-analyzer-0.3.2249-linux-x64/server/rust-analyzer" },
     ft = { "rust" },
     root_dir = util.root_pattern("Cargo.toml"),
     on_attach = function()
       vim.lsp.inlay_hint.enable(true)
 
       for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
-          local default_diagnostic_handler = vim.lsp.handlers[method]
-          vim.lsp.handlers[method] = function(err, result, context, config)
-              if err ~= nil and err.code == -32802 then
-                  return
-              end
-              return default_diagnostic_handler(err, result, context, config)
+        local default_diagnostic_handler = vim.lsp.handlers[method]
+        vim.lsp.handlers[method] = function(err, result, context, config)
+          if err ~= nil and err.code == -32802 then
+            return
           end
+          return default_diagnostic_handler(err, result, context, config)
+        end
       end
     end,
     settings = {
@@ -115,9 +130,62 @@ local servers = {
     },
   },
 
+  ruff = {
+    cmd_env = { RUFF_TRACE = "messages" },
+    init_options = {
+      settings = {
+        logLevel = "error",
+        lint = {
+          enable = true,
+          preview = true,
+        },
+      },
+    },
+    on_attach = function(client, _)
+      client.server_capabilities.hoverProvider = false
+      if client.supports_method("textDocument/codeAction") then
+        vim.keymap.set("n", "<leader>co", function()
+          vim.lsp.buf.code_action(
+            {
+              apply = true,
+              context = {
+                only = { "source.organizeImports" },
+                diagnostics = {},
+              },
+            }
+          )
+        end, { desc = "Organize Imports" })
+      end
+    end,
+  },
+
+  pyright = {
+    settings = {
+      pyright = {
+        -- Using Ruff's import organizer
+        disableOrganizeImports = true,
+      },
+      python = {
+        analysis = {
+          -- Ignore all files for analysis to exclusively use Ruff for linting
+          ignore = { '*' },
+        },
+      },
+    },
+  },
+  jsonls = {
+    settings = {
+      json = {
+        format = {
+          enable = true,
+        },
+        validate = { enable = true },
+      },
+    },
+  },
+
   -- texlab = {},
   -- gopls = {},
-  -- pyright = {},
   -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
   --
   -- Some languages (like typescript) have entire language plugins that can be useful:

@@ -3,6 +3,7 @@ local map = vim.keymap.set
 map("n", "<C-h>", "<C-w>h", {})
 map("n", "<C-l>", "<C-w>l", {})
 map("i", "jk", "<ESC>", { noremap = true, silent = true })
+map("i", "jj", "<ESC>", { noremap = true, silent = true })
 map("n", "<ENTER>", "o<ESC>", { noremap = true, silent = true })
 map({ "n", "v", "o" }, "H", "0", {})
 map({ "n", "v", "o" }, "L", "$", {})
@@ -21,7 +22,7 @@ map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 map("n", "<C-q>", "<C-w>q", { desc = "close window" })
 
 -- conform
-map("", "<leader>cf", function()
+map("", "<M-f>", function()
   require("conform").format({ async = true, lsp_fallback = true }, function(err)
     if not err then
       local mode = vim.api.nvim_get_mode().mode
@@ -70,5 +71,11 @@ map("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "No highlight search" })
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 map({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 
--- trouble
-map({ "n", "i" }, "<C-m>", "<CMD>Trouble diagnostics toggle focus=true<CR>", { desc = "Diagnostics (Trouble)" })
+if vim.fn.has("nvim-0.11") == 0 then
+  map("s", "<Tab>", function()
+    return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
+  end, { expr = true, desc = "Jump Next" })
+  map({ "i", "s" }, "<S-Tab>", function()
+    return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<S-Tab>"
+  end, { expr = true, desc = "Jump Previous" })
+end

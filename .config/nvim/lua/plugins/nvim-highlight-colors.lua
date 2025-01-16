@@ -7,7 +7,7 @@ return {
       virtual_symbol = '󱓻',
       exclude_buftypes = {},
       exclude_filetypes = {
-        "mason", "lazy",
+        "mason", "lazy", "neo-tree",
       }
     })
   end

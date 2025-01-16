@@ -93,7 +93,7 @@ return {
                 -- local date = vim.fn.strftime("%Y.%m.%d")
                 local line1 = " " .. plugins_count .. " plugins loaded in " .. ms .. "ms"
                 -- local line2 = "󰃭 " .. date .. "  " .. time
-                local line3 = " " .. version
+                local line3 = " " .. version
                 local line1_width = vim.fn.strdisplaywidth(line1)
                 -- local line2Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line2)) / 2) .. line2
                 local line3Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line3)) / 2) .. line3

@@ -30,16 +30,20 @@ function M:spot_base(job)
 		ui.Row { "  Duration:", string.format("%d:%02d", math.floor(dur / 60), math.floor(dur % 60)) },
 	}
 
+  local function bold_underline(text)
+    return ui.Span(text):bold():underline()
+  end
+
 	for i, s in ipairs(meta.streams) do
 		if s.codec_type == "video" then
-			rows[#rows + 1] = ui.Row { string.format("  Stream %d:", i-1), "video" }
+			rows[#rows + 1] = ui.Row { string.format("  Stream %d:", i-1), bold_underline("video") }
 			rows[#rows + 1] = ui.Row { "    Codec:", s.codec_name }
 			rows[#rows + 1] = ui.Row { "    Size:", string.format("%dx%d", s.width, s.height) }
 		elseif s.codec_type == "audio" then
-			rows[#rows + 1] = ui.Row { string.format("  Stream %d:", i-1), "audio" }
+			rows[#rows + 1] = ui.Row { string.format("  Stream %d:", i-1), bold_underline("audio") }
 			rows[#rows + 1] = ui.Row { "    Codec:", s.codec_name }
     elseif s.codec_type == "subtitle" then
-			rows[#rows + 1] = ui.Row { string.format("  Stream %d:", i-1), string.format("%s", s.codec_type) }
+			rows[#rows + 1] = ui.Row { string.format("  Stream %d:", i-1), bold_underline(string.format("%s", s.codec_type)) }
 			rows[#rows + 1] = ui.Row { "    Codec:", s.codec_name }
 			if s.tags.handler_name ~= nil and string.len(s.tags.handler_name) > 0 then
 			  rows[#rows + 1] = ui.Row { "    Handler:", s.tags.handler_name }

@@ -1,4 +1,5 @@
 export EDITOR=nvim
+export XDG_CONFIG_DIRS="/home/baiyx/.config"
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load --- if set to "random", it will
@@ -66,11 +67,16 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+# plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git)
+source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
-source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+# source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+source $XDG_CONFIG_DIRS/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # User configuration
 # zsh history
@@ -117,10 +123,9 @@ alias nv=nvim
 alias clr="precmd() { precmd() { echo } } && printf '\033[2J\033[3J\033[1;1H'"
 
 code() {
-	# command code "$@" --enable-wayland-ime --use-angle=vulkan
-	# command code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --use-angle=vulkan
+	command code "$@" --enable-wayland-ime --use-angle=vulkan
 	# command code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing
-    command code --force-device-scale-factor=1.6 "$@" --enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime
+    # command code "$@" --enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime
 }
 
 pause() {
@@ -214,6 +219,7 @@ _fzf_comprun() {
 
 # eza
 alias ls="eza --color=always --icons=always"
+alias lt="eza -T --color=always --icons=always"
 
 # yazi
 function y() {
@@ -225,9 +231,6 @@ function y() {
 	rm -f -- "$tmp"
 }
 alias sy="sudo yazi"
-
-# zoxide
-eval "$(zoxide init --cmd cd zsh)"
 
 # tailscale
 tailscale_start() {
@@ -250,7 +253,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # dae
 edit-dae() {
-    sudoedit /usr/local/etc/dae/config.dae
+    sudoedit /etc/dae/config.dae
     sudo dae reload
 }
 
@@ -262,3 +265,6 @@ alias lg=lazygit
 
 # 7zip
 alias 7z=7zz
+
+# zoxide
+eval "$(zoxide init --cmd cd zsh)"

@@ -25,7 +25,7 @@ notify_view() {
             ${notify_cmd_shot} "Screenshot of '${active_window_class}' not Saved"
             "${sDIR}/Sounds.sh" --error
         fi
-    elif [[ "$1" == "swappy" ]]; then
+    elif [[ "$1" == "edit" ]]; then
 		${notify_cmd_shot} "Screenshot Captured."
     else
         local check_file="$dir/$file"
@@ -80,7 +80,9 @@ shotwin() {
 
 shotarea() {
 	tmpfile=$(mktemp)
-	grim -g "$(slurp)" - >"$tmpfile"
+    area=$(slurp)
+    sleep 0.3
+	grim -g "$area" - >"$tmpfile"
 	if [[ -s "$tmpfile" ]]; then
 		wl-copy <"$tmpfile"
 		mv "$tmpfile" "$dir/$file"
@@ -100,10 +102,13 @@ shotactive() {
     notify_view "active"  
 }
 
-shotswappy() {
+shotedit() {
 	tmpfile=$(mktemp)
-	grim -g "$(slurp)" - >"$tmpfile" && "${sDIR}/Sounds.sh" --screenshot && notify_view "swappy"
+    area=$(slurp)
+    sleep 0.3
+	grim -g "$area" - >"$tmpfile" && "${sDIR}/Sounds.sh" --screenshot && notify_view "edit"
 	swappy -f - <"$tmpfile"
+	# satty -f - <"$tmpfile"
 	rm "$tmpfile"
 }
 
@@ -124,10 +129,10 @@ elif [[ "$1" == "--area" ]]; then
 	shotarea
 elif [[ "$1" == "--active" ]]; then
 	shotactive
-elif [[ "$1" == "--swappy" ]]; then
-	shotswappy
+elif [[ "$1" == "--edit" ]]; then
+	shotedit
 else
-	echo -e "Available Options : --now --in5 --in10 --win --area --active --swappy"
+	echo -e "Available Options : --now --in5 --in10 --win --area --active --edit"
 fi
 
 exit 0

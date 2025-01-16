@@ -1,9 +1,9 @@
 -- Hint: use `:h <option>` to figure out the meaning if needed
 -- vim.opt.clipboard = 'unnamedplus' -- use system clipboard
-vim.opt.clipboard = '' -- disable system clipboard
+vim.opt.clipboard = ''      -- disable system clipboard
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-vim.opt.mouse = 'a'               -- allow the mouse to be used in Nvim
-vim.o.mousemoveevent = true       -- allow the mouse move event
+vim.opt.mouse = 'a'         -- allow the mouse to be used in Nvim
+vim.o.mousemoveevent = true -- allow the mouse move event
 
 -- Tab
 vim.opt.tabstop = 4      -- number of visual spaces per TAB
@@ -52,7 +52,13 @@ vim.diagnostic.config {
   virtual_text = {
     spacing = 4,
     -- source = "if_many",
-    prefix = "●",
+    prefix = "",
+    format = function(diag)
+      if diag.severity == vim.diagnostic.severity.ERROR or diag.severity == vim.diagnostic.severity.WARN then
+        return string.format("%s / %s", diag.message, diag.source)
+      end
+      return diag.message
+    end
     -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
     -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
     -- prefix = "icons",

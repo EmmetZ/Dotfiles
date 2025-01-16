@@ -16,9 +16,10 @@ return {
         { "<leader>d", group = "diagnostic" },
         { "<leader>l", group = "LSP", icon = { icon = "" } },
         { "<leader>m", group = "Misc", icon = { icon = "󱍭", color = "yellow" } },
-        { "g",         group = "goto" },
-        { "[",         group = "prev" },
-        { "]",         group = "next" },
+        { "<leader>o", group = "Todo", icon = { icon = "", color = "green" } },
+        { "g", group = "goto" },
+        { "[", group = "prev" },
+        { "]", group = "next" },
         {
           "<leader>b",
           group = "buffer",

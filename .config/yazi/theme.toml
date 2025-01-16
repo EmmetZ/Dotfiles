@@ -13,7 +13,7 @@ find_position = { fg = "#f5bde6", bg = "reset", italic = true }
 marker_copied   = { fg = "#a6da95", bg = "#a6da95" }
 marker_cut      = { fg = "#ed8796", bg = "#ed8796" }
 marker_selected = { fg = "#eed49f", bg = "#eed49f" }
-marker_marked   = { fg = "#91d7e3", bg = "#91d7e3" }
+marker_marked   = { fg = "#8bd5ca", bg = "#8bd5ca" }
 
 # Tab
 tab_active   = { fg = "#24273a", bg = "#cad3f5" }
@@ -150,7 +150,7 @@ files = [
   { name = ".vimrc", text = "", fg = "#a6da95" },
   { name = "gemfile$", text = "", fg = "#181926" },
   { name = "xmobarrc", text = "", fg = "#ed8796" },
-  { name = "avif", text = "", fg = "#8087a2" },
+  { name = "avif", text = "", fg = "#c6a0f6" },
   { name = "fp-info-cache", text = "", fg = "#f4dbd6" },
   { name = ".zshrc", text = "", fg = "#a6da95" },
   { name = "robots.txt", text = "󰚩", fg = "#6e738d" },
@@ -248,7 +248,7 @@ files = [
   { name = "PrusaSlicerGcodeViewer.ini", text = "", fg = "#f5a97f" },
   { name = "PrusaSlicer.ini", text = "", fg = "#f5a97f" },
   { name = "procfile", text = "", fg = "#8087a2" },
-  { name = "mpv.conf", text = "", fg = "#24273a" },
+  { name = "mpv.conf", text = "", fg = "#722b72" },
   { name = ".prettierrc.json5", text = "", fg = "#8aadf4" },
   { name = "i3status.conf", text = "", fg = "#cad3f5" },
   { name = "prettier.config.mjs", text = "", fg = "#8aadf4" },
@@ -461,7 +461,7 @@ exts = [
   { name = "wav", text = "", fg = "#7dc4e4" },
   { name = "wasm", text = "", fg = "#5b6078" },
   { name = "styl", text = "", fg = "#a6da95" },
-  { name = "gif", text = "", fg = "#8087a2" },
+  { name = "gif", text = "", fg = "#f0c6c6" },
   { name = "resi", text = "", fg = "#ed8796" },
   { name = "aiff", text = "", fg = "#7dc4e4" },
   { name = "sha256", text = "󰕥", fg = "#8087a2" },
@@ -491,7 +491,8 @@ exts = [
   { name = "test.ts", text = "", fg = "#7dc4e4" },
   { name = "tsx", text = "", fg = "#0288d1" },
   { name = "mk", text = "", fg = "#8087a2" },
-  { name = "webp", text = "", fg = "#8087a2" },
+  # { name = "webp", text = "", fg = "#8087a2" },
+  { name = "webp", text = "", fg = "#c6a0f6" },
   { name = "opus", text = "", fg = "#6e738d" },
   { name = "bicep", text = "", fg = "#7dc4e4" },
   # { name = "ts", text = "", fg = "#7dc4e4" },
@@ -779,4 +780,9 @@ exts = [
   { name = "liquid", text = "", fg = "#a6da95" },
   { name = "zip", text = "", fg = "#eed49f" },
   { name = "rpm", text = "", fg = "#ed8796" },
+  { name = "s", text = "", fg = "#cad3f5" },
+  { name = "asm", text = "", fg = "#cad3f5" },
+  { name = "exe", text = "", fg = "#cad3f5" },
+  { name = "EXE", text = "", fg = "#cad3f5" },
+  { name = "avif", text = "", fg = "#c6a0f6" },
 ]

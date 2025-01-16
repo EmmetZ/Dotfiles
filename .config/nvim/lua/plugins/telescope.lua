@@ -38,7 +38,7 @@ return {
 
       require('telescope').setup({
         defaults = {
-          layout_strategy = "flex",
+          layout_strategy = "horizontal",
           layout_config = {
             horizontal = {
               preview_width = 0.6,
@@ -71,11 +71,11 @@ return {
         pickers = {
           find_files = {
             -- find_command = { 'fd', '-t', 'f', '--hidden', '--exclude', '.git', '--exclude', 'node_modules', '--exclude', '.venv' },
-            file_ignore_patterns = { 'node_modules', '^.git', '.venv' },
+            file_ignore_patterns = { 'node_modules', '^.git', '.venv', '%.png', '%.jpg' },
             hidden = true
           },
           live_grep = {
-            file_ignore_patterns = { 'node_modules', '^.git', '.venv' },
+            file_ignore_patterns = { 'node_modules', '^.git', '.venv', '%.png', '%.jpg' },
             additional_args = { "--hidden" }
           }
         },

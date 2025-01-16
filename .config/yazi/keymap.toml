@@ -11,18 +11,22 @@ prepend_keymap = [
     { on = "o",         run = "open --interactive",          desc = "Open selected files interactively" },
     { on = "l", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
     { on = "<Right>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
-    { on = "<C-s>", run = 'shell "$SHELL" --block --confirm', desc = "Open shell here" },
-    { on = "<C-h>", run = "plugin hide-preview", desc = "Hide or show preview" },
-    { on = "C", run = "plugin compress", desc = "Archive selected files" },
+    { on = "Z", run = "noop" },
 ]
 
 append_keymap = [
-    { on = "<A-f>", run = "plugin fzf-preview", desc = "customize fzf plugin with preview" },
+    { on = "F", run = "plugin fzf", desc = "Jump to a file/directory via fzf" },
+    { on = "<A-f>", run = "plugin fzf-preview", desc = "Customize fzf plugin with preview" },
     { on = "R", run = "rename --empty=stem --cursor=start", desc = "Delete stem before rename" },
     { on = [ "g", "p" ], run = "cd ~/Pictures", desc = "Goto ~/Pictures" },
     { on = [ "g", "s" ], run = "cd ~/sjtu", desc = "Goto ~/sjtu" },
     { on = [ "g", "l" ], run = "cd ~/.local", desc = "Goto ~/.local" },
-    
+    { on = "<A-g>", run = "plugin skim", desc = "Interactive rg via skim" },
+    { on = "!", run = 'shell "$SHELL" --block --confirm', desc = "Open shell here" },
+    { on = "<C-h>", run = "plugin hide-preview", desc = "Hide or show preview" },
+    { on = "<C-m>", run = "plugin max-preview", desc = "Maximize or restore preview" },
+    { on = "C", run = "plugin compress", desc = "Archive selected files" },
+    { on = ["c", "a"], run = "plugin compress --args='n'", desc = "Archive selected files with preset" },
 ]
 
 [input]

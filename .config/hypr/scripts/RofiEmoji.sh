@@ -30,6 +30,7 @@ exit
 ☺️  smiling face face blush massage happiness
 😚 kissing face with closed eyes face love like affection valentines infatuation kiss
 😙 kissing face with smiling eyes face affection valentines infatuation kiss
+🥲 smiling Face with Tear
 😋 face savoring food happy joy tongue smile face silly yummy nom delicious savouring
 😛 face with tongue face prank childish playful mischievous smile tongue
 😜 winking face with tongue face prank childish playful mischievous smile wink tongue

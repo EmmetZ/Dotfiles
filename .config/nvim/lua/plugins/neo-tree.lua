@@ -49,7 +49,9 @@ return {
       bind_to_cwd = false,
       follow_current_file = { enabled = true },
       use_libuv_file_watcher = true,
-      hide_dotfiles = false,
+      filtered_items = {
+        hide_dotfiles = false,
+      },
     },
     window = {
       width = 30,
@@ -63,8 +65,9 @@ return {
     default_component_configs = {
       git_status = {
         symbols = {
-          added     = "",
-          modified  = "",
+          added    = "",
+          modified = "",
+          unstaged = "",
         }
       },
       icon = {

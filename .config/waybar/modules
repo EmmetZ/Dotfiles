@@ -440,13 +440,12 @@
 		"(.*) - Text Editor": "󱩼 $1",
 		"(.*) - Thunar": "󰝰 $1",
 		"(.*) - mpv": " $1",
+		"kitty": "󰄛 kitty",
 		"微信": " wechat",
 		"steam": "󰓓 Steam",
-        "nvim": " nvim",
-        "nv": " nvim",
-        "Kuro": "󰸞 Kuro",
         "sioyek": "󰂾 sioyek",
-        "Translate": "󰗊 Pot Translate"
+        "Translate": "󰗊 Pot Translate",
+        "(.*)(\\.pdf)(.*)": " $1.pdf",
 	},
 },
 "idle_inhibitor": {

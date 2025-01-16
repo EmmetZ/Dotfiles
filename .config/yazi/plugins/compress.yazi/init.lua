@@ -11,6 +11,16 @@ end
 -- Check for windows
 local is_windows = ya.target_family() == "windows"
 
+-- get folder name
+local get_hovered_name = ya.sync(function()
+  local tab = cx.active
+  if #tab.selected > 0 then
+    return ""
+  end
+  local name = tostring(tab.current.hovered.name)
+  return name
+end)
+
 -- Make table of selected or hovered: path = filenames
 local selected_or_hovered = ya.sync(function()
 	local tab, paths, names, path_fnames = cx.active, {}, {}, {}
@@ -77,16 +87,21 @@ local function combine_url(path, file)
 end
 
 return {
-	entry = function()
+	entry = function(_, job)
 		-- Exit visual mode
 		ya.manager_emit("escape", { visual = true })
 
 		-- Define file table and output_dir (pwd)
 		local path_fnames, output_dir = selected_or_hovered()
 
+    -- Get folder name
+    local name = get_hovered_name()
+    local args = job.args
+
 		-- Get input
 		local output_name, event = ya.input({
 			title = "Create archive:",
+      value = (args and args[1] == 'n') and name .. ".zip" or "",
 			position = { "top-center", y = 3, w = 40 },
 		})
 		if event ~= 1 then

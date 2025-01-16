@@ -62,6 +62,26 @@ return {
         },
         view = "mini",
       },
+      -- for copilot.lua
+      {
+        filter = {
+          event = 'msg_show',
+          any = {
+            { find = 'Agent service not initialized' },
+          },
+        },
+        opts = { skip = true },
+      },
+      -- for typst preview link
+      {
+        filter = {
+          event = 'msg_show',
+          any = {
+            { find = 'Unable to load pointer' },
+          },
+        },
+        opts = { skip = true },
+      },
     },
     presets = {
       bottom_search = true,

@@ -12,6 +12,7 @@ $git_branch\
 $git_status\
 $fill\
 $all\
+$cmd_duration\
 $line_break\
 $character\
 """
@@ -39,6 +40,9 @@ truncation_symbol = '.../'
 format = "[$duration]($style)"
 style = "overlay0"
 
+[[battery.display]]
+threshold = 25
+style = 'bold red'
 
 # Disable the package module, hiding it from the prompt completely
 [package]
@@ -200,6 +204,9 @@ symbol = " "
 
 [swift]
 symbol = " "
+
+[typst]
+symbol = " "
 
 [zig]
 symbol = " "
