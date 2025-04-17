@@ -1,5 +1,17 @@
-[plugin]
-deps = [{ use = "yazi-rs/plugins:hide-preview", rev = "ec97f88" }, { use = "KKV9/compress", rev = "60b24af" }, { use = "yazi-rs/plugins:smart-enter", rev = "ec97f88" }, { use = "yazi-rs/plugins:max-preview", rev = "600614a" }]
+[[plugin.deps]]
+use = "KKV9/compress"
+rev = "60b24af"
+hash = "ee025be766240cc98e671754ac836da3"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "0725851"
+hash = "aef2b1a805b80cce573bb766f1459d88"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "a1738e8"
+hash = "5c9dda1a587b8f5b6f63e3d5375bda88"
 
 [flavor]
 deps = []

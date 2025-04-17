@@ -99,9 +99,11 @@ return {
               local clients = {}
               local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
               local icon = ''
+              local gap = ''
               for _, client in pairs(buf_clients) do
                 if client.name == "copilot" then
-                  local status = require("copilot.api").status.data.status
+                  local status = require("copilot.status").data.status
+                  gap = ' '
                   if status == "Warning" then
                     icon = " "
                   else
@@ -112,7 +114,7 @@ return {
                 end
               end
               if #clients > 0 then
-                return string.format(" LSP:[%s] " .. icon, table.concat(clients, " • "))
+                return string.format(" LSP:[%s]" .. gap .. icon, table.concat(clients, " • "))
               else
                 return icon
               end

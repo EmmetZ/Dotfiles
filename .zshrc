@@ -1,17 +1,10 @@
 export EDITOR=nvim
 export XDG_CONFIG_DIRS="/home/baiyx/.config"
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# fix keybind issue
+bindkey -e
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -19,14 +12,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -59,23 +44,13 @@ export ZSH="$HOME/.oh-my-zsh"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+autoload -Uz compinit
+compinit
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
-plugins=(git)
 source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-source $ZSH/oh-my-zsh.sh
-# source $ZSH/custom/plugins/zsh-syntax-highlighting/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 source $XDG_CONFIG_DIRS/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # User configuration
@@ -106,36 +81,15 @@ setopt INC_APPEND_HISTORY     # 在每次命令后立即追加到历史
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 alias e=exit
 alias nv=nvim
 alias clr="precmd() { precmd() { echo } } && printf '\033[2J\033[3J\033[1;1H'"
 
 code() {
-	command code "$@" --enable-wayland-ime --use-angle=vulkan
+	command code "$@" --enable-wayland-ime --disable-gpu
 	# command code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing
     # command code "$@" --enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime
 }
-
-pause() {
-	command playerctl pause
-}
-
-play() {
-	command playerctl play
-}
-
 
 alias kssh="kitten ssh"
 alias hg="kitten hyperlinked-grep"
@@ -159,15 +113,20 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
-how_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else cat {}; fi"
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
 --color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
 --color=selected-bg:#494d64 \
---multi"
-# export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+--multi
+"
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview '$show_file_or_dir_preview'
+  --preview-window hidden
+  --bind 'ctrl-/:change-preview-window(wrap|down|hidden)'"
 
 _fzf_complete_kssh() {
     local -a tokens
@@ -233,13 +192,13 @@ function y() {
 alias sy="sudo yazi"
 
 # tailscale
-tailscale_start() {
+tailscaleon() {
     sudo systemctl start tailscaled
     sudo tailscale up
     echo tailscale start
 }
 
-tailscale_stop() {
+tailscaleoff() {
     sudo tailscale down
     sudo systemctl stop tailscaled
     echo tailscale stop
@@ -265,6 +224,28 @@ alias lg=lazygit
 
 # 7zip
 alias 7z=7zz
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# strongswan sjtu vpn
+sjtuvpnon() {
+    sudo systemctl start strongswan
+    sudo swanctl -i --child vpn-student
+}
+sjtuvpnoff() {
+    sudo swanctl -t --ike vpn-student
+    sudo systemctl stop strongswan
+}
+
+alias headlesson="hyprctl output create headless headless"
+alias headlessoff="hyprctl output remove headless"
+
+# uv
+eval "$(uv generate-shell-completion zsh)"
+
+# podman
+alias docker=podman
 
 # zoxide
 eval "$(zoxide init --cmd cd zsh)"

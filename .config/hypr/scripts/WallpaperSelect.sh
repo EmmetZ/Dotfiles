@@ -69,9 +69,9 @@ main() {
   # Random choice case
   if [[ "$choice" == "$RANDOM_PIC_NAME" ]]; then
 	swww img -o "$focused_monitor" "$RANDOM_PIC" $SWWW_PARAMS;
-    sleep 0.5
+    sleep 2
     "$SCRIPTSDIR/WallustSwww.sh"
-    sleep 0.2
+    sleep 0.5
     "$SCRIPTSDIR/Refresh.sh"
     exit 0
   fi
@@ -97,14 +97,15 @@ main() {
 # Check if rofi is already running
 if pidof rofi > /dev/null; then
   pkill rofi
-  sleep 1  # Allow some time for rofi to close
 fi
 
 main
 
+wait $!
 sleep 0.5
-"$SCRIPTSDIR/WallustSwww.sh"
+"$SCRIPTSDIR/WallustSwww.sh" &&
 
-sleep 0.2
+wait $!
+sleep 2
 "$SCRIPTSDIR/Refresh.sh"
 

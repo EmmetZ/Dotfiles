@@ -1,6 +1,6 @@
 return {
   'akinsho/toggleterm.nvim',
-  version = "*",
+  version = false,
   event = "VeryLazy",
   config = function()
     local map = vim.keymap.set
@@ -10,6 +10,8 @@ return {
       { desc = "Toggle vertical terminal", noremap = true, silent = true })
     map("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>",
       { desc = "Toggle horizontal terminal", noremap = true, silent = true })
+    map("n", "<leader>ts", "<CMD>TermSelect<CR>", { desc = "Select terminal", noremap = true, silent = true })
+    map("n", "<leader>tn", "<CMD>TermNew<CR>", { desc = "New terminal", noremap = true, silent = true })
 
     -- move cursor on terminal mode
     function _G.set_terminal_keymaps()

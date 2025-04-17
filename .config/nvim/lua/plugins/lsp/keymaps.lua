@@ -2,6 +2,11 @@ local M = {}
 M._keys = nil
 local theme = require("telescope.themes").get_cursor({
   prompt = false,
+  layout_config = {
+    width = math.floor(vim.o.columns * 0.9),
+    preview_width = 0.6,
+  },
+  show_line = false
 })
 local builtin = require("telescope.builtin")
 

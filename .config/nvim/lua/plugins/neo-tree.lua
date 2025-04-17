@@ -19,6 +19,13 @@ return {
     {
       "<C-n>",
       function()
+        require("neo-tree.command").execute({ toggle = true })
+      end,
+      desc = "Explorer NeoTree (dir)",
+    },
+    {
+      "<leader>fe",
+      function()
         require("neo-tree.command").execute({ toggle = true, dir = dir() })
       end,
       desc = "Explorer NeoTree (cwd)",
@@ -51,6 +58,7 @@ return {
       use_libuv_file_watcher = true,
       filtered_items = {
         hide_dotfiles = false,
+        hide_gitignored = false,
       },
     },
     window = {

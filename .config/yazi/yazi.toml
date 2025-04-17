@@ -9,11 +9,17 @@ sort_by = "natural"
 [opener]
 edit = [
 	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code "$@" --enable-wayland-ime --use-angle=vulkan', orphan = true, desc = "VSCode", for = "unix" },
+	{ run = 'code "$@" --enable-wayland-ime --disable-gpu', orphan = true, desc = "VSCode", for = "unix" },
 	{ run = 'kitty --hold sh -c "$EDITOR $@"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
 	{ run = 'gnome-text-editor "$@"', desc = "gnome text editor", orphan = true, for = "unix" },
 ]
 open = [
+	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
+]
+open_folder = [
+	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+	{ run = 'code "$@" --enable-wayland-ime --disable-gpu', orphan = true, desc = "VSCode", for = "unix" },
+	{ run = 'kitty --hold sh -c "$EDITOR $@"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
 	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
 ]
 reveal = [
@@ -24,13 +30,16 @@ extract = [
 	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
 	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
 ]
+extract_rar = [
+    { run = 'unrar x "$1"', desc = "Extract here", for = "unix" },
+]
 play_audio = [
 	{ run = 'g4music "$@"', orphan = true, for = "unix" },
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 ]
 play_video = [
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-	{ run = '''ffprobe -hide_banner -show_format -pretty "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+	{ run = 'ffprobe -hide_banner -show_format -pretty "$1" 2>&1 | less', block = true, desc = "Show media info", for = "unix" },
 ]
 show_image = [
     { run = '''kitten icat --hold "$1"; kitten icat --clear && clear''', block = true, desc = "kitten icat", for = "unix" },
@@ -40,7 +49,8 @@ edit_image = [
 ]
 open_pdf = [
 	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
-	{ run = 'sioyek "$@"', orphan = true, desc = "Open pdf(sioyek)", for = "unix" },
+	{ run = 'firefox "$1"', orphan = true, desc = "Open pdf(firefox)", for = "linux" },
+	# { run = 'sioyek "$@"', orphan = true, desc = "Open pdf(sioyek)", for = "unix" },
 ]
 open_office = [
 	{ run = 'QT_FONT_DPI=144 wps "$@"', orphan = true, desc = "Open office(WPS)", for = "unix" },
@@ -49,11 +59,11 @@ open_office = [
 [open]
 rules = [
 	# Folder
-	{ name = "*/", use = [ "edit", "open", "reveal" ] },
+	{ name = "*/", use = [ "open_folder", "reveal" ] },
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
     # svg
-	{ mime = "image/svg+xml", use = [ "edit", "show_image", "open", "reveal" ] },
+	{ mime = "image/svg+xml", use = [ "edit", "open", "show_image", "reveal" ] },
 	# Image
 	{ mime = "image/*", use = [ "open", "show_image", "edit_image", "reveal" ] },
 	# Video
@@ -65,6 +75,7 @@ rules = [
 	# Archive
 	{ mime = "application/{,g}zip", use = [ "extract", "reveal" ] },
 	{ mime = "application/{tar,bzip*,7z*,xz,rar}", use = [ "extract", "reveal" ] },
+	# { mime = "application/rar", use = [ "extract_rar", "reveal" ] },
 	# JSON
 	{ mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
     # MS office
@@ -81,7 +92,11 @@ rules = [
 
 prepend_spotters = [
     { mime = "video/*", run = "video-enhanced" },
-    { mime = "text/*", run = "tokei" },
-    { mime = "*/{xml,javascript,wine-extension-ini}", run = "tokei" },
-    { mime = "application/{json,ndjson}", run = "tokei" },
+    # { mime = "text/*", run = "tokei" },
+    # { mime = "*/{xml,javascript,wine-extension-ini}", run = "tokei" },
+    # { mime = "application/{json,ndjson}", run = "tokei" },
+]
+
+prepend_previewers = [
+	{ mime = "application/rpm", run = "rpm-preview" },
 ]

@@ -10,4 +10,4 @@ animation = "fromTop"
 command = "kitty --class kitty-dropterm"
 class = "kitty-dropterm"
 size = "75% 60%"
-offset = 680
+margin = 50

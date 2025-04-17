@@ -33,8 +33,8 @@ border_style  = { fg = "#8087a2" }
 syntect_theme = "~/.config/yazi/Catppuccin-macchiato.tmTheme"
 
 [status]
-separator_open  = ""
-separator_close = ""
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
 
 # Progress
 progress_label  = { fg = "#ffffff", bold = true }
@@ -115,7 +115,7 @@ rules = [
 
 	# Archives
     { mime = "application/{,g}zip", fg = "#f5bde6" },
-	{ mime = "application/{tar,bzip*,7z-compressed,xz,rar}", fg = "#f5bde6" },
+	{ mime = "application/{tar,bzip*,7z-compressed,xz,rar,matlab-data}", fg = "#f5bde6" },
 
     # symbolic link
     { name = "*", is = "link", fg = "#b7bdf8" },
@@ -163,6 +163,7 @@ files = [
   { name = "code_of_conduct", text = "", fg = "#ed8796" },
   { name = "cmakelists.txt", text = "", fg = "#cad3f5" },
   { name = ".env", text = "", fg = "#eed49f" },
+  { name = ".envrc", text = "", fg = "#eed49f" },
   { name = "copying.lesser", text = "", fg = "#eed49f" },
   { name = "readme", text = "󰂺", fg = "#f4dbd6" },
   { name = "settings.gradle", text = "", fg = "#5b6078" },
@@ -187,7 +188,6 @@ files = [
   { name = ".mailmap", text = "󰊢", fg = "#f5a97f" },
   { name = ".codespellrc", text = "󰓆", fg = "#a6da95" },
   { name = "svelte.config.js", text = "", fg = "#f5a97f" },
-  { name = "eslint.config.ts", text = "", fg = "#494d64" },
   { name = "config", text = "", fg = "#8087a2" },
   { name = ".gitlab-ci.yml", text = "", fg = "#ed8796" },
   { name = ".gitconfig", text = "", fg = "#f5a97f" },
@@ -223,7 +223,6 @@ files = [
   { name = "nuxt.config.cjs", text = "󱄆", fg = "#8bd5ca" },
   { name = "xsettingsd.conf", text = "", fg = "#f5a97f" },
   { name = "nuxt.config.js", text = "󱄆", fg = "#8bd5ca" },
-  { name = "eslint.config.cjs", text = "", fg = "#494d64" },
   { name = "sym-lib-table", text = "", fg = "#f4dbd6" },
   { name = ".condarc", text = "", fg = "#a6da95" },
   { name = "xmonad.hs", text = "", fg = "#ed8796" },
@@ -256,14 +255,13 @@ files = [
   { name = "prettier.config.cjs", text = "", fg = "#8aadf4" },
   { name = ".luacheckrc", text = "", fg = "#8aadf4" },
   { name = "containerfile", text = "󰡨", fg = "#8aadf4" },
-  { name = "eslint.config.mjs", text = "", fg = "#494d64" },
   { name = "gruntfile.js", text = "", fg = "#f5a97f" },
   { name = "bun.lockb", text = "", fg = "#f4dbd6" },
   { name = ".gitattributes", text = "", fg = "#f5a97f" },
   { name = "gruntfile.ts", text = "", fg = "#f5a97f" },
   { name = "pom.xml", text = "", fg = "#363a4f" },
   { name = "favicon.ico", text = "", fg = "#eed49f" },
-  { name = "package-lock.json", text = "", fg = "#363a4f" },
+  { name = "package-lock.json", text = "", fg = "#8087a2" },
   { name = "build", text = "", fg = "#a6da95" },
   { name = "package.json", text = "", fg = "#ed8796" },
   { name = "nuxt.config.ts", text = "󱄆", fg = "#8bd5ca" },
@@ -299,7 +297,6 @@ files = [
   { name = "gnumakefile", text = "", fg = "#8087a2" },
   { name = "FreeCAD.conf", text = "", fg = "#ed8796" },
   { name = "compose.yaml", text = "󰡨", fg = "#8aadf4" },
-  { name = "eslint.config.js", text = "", fg = "#494d64" },
   { name = "hyprland.conf", text = "", fg = "#8bd5ca" },
   { name = "docker-compose.yml", text = "󰡨", fg = "#8aadf4" },
   { name = "groovy", text = "", fg = "#5b6078" },
@@ -318,13 +315,17 @@ files = [
   { name = ".Xresources", text = "", fg = "#f5a97f" },
   { name = ".gitignore", text = "", fg = "#f5a97f" },
   { name = ".justfile", text = "", fg = "#8087a2" },
+  { name = ".zsh_history", text = "", fg = "#a6da95" },
+  { name = ".bash_history", text = "", fg = "#a6da95" },
 ]
+
 exts = [
   { name = "otf", text = "", fg = "#f4dbd6" },
   { name = "import", text = "", fg = "#f4dbd6" },
   { name = "krz", text = "", fg = "#c6a0f6" },
   { name = "adb", text = "", fg = "#8bd5ca" },
   { name = "ttf", text = "", fg = "#f4dbd6" },
+  { name = "ttc", text = "", fg = "#f4dbd6" },
   { name = "webpack", text = "󰜫", fg = "#7dc4e4" },
   { name = "dart", text = "", fg = "#5b6078" },
   { name = "vsh", text = "", fg = "#8087a2" },
@@ -411,7 +412,7 @@ exts = [
   { name = "dot", text = "󱁉", fg = "#5b6078" },
   { name = "kpp", text = "", fg = "#c6a0f6" },
   { name = "eot", text = "", fg = "#f4dbd6" },
-  { name = "hpp", text = "", fg = "#8087a2" },
+  { name = "hpp", text = "", fg = "#a074c4" },
   { name = "spec.tsx", text = "", fg = "#5b6078" },
   { name = "hurl", text = "", fg = "#ed8796" },
   { name = "cxxm", text = "", fg = "#7dc4e4" },
@@ -663,7 +664,7 @@ exts = [
   { name = "png", text = "", fg = "#c6a0f6" },
   { name = "android", text = "", fg = "#a6da95" },
   { name = "pm", text = "", fg = "#7dc4e4" },
-  { name = "h", text = "", fg = "#8087a2" },
+  { name = "h", text = "", fg = "#a074c4" },
   { name = "pls", text = "󰲹", fg = "#ed8796" },
   { name = "ipynb", text = "", fg = "#f5a97f" },
   { name = "pl", text = "", fg = "#7dc4e4" },
@@ -674,7 +675,8 @@ exts = [
   { name = "ico", text = "", fg = "#eed49f" },
   { name = "a", text = "", fg = "#f4dbd6" },
   { name = "R", text = "󰟔", fg = "#5b6078" },
-  { name = "ogg", text = "", fg = "#6e738d" },
+  # { name = "ogg", text = "", fg = "#6e738d" },
+  { name = "ogg", text = "", fg = "#7dc4e4" },
   { name = "pxd", text = "", fg = "#8aadf4" },
   { name = "kdenlivetitle", text = "", fg = "#8aadf4" },
   { name = "jxl", text = "", fg = "#8087a2" },
@@ -785,4 +787,13 @@ exts = [
   { name = "exe", text = "", fg = "#cad3f5" },
   { name = "EXE", text = "", fg = "#cad3f5" },
   { name = "avif", text = "", fg = "#c6a0f6" },
+  { name = "list", text = "󰉹", fg = "#cad3f5" },
+  { name = "mat", text = "", fg = "#eed49f" },
+]
+
+append_globs = [
+  { name = "**/.env.*", text = "", fg = "#eed49f" },
+  { name = "**/vite.config.*", text = "", fg = "#ffab00" },
+  { name = "**/webpack.*", text = "󰜫", fg = "#90caf9" },
+  { name = "**/eslint.config.*", text = "", fg = "#7986cb" },
 ]

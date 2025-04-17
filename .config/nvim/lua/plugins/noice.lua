@@ -3,21 +3,21 @@ return {
   event = "VeryLazy",
   opts = {
     cmdline = {
-      view = "cmdline",
+      -- view = "cmdline",
       format = {
         Search_replace = { pattern = '^:%%s/', icon = '󰛔', lang = 'regex' },
         Search_replace_block = { pattern = "^:%'<,'>s/", icon = '󰛔', lang = 'regex' },
       },
     },
     views = {
-      -- cmdline_popup = {
-      --   position = {
-      --     row = vim.o.lines * 0.2,
-      --   },
-      --   size = {
-      --     width = math.min(60, math.floor(vim.o.columns * 0.6)),
-      --   },
-      -- },
+      cmdline_popup = {
+        position = {
+          row = vim.o.lines * 0.2,
+        },
+        -- size = {
+        --   width = math.min(60, math.floor(vim.o.columns * 0.6)),
+        -- },
+      },
       -- cmdline_popupmenu = {
       --   position = {
       --     row = vim.o.lines * 0.2 + 3,
@@ -68,16 +68,6 @@ return {
           event = 'msg_show',
           any = {
             { find = 'Agent service not initialized' },
-          },
-        },
-        opts = { skip = true },
-      },
-      -- for typst preview link
-      {
-        filter = {
-          event = 'msg_show',
-          any = {
-            { find = 'Unable to load pointer' },
           },
         },
         opts = { skip = true },

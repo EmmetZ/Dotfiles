@@ -5,8 +5,8 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local builtin = require("telescope.builtin")
-      local diagnostics = function ()
-        builtin.diagnostics({ bufnr=0 })
+      local diagnostics = function()
+        builtin.diagnostics({ bufnr = 0 })
       end
       vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Telescope find files' })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live [G]rep' })
@@ -38,12 +38,26 @@ return {
 
       require('telescope').setup({
         defaults = {
-          layout_strategy = "horizontal",
+          prompt_prefix = "   ",
+          -- selection_caret = " ",
+          -- entry_prefix = " ",
+          sorting_strategy = "ascending",
+          results_title = false,
           layout_config = {
             horizontal = {
-              preview_width = 0.6,
+              prompt_position = "top",
+              preview_width = 0.55,
             },
+            width = 0.87,
+            height = 0.80,
           },
+          -- layout_strategy = "horizontal",
+          -- layout_config = {
+          --   horizontal = {
+          --     preview_width = 0.6,
+          --     prompt_position = "top",
+          --   },
+          -- },
           -- vimgrep_arguments = {
           --   'rg',
           --   '--no-heading',
@@ -53,29 +67,38 @@ return {
           -- }
           mappings = {
             i = {
-              ["J"] = function (bufnr)
+              ["J"] = function(bufnr)
                 require("telescope.actions").preview_scrolling_down(bufnr)
               end,
-              ["K"] = function (bufnr)
+              ["K"] = function(bufnr)
                 require("telescope.actions").preview_scrolling_up(bufnr)
               end,
-              ["<C-j>"] = function (bufnr)
+              ["<C-j>"] = function(bufnr)
                 require("telescope.actions").move_selection_next(bufnr)
               end,
-              ["<C-k>"] = function (bufnr)
+              ["<C-k>"] = function(bufnr)
                 require("telescope.actions").move_selection_previous(bufnr)
               end,
+              ["<Esc>"] = function (bufnr)
+                require("telescope.actions").close(bufnr)
+              end
             },
+            n = {
+              ["q"] = function (bufnr)
+                require("telescope.actions").close(bufnr)
+              end
+            }
           },
         },
         pickers = {
           find_files = {
             -- find_command = { 'fd', '-t', 'f', '--hidden', '--exclude', '.git', '--exclude', 'node_modules', '--exclude', '.venv' },
-            file_ignore_patterns = { 'node_modules', '^.git', '.venv', '%.png', '%.jpg' },
-            hidden = true
+            file_ignore_patterns = { 'node_modules', '^.git', '.venv', '%.png', '%.jpg', 'target' },
+            hidden = true,
+            no_ignore = true,
           },
           live_grep = {
-            file_ignore_patterns = { 'node_modules', '^.git', '.venv', '%.png', '%.jpg' },
+            file_ignore_patterns = { 'node_modules', '^.git', '.venv', '%.png', '%.jpg', 'target' },
             additional_args = { "--hidden" }
           }
         },

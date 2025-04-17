@@ -1,5 +1,5 @@
 [General]
-theme=Catppuccin-Latte
+theme=Orchis
 
 [Applications]
-Catppuccin-Latte=qBittorrent
+Orchis=qBittorrent

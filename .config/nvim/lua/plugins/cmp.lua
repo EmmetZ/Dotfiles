@@ -75,9 +75,10 @@ return {
           },
         },
         documentation = {
-          auto_show = false,
+          auto_show = true,
           auto_show_delay_ms = 200,
         },
+        list = { selection = { auto_insert = false, } },
         -- ghost_text = {
         --   enabled = true,
         -- },
@@ -91,8 +92,10 @@ return {
         -- with blink.compat
         -- compat = {},
         default = { "lsp", "path", "snippets", "buffer" },
-        cmdline = {},
       },
+      -- cmdline = {
+      --   enabled = false
+      -- },
 
       keymap = {
         preset = "enter",
@@ -101,10 +104,6 @@ return {
         ["<C-k>"] = { "select_prev" },
       },
     },
-    ---@param opts blink.cmp.Config | { sources: { compat: string[] } }
-    config = function(_, opts)
-      require("blink.cmp").setup(opts)
-    end,
   },
 
   -- add icons

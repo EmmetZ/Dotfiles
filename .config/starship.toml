@@ -37,8 +37,8 @@ style = "bold lavender"
 truncation_symbol = '.../'
 
 [cmd_duration]
-format = "[$duration]($style)"
-style = "overlay0"
+format = "[󰔛 $duration]($style) "
+style = "overlay1"
 
 [[battery.display]]
 threshold = 25

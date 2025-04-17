@@ -34,12 +34,12 @@ return {
     opts = function(_, opts)
       opts.keymap["<Tab>"] = {
         function()
-        if require("copilot.suggestion").is_visible() then
-          M.create_undo()
-          require("copilot.suggestion").accept()
-          return true
-        end
-      end, "snippet_forward", "fallback"
+          if require("copilot.suggestion").is_visible() then
+            M.create_undo()
+            require("copilot.suggestion").accept()
+            return true
+          end
+        end, "snippet_forward", "fallback"
       }
     end
   }

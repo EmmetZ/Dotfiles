@@ -19,6 +19,7 @@ vim.opt.splitbelow = true     -- open new vertical split bottom
 vim.opt.splitright = true     -- open new horizontal splits right
 vim.opt.termguicolors = true  -- enabl 24-bit RGB color in the TUI
 vim.opt.signcolumn = 'yes'
+vim.opt.laststatus = 3
 vim.o.pumheight = 12
 
 -- Searching

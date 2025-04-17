@@ -446,6 +446,7 @@
         "sioyek": "󰂾 sioyek",
         "Translate": "󰗊 Pot Translate",
         "(.*)(\\.pdf)(.*)": " $1.pdf",
+		"(.*) - Zotero": "󱛉 $1",
 	},
 },
 "idle_inhibitor": {
@@ -534,7 +535,7 @@
 		"playing": "",
 		"stopped": "",
 	},
-    "ignored-players": ["firefox", "chromium"],
+    "ignored-players": ["firefox"],
 	"max-length": 34,
     "dynamic-order": ["title", "position", "length"],
     "title-len": 18,

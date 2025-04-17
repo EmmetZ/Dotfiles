@@ -22,10 +22,10 @@ if [ "$HYPRGAMEMODE" = 1 ] ; then
 else
 	# swww-daemon --format xrgb && swww img "$HOME/.config/rofi/.current_wallpaper" &
 	# sleep 0.1
-	${SCRIPTSDIR}/WallustSwww.sh
-	sleep 0.5
-	${SCRIPTSDIR}/Refresh.sh	 
+	# ${SCRIPTSDIR}/WallustSwww.sh
+	# sleep 0.5
+	${SCRIPTSDIR}/Refresh.sh
     notify-send -e -u normal -i "$notif" "gamemode disabled. All animations normal"
-    exit
+    # exit
 fi
 hyprctl reload

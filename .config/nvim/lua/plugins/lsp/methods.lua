@@ -59,7 +59,6 @@ function M.highlight(client, buffer)
   end
 end
 
-
 function M.on_attach(client, buffer)
   vim.iter(require("plugins.lsp.keymaps").get()):each(function(m)
     if not m.deps or client.supports_method(m.deps) then
@@ -73,6 +72,13 @@ function M.on_attach(client, buffer)
   --   end, { buffer = buffer, desc = "LSP: Toggle Inlay Hints" })
   -- end
   M.highlight(client, buffer)
+end
+
+function M.setup_keymaps(keys, buffer)
+  vim.iter(keys):each(function(m)
+    local opts = { silent = true, buffer = buffer, desc = "LSP: " .. m.desc }
+    vim.keymap.set(m.mode or "n", m[1], m[2], opts)
+  end)
 end
 
 return M

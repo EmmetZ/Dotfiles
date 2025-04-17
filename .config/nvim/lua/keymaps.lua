@@ -22,7 +22,7 @@ map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 map("n", "<C-q>", "<C-w>q", { desc = "close window" })
 
 -- conform
-map("", "<M-f>", function()
+map({ "n", "v" }, "<M-f>", function()
   require("conform").format({ async = true, lsp_fallback = true }, function(err)
     if not err then
       local mode = vim.api.nvim_get_mode().mode

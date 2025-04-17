@@ -44,7 +44,10 @@ return {
         -- certain features of an LSP (for example, turning off formatting for ts_ls)
         server.capabilities = vim.tbl_deep_extend("force", {}, m.capabilities, server.capabilities or {})
         local _on_attach = server.on_attach
-        server.on_attach = function (client, buffer)
+        server.on_attach = function(client, buffer)
+          if server.keys then
+            require("plugins.lsp.methods").setup_keymaps(server.keys, buffer)
+          end
           require("plugins.lsp.methods").on_attach(client, buffer)
           if _on_attach then
             _on_attach(client, buffer)

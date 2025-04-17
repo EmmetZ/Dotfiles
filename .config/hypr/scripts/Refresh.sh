@@ -1,6 +1,6 @@
 #!/bin/bash
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# Scripts for refreshing ags waybar, rofi, swaync, wallust
+# Scripts for refreshing ags, waybar, rofi, swaync, wallust
 
 SCRIPTSDIR=$HOME/.config/hypr/scripts
 UserScripts=$HOME/.config/hypr/UserScripts
@@ -22,25 +22,28 @@ for _prs in "${_ps[@]}"; do
     fi
 done
 
-# quit ags
-ags -q
+killall -SIGUSR2 waybar # added since wallust sometimes not applying
 
-sleep 0.3
-#Restart waybar
-waybar &
+# quit ags
+# ags -q
+
+# relaunch ags
+# ags &
+
+# Kill waybar & swaync (yet again) # added since wallust sometimes not applying
+_ps2=(waybar swaync)
+for _prs2 in "${_ps2[@]}"; do
+    if pidof "${_prs2}" >/dev/null; then
+        killall "${_prs2}"
+    fi
+done
 
 # relaunch swaync
 sleep 0.5
 swaync > /dev/null 2>&1 &
 
-# relaunch ags
-ags &
-
-# Relaunching rainbow borders if the script exists
+#Restart waybar
 sleep 1
-if file_exists "${SCRIPTSDIR}/RainbowBorders.sh"; then
-    ${SCRIPTSDIR}/RainbowBorders.sh &
-fi
-
+waybar &
 
 exit 0

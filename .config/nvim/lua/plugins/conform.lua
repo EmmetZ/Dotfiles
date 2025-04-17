@@ -6,6 +6,9 @@ return {
       lua = { "stylua" },
       typst = { "typstyle" },
       rust = { "rustfmt", lsp_format = "fallback" },
+      javascript = { "prettier" },
+      typescript = { "prettier" },
+      typescriptreact = { "prettier" },
     },
   },
 }

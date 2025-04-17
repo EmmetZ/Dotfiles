@@ -20,11 +20,16 @@ gui:
     searchingActiveBorderColor:
       - '#eed49f'
 
+  nerdFontsVersion: '3'
+  showFileIcons: true
+
   authorColors:
     '*': '#eed49f'
   showBottomLine: false
   commandLogSize: 3
   showCommandLog: true
+
+notARepository: skip
 
 keybinding:
   universal:
@@ -34,3 +39,5 @@ keybinding:
     viewResetOptions: <c-g>
   stash:
     popStash: <c-g>
+git:
+  autoFetch: false
