@@ -1,7 +1,7 @@
 -- Hint: use `:h <option>` to figure out the meaning if needed
 -- vim.opt.clipboard = 'unnamedplus' -- use system clipboard
 vim.opt.clipboard = ''      -- disable system clipboard
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.mouse = 'a'         -- allow the mouse to be used in Nvim
 vim.o.mousemoveevent = true -- allow the mouse move event
 
@@ -32,6 +32,9 @@ vim.g.mapleader = " "
 vim.opt.timeoutlen = 400
 vim.opt.updatetime = 250
 vim.opt.splitkeep = "screen" -- new
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.formatoptions = "jcroqlnt" -- tcqj
+vim.opt.grepformat = "%f:%l:%c:%m"
 
 vim.diagnostic.config {
   signs = {

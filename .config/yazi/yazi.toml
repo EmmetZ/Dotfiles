@@ -11,7 +11,7 @@ edit = [
 	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
 	{ run = 'code "$@" --enable-wayland-ime --disable-gpu', orphan = true, desc = "VSCode", for = "unix" },
 	{ run = 'kitty --hold sh -c "$EDITOR $@"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
-	{ run = 'gnome-text-editor "$@"', desc = "gnome text editor", orphan = true, for = "unix" },
+	# { run = 'gnome-text-editor "$@"', desc = "gnome text editor", orphan = true, for = "unix" },
 ]
 open = [
 	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
@@ -75,6 +75,7 @@ rules = [
 	# Archive
 	{ mime = "application/{,g}zip", use = [ "extract", "reveal" ] },
 	{ mime = "application/{tar,bzip*,7z*,xz,rar}", use = [ "extract", "reveal" ] },
+	{ name = "*.zip", use = [ "extract", "reveal" ] },
 	# { mime = "application/rar", use = [ "extract_rar", "reveal" ] },
 	# JSON
 	{ mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },

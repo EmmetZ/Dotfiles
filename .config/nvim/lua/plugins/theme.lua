@@ -22,7 +22,7 @@ return {
     local palette = require("catppuccin.palettes").get_palette "macchiato"
     -- local util = require("catppuccin.utils.colors")
     -- local bg = util.darken(palette.base, 0.5, palette.crust)
-    local hl_list = { "Pmenu", "LazyNormal", "MasonNormal", "WhichKeyNormal", "NoicePopup", "BlinkCmpDoc" }
+    local hl_list = { "Pmenu", "LazyNormal", "MasonNormal", "NoicePopup", "BlinkCmpDoc" }
     for _, hl in ipairs(hl_list) do
       vim.api.nvim_set_hl(0, hl, { bg = palette.crust })
     end
@@ -36,8 +36,12 @@ return {
     vim.api.nvim_set_hl(0, "IblScope", { fg = palette.surface2 })
     -- vim.api.nvim_set_hl(0, "IblScope", { fg = palette.lavender })
 
+    -- snacks
+    vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = palette.lavender })
+    vim.api.nvim_set_hl(0, "SnacksDashBoardDesc", { fg = palette.lavender })
+    vim.api.nvim_set_hl(0, "SnacksDashBoardIcon", { fg = palette.lavender })
+
     -- telescope
-    vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = palette.lavender })
     -- local utils = require("catppuccin.utils.colors")
     -- local prompt_bg = utils.darken(palette.surface0, 0.5, palette.base)
     -- vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = palette.crust, fg = palette.crust })

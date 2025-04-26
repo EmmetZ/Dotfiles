@@ -55,16 +55,20 @@ source $XDG_CONFIG_DIRS/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # User configuration
 # zsh history
-HISTSIZE=10000       # Set the amount of lines you want saved
-SAVEHIST=$HISTSIZE       # This is required to actually save them, needs to match with HISTSIZE
-HISTFILE=~/.zsh_history
-setopt sharehistory             # Share history between all sessions.
-setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
-setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
-setopt INC_APPEND_HISTORY     # 在每次命令后立即追加到历史
+unsetopt HIST_APPEND
+unsetopt HIST_EXPAND
+HISTFILE=
+HISTSIZE=SAVEHIST=0
+# HISTSIZE=10000       # Set the amount of lines you want saved
+# SAVEHIST=$HISTSIZE       # This is required to actually save them, needs to match with HISTSIZE
+# HISTFILE=~/.zsh_history
+# setopt sharehistory             # Share history between all sessions.
+# setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+# setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+# setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+# setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+# setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+# setopt INC_APPEND_HISTORY     # 在每次命令后立即追加到历史
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -179,6 +183,7 @@ _fzf_comprun() {
 # eza
 alias ls="eza --color=always --icons=always"
 alias lt="eza -T --color=always --icons=always"
+alias l="eza --color=always --icons=always -a -l"
 
 # yazi
 function y() {
@@ -246,6 +251,9 @@ eval "$(uv generate-shell-completion zsh)"
 
 # podman
 alias docker=podman
+
+# atuin
+eval "$(atuin init zsh)"
 
 # zoxide
 eval "$(zoxide init --cmd cd zsh)"

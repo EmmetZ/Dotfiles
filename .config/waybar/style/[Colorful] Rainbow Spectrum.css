@@ -2,7 +2,7 @@
 /* Rainbow Spectrum */
 
 * {
-font-family: "Arimo Nerd Font, SimHei, sans-serif";
+font-family: "Arimo Nerd Font";
 font-weight: bold;
 min-height: 0;
 /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
@@ -120,13 +120,14 @@ tooltip label{
 #custom-weather.snowyIcyNight,
 #custom-gpu-usage,
 #custom-weather.sunnyDay {
-	border-radius: 10px;
+	border-radius: 8px;
   	color: #3A3B3C;
   	border: 1px solid #b4befe;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 	padding-right: 6px;
 	padding-left: 6px;
+    min-height: 20px;
 }
 
 #backlight {

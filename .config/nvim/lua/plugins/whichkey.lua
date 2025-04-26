@@ -3,8 +3,8 @@ return {
   event = "VeryLazy",
   opts_extend = { "spec" },
   opts = {
-    -- preset = 'modern',
-    win = { col = 0.5 },
+    preset = 'helix',
+    -- win = { col = 0.5 },
     spec = {
       {
         mode = { "n", "v" },

@@ -71,11 +71,3 @@ map("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "No highlight search" })
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 map({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 
-if vim.fn.has("nvim-0.11") == 0 then
-  map("s", "<Tab>", function()
-    return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
-  end, { expr = true, desc = "Jump Next" })
-  map({ "i", "s" }, "<S-Tab>", function()
-    return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<S-Tab>"
-  end, { expr = true, desc = "Jump Previous" })
-end

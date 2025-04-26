@@ -66,11 +66,11 @@ function M.on_attach(client, buffer)
       vim.keymap.set(m.mode or "n", m[1], m[2], opts)
     end
   end)
-  -- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-  --   vim.keymap.set("n", "<leader>lh", function()
-  --     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = buffer })
-  --   end, { buffer = buffer, desc = "LSP: Toggle Inlay Hints" })
-  -- end
+  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+    vim.keymap.set("n", "<leader>lh", function()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = buffer })
+    end, { buffer = buffer, desc = "LSP: Toggle Inlay Hints" })
+  end
   M.highlight(client, buffer)
 end
 

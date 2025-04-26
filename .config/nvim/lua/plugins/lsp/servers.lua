@@ -10,19 +10,6 @@
 local util = require("lspconfig.util")
 local servers = {
   clangd = {
-    root_dir = function(fname)
-      return require("lspconfig.util").root_pattern(
-        "Makefile",
-        "configure.ac",
-        "configure.in",
-        "config.h.in",
-        "meson.build",
-        "meson_options.txt",
-        "build.ninja"
-      )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
-        fname
-      ) or require("lspconfig.util").find_git_ancestor(fname)
-    end,
     capabilities = {
       offsetEncoding = { "utf-16" },
       -- semanticTokensProvider = nil,
@@ -42,6 +29,15 @@ local servers = {
       usePlaceholders = true,
       completeUnimported = true,
       clangdFileStatus = true,
+    },
+    root_markers = {
+      '.clangd',
+      '.clang-tidy',
+      '.clang-format',
+      'compile_commands.json',
+      'compile_flags.txt',
+      'configure.ac', -- AutoTools
+      '.git',
     },
   },
   lua_ls = {
@@ -92,7 +88,7 @@ local servers = {
     end
   },
   rust_analyzer = {
-    cmd = { "/home/baiyx/.vscode/extensions/rust-lang.rust-analyzer-0.3.2379-linux-x64/server/rust-analyzer" },
+    cmd = { "/home/baiyx/.vscode/extensions/rust-lang.rust-analyzer-0.3.2433-linux-x64/server/rust-analyzer" },
     ft = { "rust" },
     root_dir = util.root_pattern("Cargo.toml"),
     on_attach = function()
