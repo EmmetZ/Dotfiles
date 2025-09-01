@@ -21,18 +21,6 @@ map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 map("n", "<C-q>", "<C-w>q", { desc = "close window" })
 
--- conform
-map({ "n", "v" }, "<M-f>", function()
-  require("conform").format({ async = true, lsp_fallback = true }, function(err)
-    if not err then
-      local mode = vim.api.nvim_get_mode().mode
-      if vim.startswith(string.lower(mode), "v") then
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-      end
-    end
-  end)
-end, { desc = "Format code" })
-
 -- resize
 map("n", "<C-Up>", "<CMD>resize +2<CR>", { desc = "Increase Window Height" })
 map("n", "<C-Down>", "<CMD>resize -2<CR>", { desc = "Decrease Window Height" })
@@ -49,7 +37,17 @@ map({ "n", "i" }, "<C-\\>", "<CMD>vsplit<CR>", { desc = "vsplit", silent = true 
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  local goto_next = function (opt)
+    opt = opt or {}
+    opt.count = 1
+    vim.diagnostic.jump(opt)
+  end
+  local goto_prev = function (opt)
+    opt = opt or {}
+    opt.count = -1
+    vim.diagnostic.jump(opt)
+  end
+  local go = next and goto_next or goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
     go({ severity = severity })
@@ -59,10 +57,23 @@ map("n", "]d", diagnostic_goto(true), { desc = "Goto next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Goto prev Diagnostic" })
 map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Goto next Error" })
 map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Goto prev Error" })
-map('n', 'gm', vim.diagnostic.open_float, { noremap = true, silent = true, desc = "Open float diagnostic info" })
+map("n", "gm", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "Open float diagnostic info" })
 -- map('n', '<C-m>', vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "Diagnostic list" })
 
-map('n', '<leader>li', "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "LSP Info" })
+map("n", "<leader>li", "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "LSP Info" })
+map("n", "<leader>lr", function()
+  -- restart LSP server
+  local clients = vim.lsp.get_clients()
+  if #clients == 0 then
+    print("No LSP client found")
+    return
+  end
+  for _, client in ipairs(clients) do
+    vim.lsp.stop_client(client.id)
+    vim.lsp.start(client.config)
+    vim.notify(client.name .. " restarted", vim.log.levels.INFO)
+  end
+end, { noremap = true, silent = true, desc = "Restart LSP" })
 
 vim.keymap.del("n", "<C-w><C-d>")
 
@@ -70,4 +81,3 @@ map("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "No highlight search" })
 
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 map({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
-

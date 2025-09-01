@@ -97,6 +97,7 @@ shotactive() {
     active_window_path="${dir}/${active_window_file}"
 
     hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - "${active_window_path}"
+    wl-copy < "${active_window_path}"
 	# sleep 1
 	sleep 0.5
     notify_view "active"  
@@ -107,8 +108,8 @@ shotedit() {
     area=$(slurp)
     sleep 0.3
 	grim -g "$area" - >"$tmpfile" && "${sDIR}/Sounds.sh" --screenshot && notify_view "edit"
-	swappy -f - <"$tmpfile"
-	# satty -f - <"$tmpfile"
+	# swappy -f - <"$tmpfile"
+	satty -f - <"$tmpfile"
 	rm "$tmpfile"
 }
 

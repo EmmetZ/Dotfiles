@@ -5,21 +5,28 @@ return {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
+      float = {
+        transparent = true, -- enable transparent floating windows
+        solid = false, -- use solid styling for floating windows, see |winborder|
+      },
       transparent_background = true,
       flavour = "macchiato", -- latte, frappe, macchiato, mocha
       integrations = {
         noice = true,
+        snacks = {
+          enabled = true,
+        },
       },
       highlight_overrides = {
         macchiato = function(macchiato)
           return {
-            lineNr = { fg = macchiato.overlay0 }
+            lineNr = { fg = macchiato.overlay0 },
           }
-        end
+        end,
       },
     })
-    vim.cmd.colorscheme "catppuccin"
-    local palette = require("catppuccin.palettes").get_palette "macchiato"
+    vim.cmd.colorscheme("catppuccin")
+    local palette = require("catppuccin.palettes").get_palette("macchiato")
     -- local util = require("catppuccin.utils.colors")
     -- local bg = util.darken(palette.base, 0.5, palette.crust)
     local hl_list = { "Pmenu", "LazyNormal", "MasonNormal", "NoicePopup", "BlinkCmpDoc" }
@@ -40,6 +47,11 @@ return {
     vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = palette.lavender })
     vim.api.nvim_set_hl(0, "SnacksDashBoardDesc", { fg = palette.lavender })
     vim.api.nvim_set_hl(0, "SnacksDashBoardIcon", { fg = palette.lavender })
+    vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = palette.peach, bold = true })
+
+    -- gitsigns
+    vim.api.nvim_set_hl(0, "GitSignsAddPreview", { fg = palette.green, bg = palette.crust })
+    vim.api.nvim_set_hl(0, "GitSignsDeletePreview", { fg = palette.red, bg = palette.crust })
 
     -- telescope
     -- local utils = require("catppuccin.utils.colors")
@@ -58,5 +70,5 @@ return {
 
     -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg })
     -- vim.api.nvim_set_hl(0, "FlashPrompt", { bg = 'none' })
-  end
+  end,
 }

@@ -11,3 +11,4 @@ command = "kitty --class kitty-dropterm"
 class = "kitty-dropterm"
 size = "75% 60%"
 margin = 50
+allow_special_workspaces = true

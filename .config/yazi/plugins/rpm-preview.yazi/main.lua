@@ -28,8 +28,8 @@ function M:peek(job)
     end
   end
 
-  if job.skip > 0 and bound < limit then
-    ya.manager_emit("peek", { math.max(0, bound - limit), only_if = job.file.url, upper_bound = true })
+  if job.skip > 0 and bound < limit + job.skip then
+    ya.emit("peek", { math.max(0, bound - limit), only_if = job.file.url, upper_bound = true })
   else
     ya.preview_widgets(job, {
       ui.Text(paths):area(job.area),
@@ -41,7 +41,7 @@ function M:seek(job)
   local h = cx.active.current.hovered
   if h and h.url == job.file.url then
     local step = math.floor(job.units * job.area.h / 10)
-    ya.manager_emit("peek", {
+    ya.emit("peek", {
       math.max(0, cx.active.preview.skip + step),
       only_if = tostring(job.file.url),
     })
@@ -60,7 +60,7 @@ end
 ---  2: empty
 function M.list_files(file, skip, limit)
   local child = Command("rpm")
-      :args({ "-ql", file })
+      :arg({ "-ql", file })
       :stdout(Command.PIPED)
       :stderr(Command.PIPED)
       :spawn()
@@ -71,23 +71,21 @@ function M.list_files(file, skip, limit)
   local files = { { path = "" } }
   local code = 0
   local num_lines = 1
-  local num_skip = 0
   repeat
     local line, event = child:read_line()
     if event == 1 then
-      code = 1
+      goto continue
     elseif event ~= 0 then
       break
     end
 
-    if num_skip >= skip then
+    num_lines = num_lines + 1
+    if num_lines >= skip then
       files[#files].path = line:match("(.-)[\r\n]+")
       files[#files + 1] = { path = "" }
-      num_lines = num_lines + 1
-    else
-      num_skip = num_skip + 1
     end
-  until num_lines >= limit
+    ::continue::
+  until num_lines >= limit + skip
   if num_lines == 1 then
     code = 2
   elseif num_lines == 2 then

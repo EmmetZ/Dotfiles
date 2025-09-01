@@ -3,14 +3,30 @@
 
 @import "~/.config/rofi/config.rasi" 
 
+configuration {
+    matching: "fuzzy";
+}
+
+window {
+  width: 55%;
+}
+
+mainbox {
+  children:
+    [ "inputbar", "message", "listview"];
+}
 /* ---- Entry ---- */
 entry {
   width: 37%;
-  placeholder: "💫 Search Emoji's  **note** 👀 Click or Return to choose | Ctrl V to Paste";
+  placeholder: " 💫 Search / Choose Emoji's";
 }
 
 /* ---- Listview ---- */
 listview {
-  columns: 1;
+  columns: 8;
   lines: 8;
+}
+
+element {
+  spacing: 0px;
 }

@@ -9,7 +9,7 @@ window {
     font-family: FiraCode Nerd Font;
     font-size: 16pt;
     color: #cdd6f4; /* text */
-    background-color: rgba(30, 30, 46, 0.6);
+    background-color: rgba(30, 30, 46, 0.4);
 }
 
 button {

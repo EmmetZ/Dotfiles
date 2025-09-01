@@ -11,12 +11,22 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+if vim.g.vscode then
+  -- VSCode Neovim extension
+  require("lazy").setup({
+    spec = {
+      { import = "vs" },
+    },
+  })
+  return
+end
+
 require("options")
 require("keymaps")
 require("autocmds")
 require("lazy").setup({
   spec = {
-    { import = "plugins" }
+    { import = "plugins" },
   },
   ui = {
     icons = {

@@ -6,14 +6,14 @@ music_icon="$HOME/.config/swaync/icons/music.png"
 
 # Play the next track
 play_next() {
-    playerctl next
+    playerctl next -i firefox
     sleep 2
     show_music_notification
 }
 
 # Play the previous track
 play_previous() {
-    playerctl previous
+    playerctl previous -i firefox
     sleep 2
     show_music_notification
 }
@@ -21,7 +21,7 @@ play_previous() {
 # Toggle play/pause
 toggle_play_pause() {
     show_music_notification --invert
-    playerctl play-pause
+    playerctl play-pause -i firefox
 }
 
 # Stop playback
@@ -32,7 +32,7 @@ stop_playback() {
 
 # Display notification with song information
 show_music_notification() {
-    status=$(playerctl status)
+    status=$(playerctl status -i firefox)
     flag=false
 
     if [[ "$status" == "Playing" ]]; then
@@ -52,8 +52,8 @@ show_music_notification() {
     icon="$music_icon"
 
     if [[ "$flag" == true ]]; then
-        song_title=$(playerctl metadata title)
-        song_artist=$(playerctl metadata artist)
+        song_title=$(playerctl metadata title -i firefox)
+        song_artist=$(playerctl metadata artist -i firefox)
         notify-send -e -u low -i "$music_icon" "Now Playing:" "$song_title\nby $song_artist"
     elif [[ "$flag" == false ]]; then
         notify-send -e -u low -i "$music_icon" "Playback Paused"

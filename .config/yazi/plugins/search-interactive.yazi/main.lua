@@ -7,7 +7,7 @@ local function entry()
   local cwd = tostring(state())
 
   local rg_prefix = "rg --column --line-number --no-heading --color=always --smart-case "
-  local child, err = Command("fzf"):args({
+  local child, err = Command("fzf"):arg({
     "--ansi",
     "--disabled",
     -- "--query",
@@ -45,8 +45,8 @@ local function entry()
       table.insert(res, colon_pos and target:sub(1, colon_pos - 1) or target)
       target = target:sub(colon_pos + 1)
     end
-    ya.manager_emit(res[1]:find("[/\\]$") and "cd" or "reveal", { res[1] })
-    -- ya.manager_emit("shell", { "kitty sh -c 'nvim " .. tostring(res[1]) .. " +" .. tostring(res[2]) .. "'", "--orphan", "--conform" })
+    ya.emit(res[1]:find("[/\\]$") and "cd" or "reveal", { res[1] })
+    -- ya.emit("shell", { "kitty sh -c 'nvim " .. tostring(res[1]) .. " +" .. tostring(res[2]) .. "'", "--orphan", "--conform" })
   end
 end
 

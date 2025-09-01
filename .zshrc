@@ -1,10 +1,14 @@
 export EDITOR=nvim
-export XDG_CONFIG_DIRS="/home/baiyx/.config"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # fix keybind issue
 bindkey -e
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+
+# vi mode keybind
+bindkey -M vicmd 'H' vi-beginning-of-line
+bindkey -M vicmd 'L' vi-end-of-line
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,12 +55,12 @@ source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-source $XDG_CONFIG_DIRS/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+source $XDG_CONFIG_HOME/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # User configuration
 # zsh history
 unsetopt HIST_APPEND
-unsetopt HIST_EXPAND
+# unsetopt HIST_EXPAND
 HISTFILE=
 HISTSIZE=SAVEHIST=0
 # HISTSIZE=10000       # Set the amount of lines you want saved
@@ -90,14 +94,12 @@ alias nv=nvim
 alias clr="precmd() { precmd() { echo } } && printf '\033[2J\033[3J\033[1;1H'"
 
 code() {
-	command code "$@" --enable-wayland-ime --disable-gpu
+	command code "$@" --enable-wayland-ime
 	# command code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing
     # command code "$@" --enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime
 }
 
 alias kssh="kitten ssh"
-alias hg="kitten hyperlinked-grep"
-source /home/baiyx/.config/fzf-git.sh
 
 # fzf
 # set up fzf key bindings and fuzzy completion
@@ -171,7 +173,7 @@ _fzf_comprun() {
   shift
 
   case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    cd)           fzf --preview 'eza --tree -L 2 --color=always {} | head -200' "$@" ;;
     export|unset) fzf --preview "eval 'echo \${}'"         "$@" ;;
     ssh)          fzf --preview 'dig {}'                   "$@" ;;
     kssh)         fzf --preview 'dig {}'                   "$@" ;;
@@ -189,25 +191,12 @@ alias l="eza --color=always --icons=always -a -l"
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
 alias sy="sudo yazi"
-
-# tailscale
-tailscaleon() {
-    sudo systemctl start tailscaled
-    sudo tailscale up
-    echo tailscale start
-}
-
-tailscaleoff() {
-    sudo tailscale down
-    sudo systemctl stop tailscaled
-    echo tailscale stop
-}
+export YAZI_ZOXIDE_OPTS="--no-exact"
 
 # starship
 eval "$(starship init zsh)"
@@ -243,17 +232,48 @@ sjtuvpnoff() {
     sudo systemctl stop strongswan
 }
 
-alias headlesson="hyprctl output create headless headless"
-alias headlessoff="hyprctl output remove headless"
-
 # uv
 eval "$(uv generate-shell-completion zsh)"
+export UV_PYTHON_INSTALL_BIN=0
+# Fix completions for uv run to autocomplete .py files
+_uv_run_mod() {
+    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+        _arguments '*:filename:_files -g "*.py"'
+    else
+        _uv "$@"
+    fi
+}
+compdef _uv_run_mod uv
 
 # podman
 alias docker=podman
 
 # atuin
 eval "$(atuin init zsh)"
+eval "$(atuin gen-completions --shell zsh)"
+
+# function help atuin filter command
+,() {
+    eval "$@"
+}
+
+# function to auto add a comma at the beginning of the line
+# and execute the command to help atuin filter
+prepend_comma_and_execute() {
+    LBUFFER=", $LBUFFER"
+    zle accept-line
+}
+zle -N prepend_comma_and_execute
+bindkey '\e[13;2u' prepend_comma_and_execute
 
 # zoxide
+export _ZO_EXCLUDE_DIRS="$HOME"
 eval "$(zoxide init --cmd cd zsh)"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

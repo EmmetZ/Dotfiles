@@ -7,10 +7,10 @@ IFS=$'\n\t'
 
 # Define directories
 waybar_layouts="$HOME/.config/waybar/configs"
-waybar_config="$HOME/.config/waybar/config"
+waybar_config="$HOME/.config/waybar/config.jsonc"
 SCRIPTSDIR="$HOME/.config/hypr/scripts"
-rofi_config="$HOME/.config/rofi/config.rasi"
-# rofi_config="$HOME/.config/rofi/config-waybar-layout.rasi"
+# rofi_config="$HOME/.config/rofi/config.rasi"
+rofi_config="$HOME/.config/rofi/config-waybar-layout.rasi"
 
 # Function to display menu options
 menu() {

@@ -31,7 +31,7 @@ vim.opt.smartcase = true  -- but make it case sensitive if an uppercase is enter
 vim.g.mapleader = " "
 vim.opt.timeoutlen = 400
 vim.opt.updatetime = 250
-vim.opt.splitkeep = "screen" -- new
+vim.opt.splitkeep = "screen"       -- new
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.formatoptions = "jcroqlnt" -- tcqj
 vim.opt.grepformat = "%f:%l:%c:%m"
@@ -56,10 +56,15 @@ vim.diagnostic.config {
   virtual_text = {
     spacing = 4,
     -- source = "if_many",
-    prefix = "",
+    -- prefix = "",
     format = function(diag)
+      local msg = ""
       if diag.severity == vim.diagnostic.severity.ERROR or diag.severity == vim.diagnostic.severity.WARN then
-        return string.format("%s / %s", diag.message, diag.source)
+        msg = string.format("%s / %s", diag.message, diag.source)
+        if diag.code then
+          msg = string.format("%s[%s]", msg, diag.code)
+        end
+        return msg
       end
       return diag.message
     end

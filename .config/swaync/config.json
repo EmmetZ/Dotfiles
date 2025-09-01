@@ -1,18 +1,19 @@
 {
-  	"$schema": "/etc/xdg/swaync/configSchema.json",
-  	"positionX": "center",
-  	"positionY": "top",
-  	"layer": "overlay",
-  	"control-center-layer": "top",
-  	"layer-shell": true,
- 	"cssPriority": "application",
+    "$schema": "/etc/xdg/swaync/configSchema.json",
+    "positionX": "right",
+    "positionY": "top",
+    "layer": "overlay",
+    "ignore-gtk-theme": true,
+    "control-center-layer": "top",
+    "control-center-positionX": "center",
+    "layer-shell": true,
+    "cssPriority": "user",
     "control-center-margin-top": 5,
     "control-center-margin-bottom": 0,
     "control-center-margin-right": 0,
     "control-center-margin-left": 0,
-  	"notification-2fa-action": true,
-  	"notification-inline-replies": false,
-    "notification-icon-size": 24,
+    "notification-2fa-action": true,
+    "notification-inline-replies": false,
     "notification-body-image-height": 100,
     "notification-body-image-width": 200,
     "timeout": 6,
@@ -23,19 +24,22 @@
     "control-center-height": 720,
     "notification-window-width": 400,
     "keyboard-shortcuts": true,
-    "image-visibility": "when available",
+    "image-visibility": "when-available",
     "transition-time": 200,
     "hide-on-clear": false,
     "hide-on-action": true,
     "script-fail-notify": true,
     "widgets": [
-       	"dnd",
+        "dnd",
         "buttons-grid",
         "mpris",
         "title",
         "notifications"
     ],
     "widget-config": {
+        "notifications": {
+            "vexpand": false
+        },
         "title": {
             "text": "Notifications",
             "clear-all-button": true,
@@ -57,8 +61,8 @@
             "show-per-app": true,
             "show-per-app-icon": false,
             "show-per-app-label": true,
-			"expand-button-label": "",
-		    "collapse-button-label": ""
+            "expand-button-label": "",
+            "collapse-button-label": ""
         },
         "backlight": {
             "label": "󰃟"
@@ -72,10 +76,6 @@
                 {
                     "label": "󰌾",
                     "command": "bash -c $HOME/.config/hypr/scripts/LockScreen.sh"
-                },
-                {
-                    "label": "󰍃",
-                    "command": "hyprctl dispatch exit"
                 },
                 {
                     "label": "󰖩",

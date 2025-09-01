@@ -27,7 +27,7 @@ gui:
     '*': '#eed49f'
   showBottomLine: false
   commandLogSize: 3
-  showCommandLog: true
+  showCommandLog: false
 
 notARepository: skip
 
@@ -41,3 +41,6 @@ keybinding:
     popStash: <c-g>
 git:
   autoFetch: false
+  paging:
+    colorArg: always
+    pager: delta --config /home/baiyx/.config/lazygit/delta-config

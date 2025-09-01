@@ -6,6 +6,7 @@ editor=${EDITOR:-nano}
 tty=kitty
 
 configs="$HOME/.config/hypr/configs"
+root="$HOME/.config/hypr"
 
 menu(){
   printf "1. edit Default-Settings\n"
@@ -17,6 +18,7 @@ menu(){
   printf "7. edit Env-variables\n"
   printf "8. edit Workspace-Rules\n"
   printf "9. edit Plugins\n"
+  printf "10. edit hyprland.conf\n"
 }
 
 main() {
@@ -48,6 +50,9 @@ main() {
             ;;
         9)
             $tty $editor "$configs/plugins.conf"
+            ;;
+        10)
+            $tty $editor "$root/hyprland.conf"
             ;;
         *)
             ;;

@@ -42,6 +42,10 @@ change_backlight() {
 		new_brightness=$((current_brightness + step))
 	elif [[ "$1" == "${step}%-" ]]; then
 		new_brightness=$((current_brightness - step))
+    elif [[ "$1" == "+1%" ]]; then
+        new_brightness=$((current_brightness + 1))
+    elif [[ "$1" == "1%-" ]]; then
+        new_brightness=$((current_brightness - 1))
 	fi
 
 	# Ensure new brightness is within valid range
@@ -68,6 +72,12 @@ case "$1" in
 	"--dec")
 		change_backlight "${step}%-"
 		;;
+    "--inc1")
+        change_backlight "+1%"
+        ;;
+    "--dec1")
+        change_backlight "1%-"
+        ;;
 	*)
 		get_backlight
 		;;

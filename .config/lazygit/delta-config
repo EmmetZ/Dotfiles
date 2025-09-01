@@ -1,0 +1,14 @@
+[include]
+    path = /home/baiyx/.config/delta/catppuccin.gitconfig
+
+[delta]
+    features = catppuccin-macchiato
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    line-numbers = true
+    paging = never
+    hunk-header-decoration-style = ul
+    hunk-header-style = "line-number syntax"
+
+[merge]
+    conflictstyle = zdiff3

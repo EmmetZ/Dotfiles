@@ -20,21 +20,24 @@ echo $cache_file
 # Check if the cache file exists for the current monitor output
 if [ -f "$cache_file" ]; then
     # Get the wallpaper path from the cache file
-    wallpaper_path=$(cat "$cache_file")
-    # wallpaper_path=$(grep -v 'Lanczos3' "$cache_file" | head -n 1)
+    wallpaper_path=$(grep -v 'Lanczos3' "$cache_file" | head -n 1)
     echo $wallpaper_path
     # symlink the wallpaper to the location Rofi can access
-    if ln -sf "$wallpaper_path" "$HOME/.config/rofi/.current_wallpaper"; then
-        ln_success=true  # Set the flag to true upon successful execution
-    fi
+    # if ln -sf "$wallpaper_path" "$HOME/.config/rofi/.current_wallpaper"; then
+        # ln_success=true  # Set the flag to true upon successful execution
+    # fi
     # copy the wallpaper for wallpaper effects
 	# cp -r "$wallpaper_path" "$HOME/.config/hypr/wallpaper_effects/.wallpaper_current"
 fi
 
 # Check the flag before executing further commands
-if [ "$ln_success" = true ]; then
-    # execute wallust
-	echo 'about to execute wallust'
-    # execute wallust skipping tty and terminal changes
-    wallust run "$wallpaper_path" -s &
-fi
+
+echo 'about to execute wallust'
+# execute wallust skipping tty and terminal changes
+wallust run "$wallpaper_path" -s &
+# if [ "$ln_success" = true ]; then
+#     # execute wallust
+# 	echo 'about to execute wallust'
+#     # execute wallust skipping tty and terminal changes
+#     wallust run "$wallpaper_path" -s &
+# fi

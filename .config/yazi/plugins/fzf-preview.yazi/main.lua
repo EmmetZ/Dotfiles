@@ -9,7 +9,7 @@ local state = ya.sync(function()
 end)
 
 function M:entry()
-  ya.mgr_emit("escape", { visual = true })
+  ya.emit("escape", { visual = true })
 
   local _permit = ya.hide()
   local cwd, selected = state()
@@ -31,7 +31,7 @@ end
 
 function M.run_with(cwd, selected)
   local child, err = Command("fzf")
-      :args({ "-m",
+      :arg({ "-m",
         "--preview",
         "if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi",
         "--preview-window",

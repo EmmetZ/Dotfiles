@@ -3,10 +3,19 @@
 
 @import "~/.config/rofi/config.rasi" 
 
+configuration {
+    matching: "fuzzy";
+}
+
+mainbox {
+  children:
+    [ "inputbar", "message", "listview"];
+}
+
 /* ---- Entry ---- */
 entry {
   width: 37%;
-  placeholder: "📋 Search Clipboard **note** 👀 CTRL Del - Cliphist del or Alt Del - cliphist wipe";
+  placeholder: "📋 Search Clipboard";
 }
 
 /* ---- Listview ---- */

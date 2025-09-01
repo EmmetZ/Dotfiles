@@ -57,7 +57,7 @@ end
 
 function M.list_meta(url, entries)
 	local output, err =
-		Command("ffprobe"):args({ "-v", "quiet", "-show_entries", entries, "-of", "json=c=1", tostring(url) }):output()
+		Command("ffprobe"):arg({ "-v", "quiet", "-show_entries", entries, "-of", "json=c=1", tostring(url) }):output()
 	if not output then
 		return nil, Err("Failed to start `ffprobe`, error: " .. err)
 	end

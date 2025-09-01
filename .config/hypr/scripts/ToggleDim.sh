@@ -8,10 +8,10 @@ HYPRDIM=$(hyprctl getoption decoration:dim_inactive | awk 'NR==1{print $2}')
 
 if [ "$HYPRDIM" = 1 ] ; then
     hyprctl keyword decoration:dim_inactive 0
-    notify-send -u low -i "$notif" "dim disabled"
+    notify-send -e -u low -i "$notif" "dim disabled"
     exit
 else
     hyprctl keyword decoration:dim_inactive 1
-    notify-send -u low -i "$notif" "dim enabled"
+    notify-send -e -u low -i "$notif" "dim enabled"
 fi
 hyprctl reload
