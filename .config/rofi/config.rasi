@@ -16,15 +16,17 @@ configuration {
     font: "SauceCodePro Nerd Font SemiBold 15";
 }
 
-* {
-    background:     #303446FF;
-    background-alt: #414559FF;
-    foreground:     #C6D0F5FF;
-    selected:       #8CAAEEFF;
-    active:         #A6D189FF;
-    URGENT:         #E78284FF;
-    hint:           #9399b2FF;
-}
+@import "~/.config/rofi/colors.rasi"
+
+// * {
+//     background:     #303446FF;
+//     background-alt: #414559FF;
+//     foreground:     #C6D0F5FF;
+//     selected:       #8CAAEEFF;
+//     active:         #A6D189FF;
+//     URGENT:         #E78284FF;
+//     hint:           #9399b2FF;
+// }
 
 /*****----- Global Properties -----*****/
 

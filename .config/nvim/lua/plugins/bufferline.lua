@@ -40,7 +40,7 @@ return {
   config = function(_, opts)
     -- add catppuccin highlights
     require("bufferline").setup(vim.tbl_deep_extend("force", opts, {
-      highlights = require("catppuccin.groups.integrations.bufferline").get(),
+      highlights = require("catppuccin.special.bufferline").get_theme(),
     }))
     require("bufferline.groups").builtin.pinned:with({ icon = "󰐃 " })
     -- Fix bufferline when restoring a session

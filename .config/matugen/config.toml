@@ -1,0 +1,23 @@
+[config]
+version_check = false
+
+[templates.hyprland]
+input_path = '~/.config/matugen/templates/hypr-colors.conf'
+output_path = '~/.config/hypr/colors.conf'
+
+[templates.quickshell]
+input_path = '~/.config/matugen/templates/colors.json'
+output_path = '~/.config/quickshell/colors.json'
+
+[templates.rofi]
+input_path = '~/.config/matugen/templates/colors.rasi'
+output_path = '~/.config/rofi/colors.rasi'
+
+# [templates.wallpaper]
+# input_path = '~/.config/matugen/templates/wallpaper.txt'
+# output_path = '~/.local/state/quickshell/user/wallpaper.txt'
+
+# [templates.m3colors]
+# input_path = '~/.config/matugen/templates/colors.json'
+# output_path = '~/.local/state/matugen/colors.json'
+

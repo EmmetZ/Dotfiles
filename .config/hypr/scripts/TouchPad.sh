@@ -5,19 +5,17 @@
 # use hyprctl devices to get your system touchpad device name
 # source https://github.com/hyprwm/Hyprland/discussions/4283?sort=new#discussioncomment-8648109
 
-notif="$HOME/.config/swaync/images/bell.png"
-
 export STATUS_FILE="$XDG_RUNTIME_DIR/touchpad.status"
 
 enable_touchpad() {
     printf "true" >"$STATUS_FILE"
-    notify-send -u low -i $notif  "Disable touchpad"
+    notify-send -u low "Disable touchpad"
     hyprctl keyword '$TOUCHPAD_ENABLED' "true" -r
 }
 
 disable_touchpad() {
     printf "false" >"$STATUS_FILE"
-    notify-send -u low -i $notif "Enable touchpad"
+    notify-send -u low "Enable touchpad"
     hyprctl keyword '$TOUCHPAD_ENABLED' "false" -r
 }
 

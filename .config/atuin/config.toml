@@ -119,11 +119,10 @@ history_filter = [
   "^/",
   "^uv run",
   "^chmod",
-  "^gemini",
   "^ccr",
   "^dnf history info",
   "(--)?help",
-  "^k?ssh",
+  "^k?ssh ",
   "^make",
 ]
 
@@ -134,7 +133,6 @@ history_filter = [
 ## https://docs.rs/regex/latest/regex/#syntax
 cwd_filter = [
   # "^/very/secret/area",
-  "Code/Hyprspace",
 ]
 
 ## Configure the maximum height of the preview to show.
@@ -191,6 +189,8 @@ enter_accept = true
 ## Set this to true and Atuin will minimize motion in the UI - timers will not update live, etc.
 ## Alternatively, set env NO_MOTION=true
 # prefers_reduced_motion = false
+
+show_numeric_shortcuts = false
 
 [stats]
 ## Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl

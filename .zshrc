@@ -89,7 +89,6 @@ HISTSIZE=SAVEHIST=0
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
-alias e=exit
 alias nv=nvim
 alias clr="precmd() { precmd() { echo } } && printf '\033[2J\033[3J\033[1;1H'"
 
@@ -277,3 +276,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# typst
+eval "$(typst completions zsh)"
+
+# rustup and cargo
+eval "$(rustup completions zsh)"

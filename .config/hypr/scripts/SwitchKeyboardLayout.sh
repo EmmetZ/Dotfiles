@@ -4,7 +4,6 @@
 
 layout_f="$HOME/.cache/kb_layout"
 settings_file="$HOME/.config/hypr/UserConfigs/UserSettings.conf"
-notif="$HOME/.config/swaync/images/bell.png"
 
 echo "Starting script..."
 
@@ -84,7 +83,7 @@ if ! change_layout; then
     exit 1
 else
     # Notification for the new keyboard layout
-    notify-send -u low -i "$notif" "new KB_Layout: $new_layout"
+    notify-send -u low "new KB_Layout: $new_layout"
     echo "Layout change notification sent."
 fi
 

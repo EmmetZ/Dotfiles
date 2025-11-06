@@ -2,9 +2,8 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Screenshots scripts
 
-iDIR="$HOME/.config/swaync/icons"
 sDIR="$HOME/.config/hypr/scripts"
-notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ${iDIR}/picture.png"
+notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low"
 
 time=$(date "+%y-%m-%d_%H-%M-%S")
 dir="$(xdg-user-dir)/Pictures/Screenshots"
@@ -15,12 +14,29 @@ active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
 active_window_file="Screenshot_${time}_${active_window_class}.png"
 active_window_path="${dir}/${active_window_file}"
 
+notify_action() {
+    action=$(${notify_cmd_shot} "$1" "$3" --action="view=󰋫" --action="edit=󱇣" --action="delete=󰩹")
+    case $action in
+        view)
+            xdg-open "$2" >/dev/null 2>&1 &
+            ;;
+        edit)
+            # swappy "$2" >/dev/null 2>&1 &
+            satty -f - < "$2"
+            ;;
+        delete)
+            rm "$2"
+            ;;
+    esac
+}
+
 # notify and view screenshot
 notify_view() {
     if [[ "$1" == "active" ]]; then
         if [[ -e "${active_window_path}" ]]; then
-            ${notify_cmd_shot} "Screenshot of '${active_window_class}' Saved."
+            # ${notify_cmd_shot} "Screenshot of '${active_window_class}' Saved."
             "${sDIR}/Sounds.sh" --screenshot
+            notify_action "Screenshot of '${active_window_class}' Saved." "${active_window_path}" "${active_window_file}"
         else
             ${notify_cmd_shot} "Screenshot of '${active_window_class}' not Saved"
             "${sDIR}/Sounds.sh" --error
@@ -30,10 +46,10 @@ notify_view() {
     else
         local check_file="$dir/$file"
         if [[ -e "$check_file" ]]; then
-            ${notify_cmd_shot} "Screenshot Saved."
             "${sDIR}/Sounds.sh" --screenshot
+            notify_action "Screenshot Saved." "$check_file" "$file"
         else
-            ${notify_cmd_shot} "Screenshot NOT Saved."
+            ${notify_cmd_shot} -e "Screenshot NOT Saved."
             "${sDIR}/Sounds.sh" --error
         fi
     fi
@@ -44,7 +60,7 @@ notify_view() {
 # countdown
 countdown() {
 	for sec in $(seq $1 -1 1); do
-		notify-send -h string:x-canonical-private-synchronous:shot-notify -t 1000 -i "$iDIR"/timer.png "Taking shot in : $sec"
+		notify-send -h string:x-canonical-private-synchronous:shot-notify -t 1000 "Taking shot in : $sec"
 		sleep 1
 	done
 }
@@ -52,7 +68,7 @@ countdown() {
 # take shots
 shotnow() {
 	cd ${dir} && grim - | tee "$file" | wl-copy
-	sleep 0.5
+	# sleep 0.5
 	# sleep 2
 	notify_view
 }
@@ -81,7 +97,7 @@ shotwin() {
 shotarea() {
 	tmpfile=$(mktemp)
     area=$(slurp)
-    sleep 0.3
+    # sleep 0.3
 	grim -g "$area" - >"$tmpfile"
 	if [[ -s "$tmpfile" ]]; then
 		wl-copy <"$tmpfile"
@@ -98,18 +114,17 @@ shotactive() {
 
     hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - "${active_window_path}"
     wl-copy < "${active_window_path}"
-	# sleep 1
-	sleep 0.5
+	# sleep 0.5
     notify_view "active"  
 }
 
 shotedit() {
 	tmpfile=$(mktemp)
     area=$(slurp)
-    sleep 0.3
+    # sleep 0.3
 	grim -g "$area" - >"$tmpfile" && "${sDIR}/Sounds.sh" --screenshot && notify_view "edit"
 	# swappy -f - <"$tmpfile"
-	satty -f - <"$tmpfile"
+	satty -f - < "$tmpfile"
 	rm "$tmpfile"
 }
 

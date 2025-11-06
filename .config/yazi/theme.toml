@@ -807,6 +807,7 @@ exts = [
   { name = "list", text = "󰉹", fg = "#cad3f5" },
   { name = "mat", text = "", fg = "#eed49f" },
   { name = "drawio", text = "󰗀", fg = "#f5a97f" },
+  { name = "pt", text = "", fg = "#f4511e" },
 ]
 
 append_globs = [

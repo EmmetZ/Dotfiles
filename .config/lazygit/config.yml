@@ -19,18 +19,14 @@ gui:
       - '#cad3f5'
     searchingActiveBorderColor:
       - '#eed49f'
-
   nerdFontsVersion: '3'
   showFileIcons: true
-
   authorColors:
     '*': '#eed49f'
   showBottomLine: false
   commandLogSize: 3
   showCommandLog: false
-
 notARepository: skip
-
 keybinding:
   universal:
     gotoTop: g
@@ -41,6 +37,6 @@ keybinding:
     popStash: <c-g>
 git:
   autoFetch: false
-  paging:
-    colorArg: always
-    pager: delta --config /home/baiyx/.config/lazygit/delta-config
+  pagers:
+    - colorArg: always
+      pager: delta --config /home/baiyx/.config/lazygit/delta-config

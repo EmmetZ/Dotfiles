@@ -5,6 +5,7 @@
 # WALLPAPERS PATH
 wallDIR="$HOME/Pictures/wallpapers"
 SCRIPTSDIR="$HOME/.config/hypr/scripts"
+quickshellWall="$HOME/.local/state/quickshell/user/wallpaper.txt"
 
 # variables
 focused_monitor=$(hyprctl monitors | awk '/^Monitor/{name=$2} /focused: yes/{print name}')
@@ -67,14 +68,10 @@ main() {
   fi
 
   # Random choice case
-  if [[ "$choice" == "$RANDOM_PIC_NAME" ]]; then
-	swww img -o "$focused_monitor" "$RANDOM_PIC" $SWWW_PARAMS;
-    sleep 2
-    "$SCRIPTSDIR/WallustSwww.sh"
-    sleep 0.5
-    "$SCRIPTSDIR/Refresh.sh"
-    exit 0
-  fi
+  # if [[ "$choice" == "$RANDOM_PIC_NAME" ]]; then
+  #   swww img -o "$focused_monitor" "$RANDOM_PIC" $SWWW_PARAMS;
+  #   exit 0
+  # fi
 
   # Find the index of the selected file
   pic_index=-1
@@ -88,6 +85,7 @@ main() {
 
   if [[ $pic_index -ne -1 ]]; then
     swww img -o "$focused_monitor" "${PICS[$pic_index]}" $SWWW_PARAMS
+    echo "${PICS[$pic_index]}" > "$quickshellWall"
   else
     echo "Image not found."
     exit 1
@@ -103,9 +101,5 @@ main
 
 wait $!
 sleep 0.5
-"$SCRIPTSDIR/WallustSwww.sh" &&
-
-wait $!
-sleep 2
-"$SCRIPTSDIR/Refresh.sh"
+qs ipc call appearance reloadTheme
 

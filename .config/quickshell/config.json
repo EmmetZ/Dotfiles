@@ -1,0 +1,139 @@
+{
+    "appearance": {
+        "extraBackgroundTint": true,
+        "palette": "scheme-rainbow",
+        "transparency": {
+            "automatic": true,
+            "backgroundTransparency": 0.11,
+            "contentTransparency": 0,
+            "enable": true
+        }
+    },
+    "apps": {
+        "bluetooth": "blueman-manager",
+        "network": "kcmshell6 kcm_networkmanagement",
+        "taskManager": "plasma-systemmonitor --page-name Processes",
+        "terminal": "kitty -1"
+    },
+    "audio": {
+        "notifySound": "/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
+        "protection": {
+            "enable": true,
+            "maxAllowed": 101,
+            "maxAllowedIncrease": 10
+        }
+    },
+    "bar": {
+        "autoHide": {
+            "enable": false,
+            "pushWindows": true,
+            "showWhenPressingSuper": {
+                "delay": 600,
+                "enable": false
+            }
+        },
+        "bottom": false,
+        "m3theme": false,
+        "screenList": [
+        ],
+        "tray": {
+            "invertPinnedItems": false,
+            "monochromeIcons": true,
+            "pinnedItems": [
+                "wechat",
+                "Fcitx"
+            ]
+        },
+        "vertical": false,
+        "weather": {
+            "city": "",
+            "enableGPS": false,
+            "fetchInterval": 10,
+            "useUSCS": false
+        },
+        "workspaces": {
+            "alwaysShowNumbers": false,
+            "defaultNum": 5,
+            "monochromeIcons": true,
+            "numberMap": [
+                "1",
+                "2"
+            ],
+            "showAppIcons": false,
+            "showNumberDelay": 300,
+            "showNumberOnOccupiedOnly": true,
+            "shown": 10
+        }
+    },
+    "battery": {
+        "automaticSuspend": true,
+        "critical": 10,
+        "low": 20,
+        "suspend": 5
+    },
+    "controlCenter": {
+        "keepControlCenterLoaded": true
+    },
+    "hacks": {
+        "arbitraryRaceConditionDelay": 20
+    },
+    "hyprsunset": {
+        "automatic": false,
+        "colorTemperature": 5000,
+        "from": "23:00",
+        "to": "06:30"
+    },
+    "interactions": {
+        "scrolling": {
+            "fasterTouchpadScroll": true,
+            "mouseScrollDeltaThreshold": 120,
+            "mouseScrollFactor": 120,
+            "touchpadScrollFactor": 450
+        }
+    },
+    "media": {
+        "enableMediaControls": true
+    },
+    "osd": {
+        "bottom": true,
+        "timeout": 2000
+    },
+    "overview": {
+        "enable": true,
+        "columns": 5,
+        "position": 1,
+        "rows": 2,
+        "scale": 0.15,
+        "showWallpaper": false,
+        "workspaceNumberSize": 220
+    },
+    "resources": {
+        "updateInterval": 3000
+    },
+    "time": {
+        "dateFormat": "ddd, dd/MM",
+        "format": "hh:mm",
+        "pomodoro": {
+            "alertSound": "",
+            "breakTime": 300,
+            "cyclesBeforeLongBreak": 4,
+            "focus": 1500,
+            "longBreak": 900
+        },
+        "shortDateFormat": "dd/MM"
+    },
+    "timeMenu": {
+        "keepControlCenterLoaded": true
+    },
+    "tuned": {
+        "defaultProfile": "balanced-battery",
+        "profiles": [
+            "powersave",
+            "balanced-battery",
+            "throughput-performance"
+        ]
+    },
+    "notifications" :{
+        "timeout": 5000
+    }
+}
