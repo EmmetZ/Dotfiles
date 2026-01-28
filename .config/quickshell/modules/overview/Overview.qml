@@ -2,6 +2,7 @@ import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
+import Qt.labs.synchronizer
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -12,12 +13,14 @@ import Quickshell.Hyprland
 
 Scope {
     id: overviewScope
+    property bool dontAutoCancelSearch: false
     Variants {
         id: overviewVariants
         model: Quickshell.screens
         PanelWindow {
             id: root
             required property var modelData
+            property string searchingText: ""
             readonly property HyprlandMonitor monitor: Hyprland.monitorFor(root.screen)
             property bool monitorIsFocused: (Hyprland.focusedMonitor?.id == monitor?.id)
             screen: modelData
@@ -31,9 +34,6 @@ Scope {
             mask: Region {
                 item: GlobalStates.overviewOpen ? columnLayout : null
             }
-            // HyprlandWindow.visibleMask: Region { // Buggy with scaled monitors
-            //     item: GlobalStates.overviewOpen ? columnLayout : null
-            // }
 
             anchors {
                 top: true
@@ -56,7 +56,10 @@ Scope {
             Connections {
                 target: GlobalStates
                 function onOverviewOpenChanged() {
-                    if (GlobalStates.overviewOpen) {
+                    if (!GlobalStates.overviewOpen) {
+                        // searchWidget.disableExpandAnimation();
+                        overviewScope.dontAutoCancelSearch = false;
+                    } else {
                         delayedGrabTimer.start();
                     }
                 }
@@ -76,35 +79,36 @@ Scope {
             implicitWidth: columnLayout.implicitWidth
             implicitHeight: columnLayout.implicitHeight
 
-            ColumnLayout {
+            Column {
                 id: columnLayout
-                focus: root
                 visible: GlobalStates.overviewOpen
                 anchors {
-                    // horizontalCenter: parent.horizontalCenter
-                    // top: parent.top
                     horizontalCenter: parent.horizontalCenter
                     top: Config.options.overview.position === 0 ? parent.top : undefined
                     verticalCenter: Config.options.overview.position === 1 ? parent.verticalCenter : undefined
                     bottom: Config.options.overview.position === 2 ? parent.bottom : undefined
                 }
+                spacing: -8
 
                 Keys.onPressed: event => {
                     if (event.key === Qt.Key_Escape) {
                         GlobalStates.overviewOpen = false;
                     } else if (event.key === Qt.Key_Left) {
-                        Hyprland.dispatch("workspace r-1");
+                        if (!root.searchingText)
+                            Hyprland.dispatch("workspace r-1");
                     } else if (event.key === Qt.Key_Right) {
-                        Hyprland.dispatch("workspace r+1");
+                        if (!root.searchingText)
+                            Hyprland.dispatch("workspace r+1");
                     }
                 }
 
                 Loader {
                     id: overviewLoader
-                    active: GlobalStates.overviewOpen
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    active: GlobalStates.overviewOpen && (Config?.options.overview.enable ?? true)
                     sourceComponent: OverviewWidget {
                         panelWindow: root
-                        visible: true
+                        visible: (root.searchingText == "")
                     }
                 }
             }
@@ -137,19 +141,19 @@ Scope {
         }
     }
     GlobalShortcut {
-        name: "overviewClose"
-        description: "Closes overview"
-
-        onPressed: {
-            GlobalStates.overviewOpen = false;
-        }
-    }
-    GlobalShortcut {
         name: "overviewOpen"
         description: "Open overview"
 
         onPressed: {
             GlobalStates.overviewOpen = true;
+        }
+    }
+    GlobalShortcut {
+        name: "overviewClose"
+        description: "Closes overview"
+
+        onPressed: {
+            GlobalStates.overviewOpen = false;
         }
     }
     GlobalShortcut {

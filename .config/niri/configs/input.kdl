@@ -1,0 +1,30 @@
+// Input device configuration.
+// Find the full list of options on the wiki:
+// https://yalter.github.io/niri/Configuration:-Input
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+
+        numlock
+        repeat-rate 50
+        repeat-delay 300
+    }
+
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        scroll-factor 0.5
+        tap-button-map "left-right-middle"
+    }
+    // Uncomment this to make the mouse warp to the center of newly focused windows.
+    // warp-mouse-to-focus
+
+    // Focus windows and outputs automatically when moving the mouse into them.
+    // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
+    workspace-auto-back-and-forth
+    focus-follows-mouse max-scroll-amount="0%"
+}
+

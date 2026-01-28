@@ -21,7 +21,6 @@ return {
             node_decremental = "<bs>",
           },
         },
-        ensure_installed = { "lua", "bash", "regex", "markdown", "typst", "c" },
       })
     end,
   },

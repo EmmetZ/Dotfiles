@@ -1,0 +1,79 @@
+spawn-sh-at-startup "qs -c noctalia-shell -d"
+spawn-at-startup "fcitx5"
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
+spawn-sh-at-startup "sh ~/.config/hypr/scripts/Polkit.sh"
+spawn-sh-at-startup "swww-daemon"
+spawn-sh-at-startup "swww-daemon -n overview"
+// spawn-sh-at-startup "pkill hypridle; hypridle -c ~/.config/niri/hypridle.conf"
+
+spawn-sh-at-startup "gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Ice'"
+spawn-sh-at-startup "gsettings set org.gnome.desktop.interface cursor-size '20'"
+spawn-sh-at-startup "xsetroot -xcf ~/.icons/Bibata-Modern-Ice/cursors/left_ptr 20"
+// proxy
+spawn-at-startup "mihomo-party"
+
+prefer-no-csd
+
+environment {
+    QT_QPA_PLATFORMTHEME "qt6ct"   
+    // XDG_CURRENT_DESKTOP "niri"
+    // XDG_SESSION_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+    MOZ_ENABLE_WAYLAND "1"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+
+    // input method settings
+    QT_IM_MODULE "fcitx"
+    XMODIFIERS "@im=fcitx"
+    SDL_IM_MODULE "fcitx"
+    GLFW_IM_MODULE "ibus"
+    INPUT_METHOD "fcitx"
+    EDITOR "nvim"
+}
+
+cursor {
+    xcursor-theme "Bibata-Modern-Ice"
+    xcursor-size 20
+}
+
+hotkey-overlay {
+    // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
+    skip-at-startup
+}
+
+overview {
+    backdrop-color "transparent"
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot_%y-%m-%d_%H-%M-%S.png"
+
+// You can also set this to null to disable saving screenshots to disk.
+// screenshot-path null
+
+// Animation settings.
+// The wiki explains how to configure individual animations:
+// https://yalter.github.io/niri/Configuration:-Animations
+animations {
+    // Uncomment to turn off all animations.
+    // off
+
+    // Slow down all animations by this factor. Values below 1 speed them up instead.
+    // slowdown 3.0
+}
+
+gestures {
+    hot-corners {
+        // off
+        // top-left
+        // top-right
+        // bottom-left
+        // bottom-right
+    }
+}
+
+recent-windows {
+    highlight {
+        corner-radius 10
+    }
+}

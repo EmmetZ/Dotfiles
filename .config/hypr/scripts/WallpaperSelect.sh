@@ -85,6 +85,11 @@ main() {
 
   if [[ $pic_index -ne -1 ]]; then
     swww img -o "$focused_monitor" "${PICS[$pic_index]}" $SWWW_PARAMS
+    qs -c noctalia-shell ipc call wallpaper set "${PICS[$pic_index]}" $focused_monitor
+    if [[ $focused_monitor =~ ^eDP ]]; then
+        matugen image "${PICS[$pic_index]}" --config "/home/baiyx/.cache/noctalia/matugen.dynamic.toml"
+        matugen image "${PICS[$pic_index]}"
+    fi
     echo "${PICS[$pic_index]}" > "$quickshellWall"
   else
     echo "Image not found."
@@ -101,5 +106,3 @@ main
 
 wait $!
 sleep 0.5
-qs ipc call appearance reloadTheme
-

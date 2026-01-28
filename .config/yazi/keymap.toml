@@ -9,7 +9,8 @@ prepend_keymap = [
     { on = "j", run = "arrow 1", desc = "Next file" },
     { on = "<Space>", run = [ "toggle", "arrow 1" ], desc = "Toggle the current selection state" },
     { on = "Q", run = "quit", desc = "Exit the process" },
-    { on = "q", run = "quit --no-cwd-file", desc = "Exit the process without writing cwd-file" },
+    { on = "q", run = "quit --no-cwd-file", desc = "Quit without outputting cwd-file" },
+    # { on = "q", run = "plugin confirm-quit", desc = "Quit without outputting cwd-file (confirm if multiple tabs exists)" },
     { on = "O", run = "open", desc = "Open selected files" },
     { on = "o", run = "open --interactive", desc = "Open selected files interactively" },
     { on = "l", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
@@ -30,8 +31,8 @@ append_keymap = [
     { on = "!", run = 'shell "$SHELL" --block --confirm', desc = "Open shell here" },
     { on = "<C-h>", run = "plugin toggle-pane min-preview", desc = "Show or hide the preview pane" },
     { on = "<C-m>", run = "plugin toggle-pane max-preview", desc = "Maximize or restore the preview pane" },
-    { on = ["c", "A"], run = "plugin compress", desc = "Archive selected files" },
-    { on = ["c", "a"], run = "plugin compress 'n'", desc = "Archive selected files with preset" },
+    { on = ["c", "a", "a"], run = "plugin compress", desc = "Archive selected files" },
+    { on = ["g", "r", "p"], run = "cd sftp://pimri", desc = "Go to pimri server" },
 ]
 
 [input]

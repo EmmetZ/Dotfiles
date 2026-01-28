@@ -1,0 +1,136 @@
+// Window rules let you adjust behavior for individual windows.
+// Find more information on the wiki:
+// https://yalter.github.io/niri/Configuration:-Window-Rules
+
+// Work around WezTerm's initial configure bug
+// by setting an empty default-column-width.
+window-rule {
+    geometry-corner-radius 10
+    clip-to-geometry true
+    draw-border-with-background false
+}
+window-rule {
+    match app-id="[Yy]esplaymusic|SPlayer"
+    open-floating true
+    default-column-width { proportion 0.7; }
+    default-window-height { proportion 0.7; }
+}
+
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"[Tt]hunar"#
+    open-floating true
+    default-column-width { proportion 0.7; }
+    default-window-height { proportion 0.7; }
+}
+
+window-rule {
+    match app-id=r#"^kitty"#
+    opacity 0.95
+}
+
+window-rule {
+    match app-id="wechat"
+    open-floating true
+}
+
+// window-rule {
+//     match app-id="code"
+//     opacity 0.95
+// }
+
+// window-rule {
+//     match app-id="wemeetapp"
+//     open-floating true
+// }
+
+window-rule {
+    match app-id="^mpv"
+    open-floating true
+    // default-column-width { proportion 0.65; }
+    // default-window-height { proportion 0.75; }
+}
+
+window-rule {
+    match app-id="org.qbittorrent.qBittorrent" title=r#"(.*)qBittorrent Enhanced Edition v(.*)"#
+    match app-id="org.qbittorrent.qBittorrent" title=r#"(.*)(mp[34]|avi|mkv|mov|wmv|flv|webm|m4[av]|wav|aac|ogg|flac)$"#
+    open-floating true
+    default-column-width { proportion 0.65; }
+    default-window-height { proportion 0.75; }
+}
+
+window-rule {
+    match title="^RustDesk.*"
+    default-column-width { proportion 0.5; }
+    // default-window-height { proportion 0.75; }
+}
+
+window-rule {
+    match app-id="rustdesk" title=r#"(.*)File Transfer - RustDesk"#
+    open-floating true
+    default-column-width { proportion 0.8; }
+    default-window-height { proportion 0.75; }
+}
+
+window-rule {
+    match app-id="org.gnome.Loupe"
+    open-floating true
+}
+
+window-rule {
+    match app-id="xdg-desktop-portal-gtk"
+    open-floating true
+}
+
+window-rule {
+    match app-id="estore"
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.gnome.Evince"
+    open-floating true
+    default-column-width { proportion 0.7; }
+    default-window-height { proportion 0.7; }
+}
+
+window-rule {
+    match app-id="firefox" title=r#"^(.*)水源社区(.*)"#
+    block-out-from "screencast"
+    // block-out-from "screen-capture"
+}
+
+// proxy
+window-rule {
+    match app-id="com.follow.clash" title="FlClash"
+    match app-id="mihomo-party" title="Clash Party" 
+    block-out-from "screencast"
+    open-floating true
+    default-column-width { proportion 0.7; }
+    default-window-height { proportion 0.7; }
+    // block-out-from "screen-capture"
+}
+
+// windowrule = no_screen_share on, match:title ^(.*)水源社区(.*)$
+// layerrule = no_screen_share on, match:namespace ^noctalia-notifications(.*)
+// layerrule = no_screen_share on, match:namespace ^noctalia-osd(.*)
+// Set the overview wallpaper on the backdrop.
+layer-rule {
+  // match namespace="^noctalia-overview*"
+  match namespace=r#"(.*)overview"#
+  place-within-backdrop true
+  opacity 0.5
+}
+
+layer-rule {
+  match namespace=r#"^noctalia-notifications(.*)"#
+  match namespace=r#"^noctalia-osd(.*)"#
+  block-out-from "screen-capture"
+}

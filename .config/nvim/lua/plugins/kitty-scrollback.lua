@@ -8,7 +8,7 @@ return {
     enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
   },
   {
-    "mikesmithgh/kitty-scrollback.nvim",
+    "EmmetZ/kitty-scrollback.nvim",
     enabled = true,
     lazy = true,
     cmd = {
@@ -19,12 +19,9 @@ return {
     event = { "User KittyScrollbackLaunch" },
     version = "*", -- latest stable version, may have breaking changes if major version changed
     -- version = '^6.0.0', -- pin major version, include fixes and features that do not have breaking changes
+    branch = "dev",
     config = function()
-      require("kitty-scrollback").setup({
-        {
-          close_after_yank = false,
-        },
-      })
+      require("kitty-scrollback").setup()
     end,
   },
 }

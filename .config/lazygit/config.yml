@@ -39,4 +39,4 @@ git:
   autoFetch: false
   pagers:
     - colorArg: always
-      pager: delta --config /home/baiyx/.config/lazygit/delta-config
+      pager: delta --config ~/.config/lazygit/delta-config

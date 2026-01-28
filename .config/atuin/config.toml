@@ -119,11 +119,17 @@ history_filter = [
   "^/",
   "^uv run",
   "^chmod",
+  "^qwen",
+  "^codex",
+  "^claude",
   "^ccr",
   "^dnf history info",
   "(--)?help",
-  "^k?ssh ",
+  "^k?ssh( .*)?",
   "^make",
+  "^bash",
+  "^go (run|get)",
+  "^nl",
 ]
 
 ## prevent commands run with cwd matching any of these regexes from being written

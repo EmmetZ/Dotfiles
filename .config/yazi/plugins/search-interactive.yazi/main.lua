@@ -3,7 +3,7 @@ local state = ya.sync(function() return cx.active.current.cwd end)
 local function fail(s, ...) ya.notify { title = "Skim", content = string.format(s, ...), timeout = 5, level = "error" } end
 
 local function entry()
-  local permit = ya.hide()
+  local permit = ui.hide()
   local cwd = tostring(state())
 
   local rg_prefix = "rg --column --line-number --no-heading --color=always --smart-case "

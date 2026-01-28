@@ -7,7 +7,7 @@ Singleton {
     id: root
     property bool overviewOpen: false
     property bool barOpen: true
-    property bool mediaControlsOpen: false
+    property bool mediaControlsOpen: true
     property bool muteNotifications: false
     property bool barTooltipOpen: false
     property bool osdVolumeOpen: false

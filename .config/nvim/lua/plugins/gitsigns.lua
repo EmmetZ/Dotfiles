@@ -31,7 +31,7 @@ return {
         if vim.wo.diff then
           vim.cmd.normal { ']g', bang = true }
         else
-          gitsigns.nav_hunk 'next'
+          gitsigns.nav_hunk('next')
         end
       end, { desc = 'Jump to next [g]it change' })
 
@@ -39,7 +39,7 @@ return {
         if vim.wo.diff then
           vim.cmd.normal { '[g', bang = true }
         else
-          gitsigns.nav_hunk 'prev'
+          gitsigns.nav_hunk('prev')
         end
       end, { desc = 'Jump to previous [g]it change' })
 
@@ -66,7 +66,6 @@ return {
       end, { desc = 'git [D]iff against last commit' })
       -- Toggles
       map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-      map('n', '<leader>gtD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
     end,
   },
 }

@@ -29,7 +29,7 @@ Singleton {
     }
 
     PwObjectTracker {
-        objects: [sink, source]
+        objects: Pipewire.nodes.values.filter(node => node.audio && !node.isStream)
     }
 
     Connections {

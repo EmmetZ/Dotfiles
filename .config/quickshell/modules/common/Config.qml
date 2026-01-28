@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import Quickshell.Io
+import Quickshell.Services.UPower
 
 Singleton {
     id: root
@@ -94,6 +95,7 @@ Singleton {
                 property real position: 1 // 0: top | 1: middle | 2: bottom
                 property real workspaceNumberSize: 120 // Set 0, dynamic calculation based on monitor size
                 property bool showWallpaper: false
+                property bool centerIcons: true
             }
 
             property JsonObject resources: JsonObject {
@@ -203,9 +205,12 @@ Singleton {
                     property int longBreak: 900
                 }
             }
-            property JsonObject tuned: JsonObject {
-                property list<string> profiles: ["powersave", "balanced-battery", "throughput-performance"]
-                property string defaultProfile: "balanced-battery"
+            property JsonObject power: JsonObject {
+                // tuned
+                // property list<string> profiles: ["powersave", "balanced-battery", "throughput-performance"]
+                // property string defaultProfile: "balanced-battery"
+                property string defaultProfile: PowerProfile.Balanced
+                property list<string> profiles: [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
             }
 
             property JsonObject hyprsunset: JsonObject {

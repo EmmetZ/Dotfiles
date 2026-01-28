@@ -60,7 +60,8 @@ Singleton {
             switch (distroId) {
                 case "arch": distroIcon = "󰣇"; break;
                 case "endeavouros": distroIcon = ""; break;
-                case "cachyos": distroIcon = "cachyos-symbolic"; break;
+                // case "cachyos": distroIcon = "cachyos-symbolic"; break;
+                case "cachyos": distroIcon = ""; break;
                 case "nixos": distroIcon = ""; break;
                 case "fedora": distroIcon = ""; break;
                 case "linuxmint":

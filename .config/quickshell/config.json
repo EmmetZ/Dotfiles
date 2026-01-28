@@ -125,14 +125,6 @@
     "timeMenu": {
         "keepControlCenterLoaded": true
     },
-    "tuned": {
-        "defaultProfile": "balanced-battery",
-        "profiles": [
-            "powersave",
-            "balanced-battery",
-            "throughput-performance"
-        ]
-    },
     "notifications" :{
         "timeout": 5000
     }

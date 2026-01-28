@@ -33,3 +33,26 @@ Status:children_add(function()
 		})
 	end
 end, 500, Status.RIGHT)
+
+-- disable rounded indicator
+-- function Entity:padding() return " " end
+-- function Linemode:padding() return " " end
+
+-- sort files/folders by create time in Downloads folder
+require("folder-rules"):setup()
+
+-- show birth time in Downloads folder
+function Linemode:custom()
+	local cwd = cx.active.current.cwd
+	local time = math.floor(self._file.cha.btime or 0)
+	if cwd:ends_with("Downloads") then
+    if time == 0 then
+      return ""
+    elseif os.date("%Y", time) == os.date("%Y") then
+      return os.date("%m/%d %H:%M", time)
+    else
+      return os.date("%m/%d  %Y", time)
+    end
+  end
+  return ""
+end

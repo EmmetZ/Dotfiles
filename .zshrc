@@ -1,6 +1,3 @@
-export EDITOR=nvim
-export XDG_CONFIG_HOME="$HOME/.config"
-
 # fix keybind issue
 bindkey -e
 bindkey "^[[1;5C" forward-word
@@ -51,8 +48,8 @@ bindkey -M vicmd 'L' vi-end-of-line
 autoload -Uz compinit
 compinit
 
-source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 source $XDG_CONFIG_HOME/catppuccin_macchiato-zsh-syntax-highlighting.zsh
@@ -91,12 +88,6 @@ HISTSIZE=SAVEHIST=0
 
 alias nv=nvim
 alias clr="precmd() { precmd() { echo } } && printf '\033[2J\033[3J\033[1;1H'"
-
-code() {
-	command code "$@" --enable-wayland-ime
-	# command code --force-device-scale-factor=1.6 "$@" --enable-wayland-ime --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing
-    # command code "$@" --enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime
-}
 
 alias kssh="kitten ssh"
 
@@ -185,6 +176,7 @@ _fzf_comprun() {
 alias ls="eza --color=always --icons=always"
 alias lt="eza -T --color=always --icons=always"
 alias l="eza --color=always --icons=always -a -l"
+alias ll="eza --color=always --icons=always -l"
 
 # yazi
 function y() {
@@ -234,15 +226,6 @@ sjtuvpnoff() {
 # uv
 eval "$(uv generate-shell-completion zsh)"
 export UV_PYTHON_INSTALL_BIN=0
-# Fix completions for uv run to autocomplete .py files
-_uv_run_mod() {
-    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
-        _arguments '*:filename:_files -g "*.py"'
-    else
-        _uv "$@"
-    fi
-}
-compdef _uv_run_mod uv
 
 # podman
 alias docker=podman
@@ -278,7 +261,33 @@ esac
 # pnpm end
 
 # typst
-eval "$(typst completions zsh)"
+# eval "$(typst completions zsh)"
 
 # rustup and cargo
 eval "$(rustup completions zsh)"
+
+# niri
+# eval "$(niri completions zsh)"
+
+# codex
+eval "$(codex completion zsh)"
+
+# open buffer line in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^Xe' edit-command-line
+
+# copy command
+copy-command() {
+    echo -n $BUFFER | wl-copy
+    zle -M "Copied to clipboard"
+}
+zle -N copy-command
+bindkey '^Xc' copy-command
+
+# ants
+export PATH="$HOME/.local/share/ants/bin:$PATH"
+
+function sf() {
+    source "$HOME/.local/share/freesurfer/sources.zsh"
+}

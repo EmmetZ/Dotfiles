@@ -8,62 +8,64 @@ sort_by = "natural"
 
 [opener]
 edit = [
-	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code "$@" --enable-wayland-ime --disable-gpu', orphan = true, desc = "VSCode", for = "unix" },
-	{ run = 'kitty --hold sh -c "$EDITOR $@"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
+	{ run = "${EDITOR:-vi} %s", desc = "$EDITOR", block = true, for = "unix" },
+	{ run = "code %s", orphan = true, desc = "VSCode", for = "unix" },
+	{ run = 'kitty --hold sh -c "$EDITOR %s"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
 	# { run = 'gnome-text-editor "$@"', desc = "gnome text editor", orphan = true, for = "unix" },
 ]
 open = [
-	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
+	{ run = "xdg-open %s1", orphan = true, desc = "Open", for = "linux" },
 ]
 open_folder = [
-	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code "$@" --enable-wayland-ime --disable-gpu', orphan = true, desc = "VSCode", for = "unix" },
-	{ run = 'kitty --hold sh -c "$EDITOR $@"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
-	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
+	{ run = "${EDITOR:-vi} %s", desc = "$EDITOR", block = true, for = "unix" },
+	{ run = "code %s", orphan = true, desc = "VSCode", for = "unix" },
+	{ run = 'kitty --hold sh -c "$EDITOR %s"', desc = "$EDITOR in a new window", orphan = true, for = "unix" },
+	{ run = "xdg-open %s1", orphan = true, desc = "Open", for = "linux" },
 ]
 reveal = [
-	{ run = 'xdg-open "$(dirname "$1")"', orphan = true, desc = "Reveal", for = "linux" },
+	{ run = 'xdg-open "$(dirname %s1)"', orphan = true, desc = "Reveal", for = "linux" },
 	# { run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
-	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
-	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
+	{ run = "ya pub extract --list %s", desc = "Extract here", for = "unix" },
 ]
 extract_rar = [
-    { run = 'unrar x "$1"', desc = "Extract here", for = "unix" },
+    { run = "unrar x %s", desc = "Extract here", for = "unix" },
 ]
 play_audio = [
-	# { run = 'g4music "$@"', orphan = true, for = "unix" },
-	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-	{ run = 'ffprobe -hide_banner -show_format -pretty "$1" 2>&1 | less', block = true, desc = "Show media info", for = "unix" },
+	{ run = "mpv --force-window %s", orphan = true, for = "unix" },
+	{ run = "ffprobe -hide_banner -show_format -pretty %s1 2>&1 | less", block = true, desc = "Show media info", for = "unix" },
 ]
 play_video = [
-	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-	{ run = 'ffprobe -hide_banner -show_format -pretty "$1" 2>&1 | less', block = true, desc = "Show media info", for = "unix" },
+	{ run = "mpv --force-window %s", orphan = true, for = "unix" },
+	{ run = "ffprobe -hide_banner -show_format -pretty %s1 2>&1 | less", block = true, desc = "Show media info", for = "unix" },
 ]
 show_image = [
-    { run = '''kitten icat --hold "$1"; kitten icat --clear && clear''', block = true, desc = "kitten icat", for = "unix" },
+    { run = '''kitten icat --hold %s1; kitten icat --clear && clear''', block = true, desc = "kitten icat", for = "unix" },
 ]
 edit_image = [
-    { run = 'GTK_IM_MODULE=fcitx5 satty -f "$1"', orphan = true, desc = "Edit image", for = "unix" },
+    { run = "GTK_IM_MODULE=fcitx5 satty -f %s1", orphan = true, desc = "Edit image", for = "unix" },
 ]
 open_pdf = [
-	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
-	{ run = 'firefox "$1"', orphan = true, desc = "Open pdf(firefox)", for = "linux" },
-	# { run = 'sioyek "$@"', orphan = true, desc = "Open pdf(sioyek)", for = "unix" },
+	{ run = "xdg-open %s1", orphan = true, desc = "Open", for = "linux" },
+	{ run = "firefox %s1", orphan = true, desc = "Open pdf(firefox)", for = "linux" },
+]
+download = [
+	{ run = "ya emit download --open %S", desc = "Download and open" },
+	{ run = "ya emit download %S",        desc = "Download" },
 ]
 
 [open]
 rules = [
 	# Folder
-	{ name = "*/", use = [ "open_folder", "reveal" ] },
+	{ url = "*/", use = [ "open_folder", "reveal" ] },
 	# Text
+	{ mime = "text/html", use = [ "edit", "open", "reveal" ] },
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
     # svg
 	{ mime = "image/svg+xml", use = [ "edit", "open", "show_image", "reveal" ] },
 	# Image
-	{ mime = "image/*", use = [ "open", "show_image", "edit_image", "reveal" ] },
+	{ mime = "image/*", use = [ "open", "edit_image", "show_image", "reveal" ] },
 	# Video
 	{ mime = "video/*", use = [ "play_video", "reveal" ] },
     # Audio
@@ -72,7 +74,6 @@ rules = [
 	{ mime = "application/pdf", use = [ "open_pdf", "reveal" ] },
 	# Archive
     { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
-	{ name = "*.zip", use = [ "extract", "reveal" ] },
 	# { mime = "application/rar", use = [ "extract_rar", "reveal" ] },
 	# JSON
 	{ mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
@@ -82,8 +83,10 @@ rules = [
 	{ mime = "*/javascript", use = [ "edit", "reveal" ] },
 	# Empty file
 	{ mime = "inode/empty", use = [ "edit", "reveal" ] },
+	# Virtual file system
+	{ mime = "vfs/{absent,stale}", use = "download" },
 	# Fallback
-	{ name = "*", use = [ "open", "reveal" ] },
+	{ url = "*", use = [ "open", "reveal" ] },
 ]
 
 [plugin]
@@ -96,6 +99,6 @@ prepend_spotters = [
 ]
 
 prepend_previewers = [
-    { name = "*.zip", run = "archive" },
+    # { url = "*.zip", run = "archive" },
 	{ mime = "application/rpm", run = "rpm-preview" },
 ]

@@ -1,17 +1,17 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "a54b96a"
-hash = "a7ab702e1ef0c097defbc976ed34c186"
+rev = "03cdd4b"
+hash = "56fdabc96fc1f4d53c96eb884b02a5be"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "a54b96a"
-hash = "d5d4f3527592da5fbe77fd6f51815f80"
+rev = "03cdd4b"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "2ad42fa"
-hash = "1adc12c2b2b025411ab61eb8f0879574"
+rev = "03cdd4b"
+hash = "8da0b15a97b5dfd13941d1ecc617ac7c"
 
 [flavor]
 deps = []

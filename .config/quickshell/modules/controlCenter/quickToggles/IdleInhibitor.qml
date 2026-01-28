@@ -12,10 +12,10 @@ QuickToggleButton {
     onClicked: {
         if (toggled) {
             root.toggled = false;
-            Quickshell.execDetached(["pkill", "hypridle"]);
+            Quickshell.execDetached(["hypridle"]);
         } else {
             root.toggled = true;
-            Quickshell.execDetached(["hypridle"]);
+            Quickshell.execDetached(["pkill", "hypridle"]);
         }
     }
 
@@ -25,7 +25,7 @@ QuickToggleButton {
         running: true
         command: ["pidof", "hypridle"]
         onExited: (exitCode, exitStatus) => {
-            root.toggled = exitCode === 0;
+            root.toggled = exitCode !== 0;
         }
     }
 

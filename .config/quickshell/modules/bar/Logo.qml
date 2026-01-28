@@ -19,9 +19,10 @@ Item {
         StyledText {
             id: logo
 
-            text: ""
+            text: ""
             color: Config.options.bar.m3theme ? Appearance.colors.colPrimary : Appearance.mocha.blue
             font.pixelSize: Appearance.font.pixelSize.normal
+            font.bold: true
 
             MouseArea {
                 anchors.fill: parent

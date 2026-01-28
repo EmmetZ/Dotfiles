@@ -79,7 +79,7 @@ Item {
                 StyledText {
                     id: distroIcon
 
-                    font.pixelSize: Appearance.font.pixelSize.hugeass
+                    font.pixelSize: Appearance.font.pixelSize.huge
                     font.bold: true
                     text: SystemInfo.distroIcon
                     color: Appearance.colors.colOnLayer0

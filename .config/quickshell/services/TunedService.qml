@@ -15,8 +15,8 @@ import QtQuick
 Singleton {
     id: root
 
-    property list<string> profiles: Config.options.tuned.profiles
-    property string active: Config.options.tuned.defaultProfile
+    property list<string> profiles: Config.options.power.profiles
+    property string active: Config.options.power.defaultProfile
 
     Process {
         id: activeProfileProcess

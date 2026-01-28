@@ -29,7 +29,7 @@ Singleton {
 
     Process {
         id: diskUsage
-        command: ["sh", "-c", "df | rg '/dev/nvme0n1p7' | awk '{print $2, $3}' | head -n 1"]
+        command: ["sh", "-c", "df | rg '/dev/nvme0n1p5' | awk '{print $2, $3}' | head -n 1"]
         running: true
         stdout: StdioCollector {
             onStreamFinished: {

@@ -34,12 +34,13 @@ return {
       vim.api.nvim_set_hl(0, hl, { bg = palette.crust })
     end
 
+    vim.api.nvim_set_hl(0, "IncSearch", { bg = palette.peach, fg = palette.base })
+
     -- blink.cmp
     vim.api.nvim_set_hl(0, "BlinkCmpLabelDetail", { fg = palette.overlay2 })
     vim.api.nvim_set_hl(0, "BlinkCmpLabelDescription", { fg = palette.overlay2 })
 
-    -- indent-blankline
-    vim.api.nvim_set_hl(0, "IncSearch", { bg = palette.peach, fg = palette.base })
+    -- indent
     vim.api.nvim_set_hl(0, "IblScope", { fg = palette.surface2 })
     -- vim.api.nvim_set_hl(0, "IblScope", { fg = palette.lavender })
 

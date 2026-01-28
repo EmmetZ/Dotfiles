@@ -1,0 +1,54 @@
+// Settings that influence how windows are positioned and sized.
+// Find more information on the wiki:
+// https://yalter.github.io/niri/Configuration:-Layout
+layout {
+    // Set gaps around windows in logical pixels.
+    gaps 4
+    center-focused-column "never"
+    background-color "transparent"
+
+    // preset-column-widths {
+    //     proportion 0.33333
+    //     proportion 0.5
+    //     proportion 0.66667
+    // }
+    preset-window-heights {
+        proportion 1.0
+    }
+    preset-column-widths {
+        proportion 0.5
+        proportion 1.0
+    }
+
+    default-column-width { proportion 1.0; }
+
+    focus-ring {
+        width 1
+    }
+
+    shadow {
+        on
+        softness 25
+        spread 2
+        offset x=0 y=5
+    }
+
+    // always-center-single-column
+    
+    struts {
+        // left 64
+        // right 64
+        // top 64
+        // bottom 64
+    }
+
+    tab-indicator {
+        place-within-column
+        corner-radius 20
+    }
+
+    insert-hint {
+        // off
+    }
+}
+
