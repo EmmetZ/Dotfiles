@@ -1,0 +1,5 @@
+.config/yazi/plugins
+
+# Yazi VFS: private remote hosts, users, ports and key paths.
+# Keep vfs.toml local-only; tracked configs belong in a template instead.
+/.config/yazi/vfs.toml

@@ -1,6 +1,7 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+#:schema https://yazi-rs.github.io/schemas/yazi.json
 
 [mgr]
 ratio = [ 1, 3, 3 ]
@@ -28,6 +29,8 @@ reveal = [
 ]
 extract = [
 	{ run = "ya pub extract --list %s", desc = "Extract here", for = "unix" },
+	{ run = "ark %s", desc = "Extract (ark)", for = "unix" },
+	{ run = "unzip -O GBK %s", desc = "Extract (GBK)", for = "unix" },
 ]
 extract_rar = [
     { run = "unrar x %s", desc = "Extract here", for = "unix" },
@@ -74,9 +77,11 @@ rules = [
 	{ mime = "application/pdf", use = [ "open_pdf", "reveal" ] },
 	# Archive
     { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
+    { mime = "application/{android.package-archive}", use = [ "extract", "reveal" ] },
 	# { mime = "application/rar", use = [ "extract_rar", "reveal" ] },
 	# JSON
-	{ mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
+	# { mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
+  { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
     # MS office
 	# { mime = "application/openxmlformats-officedocument*", use = [ "open_office", "reveal" ] },
 	# { mime = "application/ms{word,-*}", use = [ "open_office", "reveal" ] },
@@ -91,6 +96,11 @@ rules = [
 
 [plugin]
 
+prepend_fetchers = [
+	{ url = "*", run = "git", group = "git" },
+	{ url = "*/", run = "git", group = "git" },
+]
+
 prepend_spotters = [
     { mime = "{video,audio}/*", run = "video-enhanced" },
     # { mime = "text/*", run = "tokei" },
@@ -99,6 +109,13 @@ prepend_spotters = [
 ]
 
 prepend_previewers = [
+    { url = "*.nii", run = "nifti-preview" },
+    { url = "*.nii.gz", run = "nifti-preview" },
     # { url = "*.zip", run = "archive" },
-	{ mime = "application/rpm", run = "rpm-preview" },
+	  { mime = "application/rpm", run = "rpm-preview" },
+]
+
+prepend_preloaders = [
+    { url = "*.nii", run = "nifti-preview" },
+    { url = "*.nii.gz", run = "nifti-preview" },
 ]

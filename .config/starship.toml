@@ -44,6 +44,10 @@ style = "overlay1"
 threshold = 25
 style = 'bold red'
 
+[hostname]
+ssh_symbol = " "
+format = "[$ssh_symbol$hostname]($style) "
+
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
@@ -96,9 +100,6 @@ symbol = " "
 
 [hg_branch]
 symbol = " "
-
-[hostname]
-ssh_symbol = " "
 
 [java]
 symbol = " "

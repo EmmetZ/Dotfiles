@@ -175,8 +175,8 @@ _fzf_comprun() {
 # eza
 alias ls="eza --color=always --icons=always"
 alias lt="eza -T --color=always --icons=always"
-alias l="eza --color=always --icons=always -a -l"
-alias ll="eza --color=always --icons=always -l"
+alias l="eza --color=always --icons=always -l"
+alias ll="eza --color=always --icons=always -l -a"
 
 # yazi
 function y() {
@@ -225,7 +225,6 @@ sjtuvpnoff() {
 
 # uv
 eval "$(uv generate-shell-completion zsh)"
-export UV_PYTHON_INSTALL_BIN=0
 
 # podman
 alias docker=podman
@@ -291,3 +290,10 @@ export PATH="$HOME/.local/share/ants/bin:$PATH"
 function sf() {
     source "$HOME/.local/share/freesurfer/sources.zsh"
 }
+
+. "$HOME/.cargo/env"
+
+eval "$(herdr completion zsh)"
+
+# kimi-code
+export PATH="$HOME/.kimi-code/bin:$PATH"

@@ -93,7 +93,7 @@ border = { fg = "#8aadf4" }
 [tasks]
 border = { fg = "#8aadf4" }
 title = {}
-hovered = { underline = true }
+hovered = { bold = true }
 
 [which]
 mask = { bg = "#363a4f" }
@@ -102,13 +102,13 @@ rest = { fg = "#939ab7" }
 desc = { fg = "#f5bde6" }
 separator = "  "
 separator_style = { fg = "#5b6078" }
+border = { fg = "#8aadf4" }
 
 [help]
-on = { fg = "#8bd5ca" }
-run = { fg = "#f5bde6" }
-desc = { fg = "#939ab7" }
+border = { fg = "#8aadf4" }
+chord = { fg = "#8bd5ca" }
+action = { fg = "#939ab7" }
 hovered = { bg = "#5b6078", bold = true }
-footer = { fg = "#cad3f5", bg = "#494d64" }
 
 [notify]
 title_info = { fg = "#8bd5ca" }
@@ -117,41 +117,39 @@ title_error = { fg = "#ed8796" }
 
 [filetype]
 rules = [
-    # Media
-    { mime = "image/*", fg = "#8bd5ca" },
-    { mime = "{audio,video}/*", fg = "#eed49f" },
+	# Media
+	{ mime = "**/image/*", fg = "#8bd5ca" },
+	{ mime = "**/{audio,video}/*", fg = "#eed49f" },
 
-    # symbolic link
-    { url = "*", is = "link", fg = "#b7bdf8" },
+  # symbolic link
+  { url = "*", is = "link", fg = "#b7bdf8" },
 
-    # Archives
-    { mime = "application/*zip", fg = "#f5bde6" },
-    { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#f5bde6" },
+	# Archives
+	{ mime = "**/application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#f5bde6" },
 
-    # Documents
-    # { mime = "application/{pdf,doc,rtf}", fg = "#a6da95" },
+	# Documents
+	# { mime = "**/application/{pdf,doc,rtf}", fg = "#91d7e3" },
 
-    # Virtual file system
-    # { mime = "vfs/{absent,stale}", fg = "#494d64" },
+	# Virtual file system
+	# { mime = "vfs/{absent,stale}", fg = "#494d64" },
 
-    # Special file
-    { url = "*", is = "orphan", fg = "#24273a", bg = "#ed8796" },
-    { url = "*", is = "exec", fg = "#a6da95" },
+	# Special file
+	{ url = "*", is = "orphan", bg = "#ed8796" },
+	{ url = "*", is = "exec"  , fg = "#a6da95" },
 
-    # Dummy file
-    { url = "*", is = "dummy", fg = "#24273a", bg = "#ed8796" },
-    { url = "*/", is = "dummy", fg = "#24273a", bg = "#ed8796" },
+	# Dummy file
+	{ url = "*", is = "dummy", bg = "#ed8796" },
+	{ url = "*/", is = "dummy", bg = "#ed8796" },
 
-    # Fallback
-    { url = "*", fg = "#cad3f5" },
-    { url = "*/", fg = "#8aadf4" },
+	# Fallback
+	{ url = "*/", fg = "#8aadf4" },
 ]
 
 [spot]
 border = { fg = "#8aadf4" }
 title = { fg = "#8aadf4" }
-tbl_col = { fg = "#8aadf4" }
-tbl_cell = { fg = "#eed49f", reversed = true }
+tbl_cell = { fg = "#8aadf4", reversed = true }
+tbl_col = { bold = true }
 
 [icon]
 
@@ -370,6 +368,54 @@ files = [
     { name = ".justfile", text = "", fg = "#8087a2" },
     { name = ".zsh_history", text = "", fg = "#a6da95" },
     { name = ".bash_history", text = "", fg = "#a6da95" },
+	{ name = "AUTHORS", text = "", fg = "#c6a0f6" },
+	{ name = "AUTHORS.txt", text = "", fg = "#c6a0f6" },
+	{ name = "bitbucket-pipelines.yml", text = "󰂨", fg = "#8aadf4" },
+	{ name = "bun.lock", text = "", fg = "#f4dbd6" },
+	{ name = ".clangd", text = "", fg = "#8087a2" },
+	{ name = "Directory.Build.props", text = "", fg = "#8aadf4" },
+	{ name = "Directory.Build.targets", text = "", fg = "#8aadf4" },
+	{ name = "Directory.Packages.props", text = "", fg = "#8aadf4" },
+	{ name = "dune", text = "", fg = "#494d64" },
+	{ name = "eslint.config.cjs", text = "", fg = "#494d64" },
+	{ name = "eslint.config.js", text = "", fg = "#494d64" },
+	{ name = "eslint.config.mjs", text = "", fg = "#494d64" },
+	{ name = "eslint.config.ts", text = "", fg = "#494d64" },
+	{ name = "Gemfile", text = "", fg = "#181926" },
+	{ name = "hyprlandd.conf", text = "", fg = "#8bd5ca" },
+	{ name = "hyprsunset.conf", text = "", fg = "#8bd5ca" },
+	{ name = "index.theme", text = "", fg = "#a6da95" },
+	{ name = "Jenkinsfile", text = "", fg = "#ed8796" },
+	{ name = "next.config.cjs", text = "", fg = "#f4dbd6" },
+	{ name = "next.config.js", text = "", fg = "#f4dbd6" },
+	{ name = "next.config.ts", text = "", fg = "#f4dbd6" },
+	{ name = "playwright.config.cjs", text = "", fg = "#a6da95" },
+	{ name = "playwright.config.cts", text = "", fg = "#a6da95" },
+	{ name = "playwright.config.js", text = "", fg = "#a6da95" },
+	{ name = "playwright.config.mjs", text = "", fg = "#a6da95" },
+	{ name = "playwright.config.mts", text = "", fg = "#a6da95" },
+	{ name = "playwright.config.ts", text = "", fg = "#a6da95" },
+	{ name = ".pnpmfile.cjs", text = "", fg = "#eed49f" },
+	{ name = "pnpm-lock.yaml", text = "", fg = "#eed49f" },
+	{ name = "pnpm-workspace.yaml", text = "", fg = "#eed49f" },
+	{ name = "prisma.config.mts", text = "", fg = "#6e738d" },
+	{ name = "prisma.config.ts", text = "", fg = "#6e738d" },
+	{ name = "vagrantfile", text = "", fg = "#6e738d" },
+	{ name = "vite.config.cjs", text = "", fg = "#f5a97f" },
+	{ name = "vite.config.cts", text = "", fg = "#f5a97f" },
+	{ name = "vite.config.js", text = "", fg = "#f5a97f" },
+	{ name = "vite.config.mjs", text = "", fg = "#f5a97f" },
+	{ name = "vite.config.mts", text = "", fg = "#f5a97f" },
+	{ name = "vite.config.ts", text = "", fg = "#f5a97f" },
+	{ name = "vitest.config.cjs", text = "", fg = "#a6da95" },
+	{ name = "vitest.config.cts", text = "", fg = "#a6da95" },
+	{ name = "vitest.config.js", text = "", fg = "#a6da95" },
+	{ name = "vitest.config.mjs", text = "", fg = "#a6da95" },
+	{ name = "vitest.config.mts", text = "", fg = "#a6da95" },
+	{ name = "vitest.config.ts", text = "", fg = "#a6da95" },
+	{ name = "wrangler.jsonc", text = "", fg = "#f5a97f" },
+	{ name = "wrangler.toml", text = "", fg = "#f5a97f" },
+	{ name = "xdph.conf", text = "", fg = "#8bd5ca" },
 ]
 
 exts = [
@@ -846,11 +892,38 @@ exts = [
     { name = "pt", text = "", fg = "#f4511e" },
     { name = "pth", text = "", fg = "#f4511e" },
     { name = "avi", text = "", fg = "#f5a97f" },
-]
-
-append_globs = [
-    { url = "**/.env.*", text = "", fg = "#eed49f" },
-    { url = "**/vite.config.*", text = "", fg = "#ffab00" },
-    { url = "**/webpack.*", text = "󰜫", fg = "#90caf9" },
-    { url = "**/eslint.config.*", text = "", fg = "#7986cb" },
+	{ name = "ada", text = "", fg = "#8aadf4" },
+	{ name = "cfc", text = "", fg = "#7dc4e4" },
+	{ name = "cfm", text = "", fg = "#7dc4e4" },
+	{ name = "dockerignore", text = "󰡨", fg = "#8aadf4" },
+	{ name = "feature", text = "", fg = "#a6da95" },
+	{ name = "frag", text = "", fg = "#8087a2" },
+	{ name = "geom", text = "", fg = "#8087a2" },
+	{ name = "glsl", text = "", fg = "#8087a2" },
+	{ name = "jar", text = "", fg = "#f5a97f" },
+	{ name = "jsonl", text = "", fg = "#eed49f" },
+	{ name = "norg", text = "", fg = "#6e738d" },
+	{ name = "odin", text = "󰟢", fg = "#8aadf4" },
+	{ name = "oga", text = "", fg = "#6e738d" },
+	{ name = "ogv", text = "", fg = "#f5a97f" },
+	{ name = "ogx", text = "", fg = "#f5a97f" },
+	{ name = "prefab", text = "", fg = "#7dc4e4" },
+	{ name = "rasi", text = "", fg = "#eed49f" },
+	{ name = "rkt", text = "󰘧", fg = "#494d64" },
+	{ name = "slnx", text = "", fg = "#5b6078" },
+	{ name = "spx", text = "", fg = "#6e738d" },
+	{ name = "stories.js", text = "", fg = "#ed8796" },
+	{ name = "stories.jsx", text = "", fg = "#ed8796" },
+	{ name = "stories.mjs", text = "", fg = "#ed8796" },
+	{ name = "stories.svelte", text = "", fg = "#ed8796" },
+	{ name = "stories.ts", text = "", fg = "#ed8796" },
+	{ name = "stories.tsx", text = "", fg = "#ed8796" },
+	{ name = "stories.vue", text = "", fg = "#ed8796" },
+	{ name = "svgz", text = "󰜡", fg = "#f5a97f" },
+	{ name = "svx", text = "", fg = "#ed8796" },
+	{ name = "tmpl", text = "", fg = "#eed49f" },
+	{ name = "unity", text = "", fg = "#f4dbd6" },
+	{ name = "vert", text = "", fg = "#8087a2" },
+	{ name = "wmv", text = "", fg = "#f5a97f" },
+	{ name = "xslt", text = "󰗀", fg = "#7dc4e4" },
 ]

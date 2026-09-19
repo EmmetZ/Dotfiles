@@ -37,6 +37,6 @@ keybinding:
     popStash: <c-g>
 git:
   autoFetch: false
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --config ~/.config/lazygit/delta-config
+      command: delta --config ~/.config/lazygit/delta-config

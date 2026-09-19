@@ -1,140 +1,59 @@
 return {
-  "folke/snacks.nvim",
-  event = "VimEnter",
-  lazy = false,
-  priority = 1000,
-  ---@type snacks.Config
+  "snacks.nvim",
   opts = {
-    bigfile = {
+    indent = {
       enabled = true,
-    },
-    dashboard = {
-      enabled = true,
-      preset = {
-        -- stylua: ignore
-        ---@type snacks.dashboard.Item[]
-        keys = {
-          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-          { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-          { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-        },
+      hl = "SnacksIndent", ---@type string|string[] hl groups for indent guides
+      animate = {
+        enabled = false,
       },
     },
+    input = { enabled = true },
+    notifier = { enabled = true },
+    scope = { enabled = true },
+    scroll = { enabled = false },
+    statuscolumn = { enabled = false }, -- we set this in options.lua
+    toggle = { map = LazyVim.safe_keymap_set },
+    words = { enabled = true },
     lazygit = {
       enabled = true,
       configure = false,
-    },
-    image = {
-      doc = {
-        -- enable image viewer for documents
-        -- a treesitter parser must be available for the enabled languages.
-        enabled = false,
-        -- render the image inline in the buffer
-        -- if your env doesn't support unicode placeholders, this will be disabled
-        -- takes precedence over `opts.float` on supported terminals
-        inline = false,
-        -- render the image in a floating window
-        -- only used if `opts.inline` is disabled
-        float = true,
-        max_width = 40,
-        max_height = 20,
-        -- Set to `true`, to conceal the image text when rendering inline.
-        -- (experimental)
-        ---@param lang string tree-sitter language
-        ---@param type snacks.image.Type image type
-        conceal = function(lang, type)
-          -- only conceal math expressions
-          -- return type == "math"
-          return true
-        end,
-      },
-      math = {
-        latex = {
-          font_size = "large"
-        }
-      }
     },
     picker = {
       enabled = true,
       layout = {
         cycle = false,
       },
-      layouts = {
-        default = {
-          layout = {
-            box = "horizontal",
-            backdrop = false,
-            width = 0.85,
-            height = 0.80,
-            border = "none",
-            {
-              box = "vertical",
-              { win = "input", height = 1,           border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
-              { win = "list",  title_pos = "center", border = "rounded" },
-            },
-            {
-              win = "preview",
-              title = "Grep Preview",
-              width = 0.55,
-              border = "rounded",
-              title_pos = "center",
-            },
-          }
-        },
-        vertical = {
-          layout = {
-            box = "vertical",
-            width = 0.7,
-            height = 0.8,
-            {
-              box = "vertical",
-              border = "none",
-              {
-                win = "input",
-                height = 1,
-                border = "rounded",
-                title = "{title} {live} {flags}",
-              },
-              { win = "list", border = "rounded" },
-            },
-            -- { win = "preview", title = "{preview}", border = "rounded" },
-          }
-        },
-      },
       sources = {
         lsp_declarations = {
           focus = "list",
           layout = {
-            preset = "ivy"
-          }
+            preset = "ivy",
+          },
         },
         lsp_definitions = {
           focus = "list",
           layout = {
-            preset = "ivy"
-          }
+            preset = "ivy",
+          },
         },
         lsp_implementations = {
           focus = "list",
           layout = {
-            preset = "ivy"
-          }
+            preset = "ivy",
+          },
         },
         lsp_references = {
           focus = "list",
           layout = {
-            preset = "ivy"
-          }
+            preset = "ivy",
+          },
         },
         lsp_type_definitions = {
           focus = "list",
           layout = {
-            preset = "ivy"
-          }
+            preset = "ivy",
+          },
         },
       },
       win = {
@@ -144,106 +63,28 @@ return {
             ["K"] = { "preview_scroll_up", mode = "n" },
             ["J"] = { "preview_scroll_down", mode = "n" },
             ["<A-l>"] = { "toggle_ignored", mode = { "n", "i" } },
-          }
-        }
-      }
+          },
+        },
+      },
     },
-    statuscolumn = {
-      enabled = false,
-    },
-    scope = {
-      enabled = true,
-    },
-    -- toggle = {
-    --   enabled = true,
-    -- },
   },
+  -- stylua: ignore
   keys = {
-    {
-      "<leader>lg",
-      function()
-        require("snacks").lazygit()
-      end,
-      desc = "Lazygit",
-    },
-    {
-      "gI",
-      function()
-        require("snacks").image.hover()
-      end,
-      desc = "Hover Image",
-    },
-    -- Top Pickers & Explorer
-    -- stylua: ignore
-    { "<C-p>",      function() Snacks.picker.files() end, desc = "Find Files" },
-    { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
-    { "<leader>fd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
-    { "<leader>fD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
-    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
-    { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
-    { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
-    { "<leader>fe", function() Snacks.explorer() end, desc = "File Explorer" },
-    { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
-    { "<leader>:",  function() Snacks.picker.command_history() end, desc = "Command History" },
-
-    -- git
-    { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
-    { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
-    { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
-    { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
-    { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
-    { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
-    -- Grep
-    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
-    { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
-    -- search
-    -- { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
-    { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Search History" },
-    -- { "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
-    { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
-    -- { "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
-    { "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages" },
-    { "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
-    -- { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
-    -- { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
-    { "<leader>sl", function() Snacks.picker.loclist() end, desc = "Location List" },
-    { "<leader>sm", function() Snacks.picker.marks() end, desc = "Marks" },
-    -- { "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages" },
-    { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
-    { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
-    -- { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
-    -- { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
-    -- { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
-    { "<leader>x",  function() Snacks.bufdelete() end, desc = "Close current buffer" },
+    { "<leader>n", function()
+      if Snacks.config.picker and Snacks.config.picker.enabled then
+        Snacks.picker.notifications()
+      else
+        Snacks.notifier.show_history()
+      end
+    end, desc = "Notification History" },
+    { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+    { "<c-p>", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
   },
-  init = function()
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "VeryLazy",
-    callback = function()
-      -- Setup some globals for debugging (lazy-loaded)
-      _G.dd = function(...)
-        Snacks.debug.inspect(...)
-      end
-      _G.bt = function()
-        Snacks.debug.backtrace()
-      end
-      vim.print = _G.dd -- Override print to use snacks for `:=` command
-
-      -- Create some toggle mappings
-      -- Snacks.toggle.option("spell", { name = "Spelling" }):map "<leader>us"
-      -- Snacks.toggle.option("wrap", { name = "Wrap" }):map "<leader>uw"
-      Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map "<leader>uL"
-      Snacks.toggle.diagnostics():map("<leader>ud")
-      -- Snacks.toggle.line_number():map "<leader>ul"
-      -- Snacks.toggle
-      --   .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-      --   :map "<leader>uc"
-      -- Snacks.toggle.treesitter():map "<leader>uT"
-      -- Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map "<leader>ub"
-      -- Snacks.toggle.inlay_hints():map "<leader>uh"
-      -- Snacks.toggle.indent():map "<leader>ug"
-      Snacks.toggle.dim():map("<leader>uD")
-    end,
-  })
+  config = function(_, opts)
+    local palette = require("catppuccin.palettes").get_palette("macchiato")
+    vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = palette.overlay1 })
+    vim.api.nvim_set_hl(0, "SnacksIndent", { fg = palette.surface0 })
+    vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = palette.peach, bold = true })
+    require("snacks").setup(opts)
   end,
 }

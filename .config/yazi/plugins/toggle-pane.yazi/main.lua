@@ -1,47 +1,74 @@
---- @since 25.5.31
+--- @since 26.8.15
 --- @sync entry
 
+local PANE = { parent = 1, current = 2, preview = 3 }
+
+local function eq(other)
+	local r = rt.mgr.ratio
+	return other[1] == r[1] and other[2] == r[2] and other[3] == r[3]
+end
+
+local function get()
+	local r = rt.mgr.ratio
+	return { r[1], r[2], r[3] }
+end
+
+local function set(new) rt.mgr.ratio = { new[1], new[2], new[3] } end
+
+-- The pane that takes over the units freed by hiding pane `i`, so the width
+-- of every other pane stays exactly the same (e.g. 1:3:3 -> 1:6:0 instead of
+-- rescaling everything to 1:3).
+local function absorber(n, i)
+	if i ~= PANE.current and n[PANE.current] > 0 then
+		return PANE.current
+	elseif i ~= PANE.preview and n[PANE.preview] > 0 then
+		return PANE.preview
+	end
+	return PANE.parent
+end
+
+local function minimize(n, o, i, hide)
+	local a = absorber(n, i)
+	if hide and n[i] > 0 then
+		n[a] = n[a] + n[i]
+		n[i] = 0
+	elseif not hide and n[i] == 0 and a ~= i then
+		n[i] = math.min(o[i], n[a])
+		n[a] = n[a] - n[i]
+	end
+end
+
 local function entry(st, job)
-	local R = rt.mgr.ratio
 	job = type(job) == "string" and { args = { job } } or job
 
-	st.parent = st.parent or R.parent
-	st.current = st.current or R.current
-	st.preview = st.preview or R.preview
+	if not eq(st.new or {}) then
+		st.new, st.old = nil, nil
+	end
+	local N, O = st.new or get(), st.old or get()
 
 	local act, to = string.match(job.args[1] or "", "(.-)-(.+)")
+	local i = PANE[to]
 	if act == "min" then
-		st[to] = st[to] == R[to] and 0 or R[to]
-    if to == "preview" then
-      st.current = st[to] == R[to] and R["current"] or R["current"] + R["preview"]
-    end
+		minimize(N, O, i, N[i] > 0)
 	elseif act == "max" then
-		local max = st[to] == 65535 and R[to] or 65535
-		st.parent = st.parent == 65535 and R.parent or st.parent
-		st.current = st.current == 65535 and R.current or st.current
-		st.preview = st.preview == 65535 and R.preview or st.preview
-		st[to] = max
-	end
-
-	if not st.old then
-		st.old = Tab.layout
-		Tab.layout = function(self)
-			local all = st.parent + st.current + st.preview
-			self._chunks = ui.Layout()
-				:direction(ui.Layout.HORIZONTAL)
-				:constraints({
-					ui.Constraint.Ratio(st.parent, all),
-					ui.Constraint.Ratio(st.current, all),
-					ui.Constraint.Ratio(st.preview, all),
-				})
-				:split(self._area)
+		local others = {}
+		for j = 1, 3 do
+			if j ~= i then
+				others[#others + 1] = j
+			end
 		end
+		local hide = N[others[1]] > 0 or N[others[2]] > 0
+		minimize(N, O, others[1], hide)
+		minimize(N, O, others[2], hide)
 	end
 
-	if not act then
-		Tab.layout, st.old = st.old, nil
-		st.parent, st.current, st.preview = nil, nil, nil
+	if act then
+		st.new, st.old = N, O
+	else
+		N, st.new, st.old = O, nil, nil
 	end
+
+	set(N)
 	ya.emit("app:resize", {})
 end
 

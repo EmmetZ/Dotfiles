@@ -1,10 +1,13 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+#:schema https://yazi-rs.github.io/schemas/keymap.json
 
 [mgr]
 
 prepend_keymap = [
+    { on = "K", run = "plugin nifti-preview -1", desc = "Previous NIfTI slice / seek preview up" },
+    { on = "J", run = "plugin nifti-preview 1", desc = "Next NIfTI slice / seek preview down" },
     { on = "k", run = "arrow -1", desc = "Previous file" },
     { on = "j", run = "arrow 1", desc = "Next file" },
     { on = "<Space>", run = [ "toggle", "arrow 1" ], desc = "Toggle the current selection state" },
@@ -17,6 +20,8 @@ prepend_keymap = [
     { on = "<Right>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
     { on = "z", run = "plugin zoxide", desc = "Jump to a directory via zoxide" },
     { on = "Z", run = "noop" },
+    { on = [ "c", "c" ], run = "copy url", desc = "Copy file URL" },
+    { on = [ "c", "C" ], run = "copy path", desc = "Copy file path" },
     { on = [ "c", "m" ], run = "plugin chmod", desc = "Chmod on selected files" },
 ]
 
@@ -33,6 +38,8 @@ append_keymap = [
     { on = "<C-m>", run = "plugin toggle-pane max-preview", desc = "Maximize or restore the preview pane" },
     { on = ["c", "a", "a"], run = "plugin compress", desc = "Archive selected files" },
     { on = ["g", "r", "p"], run = "cd sftp://pimri", desc = "Go to pimri server" },
+    { on = ["g", "r", "a"], run = "cd sftp://anding", desc = "Go to anding server" },
+    { on = ["g", "r", "r"], run = "cd sftp://rack", desc = "Go to racknerd server" },
 ]
 
 [input]

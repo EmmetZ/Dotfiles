@@ -56,3 +56,5 @@ function Linemode:custom()
   end
   return ""
 end
+
+require("git"):setup()

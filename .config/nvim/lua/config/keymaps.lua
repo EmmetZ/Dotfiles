@@ -1,3 +1,6 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
 local map = vim.keymap.set
 
 map("n", "<C-h>", "<C-w>h", {})
@@ -35,45 +38,23 @@ map("n", "<C-a>", "ggVG", { desc = "Select all", silent = true })
 map({ "n", "i", "v" }, "<C-/>", "<CMD>normal gcc<CR>", { desc = "toggle comment", silent = true })
 map({ "n", "i" }, "<C-\\>", "<CMD>vsplit<CR>", { desc = "vsplit", silent = true })
 
--- diagnostic
-local diagnostic_goto = function(next, severity)
-  local goto_next = function (opt)
-    opt = opt or {}
-    opt.count = 1
-    vim.diagnostic.jump(opt)
-  end
-  local goto_prev = function (opt)
-    opt = opt or {}
-    opt.count = -1
-    vim.diagnostic.jump(opt)
-  end
-  local go = next and goto_next or goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
-end
-map("n", "]d", diagnostic_goto(true), { desc = "Goto next Diagnostic" })
-map("n", "[d", diagnostic_goto(false), { desc = "Goto prev Diagnostic" })
-map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Goto next Error" })
-map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Goto prev Error" })
 map("n", "gm", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "Open float diagnostic info" })
 -- map('n', '<C-m>', vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "Diagnostic list" })
 
-map("n", "<leader>li", "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "LSP Info" })
-map("n", "<leader>lr", function()
-  -- restart LSP server
-  local clients = vim.lsp.get_clients()
-  if #clients == 0 then
-    print("No LSP client found")
-    return
-  end
-  for _, client in ipairs(clients) do
-    vim.lsp.stop_client(client.id)
-    vim.lsp.start(client.config)
-    vim.notify(client.name .. " restarted", vim.log.levels.INFO)
-  end
-end, { noremap = true, silent = true, desc = "Restart LSP" })
+-- map("n", "<leader>li", "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "LSP Info" })
+-- map("n", "<leader>lr", function()
+--   -- restart LSP server
+--   local clients = vim.lsp.get_clients()
+--   if #clients == 0 then
+--     print("No LSP client found")
+--     return
+--   end
+--   for _, client in ipairs(clients) do
+--     vim.lsp.stop_client(client.id)
+--     vim.lsp.start(client.config)
+--     vim.notify(client.name .. " restarted", vim.log.levels.INFO)
+--   end
+-- end, { noremap = true, silent = true, desc = "Restart LSP" })
 
 vim.keymap.del("n", "<C-w><C-d>")
 
@@ -81,3 +62,20 @@ map("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "No highlight search" })
 
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 map({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+
+for i = 1, 9, 1 do
+  map(
+    { "n", "i" },
+    "<M-" .. i .. ">",
+    "<CMD>lua require('bufferline').go_to(" .. i .. ", true)<CR>",
+    { noremap = true, desc = "Goto buffer " .. i }
+  )
+end
+
+map({ "n", "x" }, "<M-f>", function()
+  LazyVim.format({ force = true })
+end, { desc = "Format" })
+
+map({ "n", "i", "t" }, "<C-.>", function()
+  Snacks.terminal()
+end)

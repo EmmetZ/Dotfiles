@@ -1,10 +1,10 @@
 return {
   {
-    "folke/snacks.nvim",
+    "akinsho/bufferline.nvim",
     enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
   },
   {
-    "akinsho/bufferline.nvim",
+    "nvim-lualine/lualine.nvim",
     enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
   },
   {
